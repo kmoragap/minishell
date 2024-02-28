@@ -6,14 +6,17 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/02/22 13:51:53 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/02/28 22:29:35 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 SRC = 	main.c \
 		parser.c \
-		
+		lexer.c \
+		tree_vis.c \
+		debug/check_tokens_lst.c \
+
 OBJ = $(SRC:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
@@ -52,6 +55,7 @@ fclean:
 	@echo "$(GREEN) Object files cleaned.$(RESET)"
 	@echo "$(RED) Cleaning executable...$(RESET)"
 	@rm -f $(NAME)
-	@echo "$(GREEN) Executable cleaned.$(RESET)"
+	@echo "$(GREEN) Executable cleaned.$(RESET)"	
+
 
 re: fclean all

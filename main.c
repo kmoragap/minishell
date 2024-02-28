@@ -6,11 +6,11 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/02/22 14:23:41 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/02/28 22:28:30 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "./includes/minishell.h"
 
 t_data *init_data(char **envp)
 {
@@ -48,7 +48,7 @@ void read_input(t_data **data)
     if(*line)
         add_history(line);
     (*data)->input = line;
-/*
+/*  
     for(int i = 0; i < dt->env_len; i++)
         printf("env %d: %s\n",i, dt->env[i]);
 */
@@ -65,6 +65,8 @@ int main(int ac, char **av, char **env)
     while(1)
     {
         read_input(&data);
-        parse_input(&data);
+        lexer(&data);
+        //parse_input(&data);
+        //print_dot(data->node);
     }
 }
