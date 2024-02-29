@@ -46,33 +46,42 @@ void    fill_token(t_token *tokens, char *input)
     char    *text;
     int     i;
     int     t;
+    int     c;
 
     i = 0;
+    c = 0;
     t = 0;
     while (input[i])
     {
-        if (input[i] == ' ')
-        {
+        while (input[i] && input[i] == ' ');
             i++;
-            if (input[i] == 34)
+        while (input[i] == 34 || input[i] == 39)
+        {
+            text = text_in_quote(input, &i);
+            if (text)
             {
-                i++;
-                while (input[i] && input[i] != 34)
-                {
-                    t++;
-                    i++;
-                }
-                if (!input[i])
-                {
-                    free_tokens(tokens);
-                    error("some error message", 2); // idea for an error function: give it the error message it should print out & a code (int), which describes what we have to free (e.g.: 1 = free the very first malloc we created, 2 = free the first 2 mallocs)
-                }
-                
+                put_in_token(tokens, text);
+                tokens = tokens->next;
             }
-            if (input[i] == 39)
-            check_delimiter
-
+            t = i;
         }
+        while (input[i] != ' ' && input[i] != 34 && input[i] != 39 && input[i])
+        {
+            if (input[i] == '|')
+            {
+                text = cpytxt(i, t, input);
+                put_in_token(tokens, text);
+                tokens = tokens->next;
+                text = cpypipe(input);
+                put_in_token(tokens, text);
+                tokens = tokens->next;
+            }
+            i++;
+        }
+        
+        check_delimiter;
+
+        
     }
 }
 
