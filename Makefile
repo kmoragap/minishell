@@ -6,15 +6,16 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/02/28 22:29:35 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/03/01 14:21:37 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-SRC = 	main.c \
-		parser.c \
-		lexer.c \
-		tree_vis.c \
+SRC = 	srcs/main.c \
+		srcs/parser.c \
+		srcs/lexer.c \
+		srcs/read_input.c \
+		srcs/execute.c \
 		debug/check_tokens_lst.c \
 
 OBJ = $(SRC:.c=.o)

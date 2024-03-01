@@ -6,11 +6,11 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/02/28 22:28:30 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/01 15:53:30 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "../includes/minishell.h"
 
 t_data *init_data(char **envp)
 {
@@ -32,27 +32,9 @@ t_data *init_data(char **envp)
         re->env[j] = strdup(envp[j]); // create a utils that contain this func
         j++;
     }
-    re->env[j] = strdup(" "); // cadena vacia para el prompt 
-    re->env[j + 2] = NULL; // caracter nulo al final
-    re->env_len = i + 2;
+    re->env[j +1] = NULL; // cadena vacia para el prompt 
+    re->env_len = i + 1;
     return re;   
-}
-
-void read_input(t_data **data)
-{
-    char *line;
-    
-    line = readline(PROMPT);
-    
-    //alloc struct
-    if(*line)
-        add_history(line);
-    (*data)->input = line;
-/*  
-    for(int i = 0; i < dt->env_len; i++)
-        printf("env %d: %s\n",i, dt->env[i]);
-*/
-
 }
 
 int main(int ac, char **av, char **env)
@@ -66,6 +48,7 @@ int main(int ac, char **av, char **env)
     {
         read_input(&data);
         lexer(&data);
+        //execute(&data);
         //parse_input(&data);
         //print_dot(data->node);
     }

@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_input.c                                       :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 22:25:00 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/02/28 22:25:20 by kmoraga          ###   ########.fr       */
+/*   Created: 2024/03/01 14:21:15 by kmoraga           #+#    #+#             */
+/*   Updated: 2024/03/01 15:16:35 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "../includes/minishell.h"
 
-void read_input(t_data **data)
+/**
+ * function that prepare the commands for the execution
+*/
+
+
+void execute(t_data **data)
 {
-    char *line;
-    
-    line = readline(PROMPT);
-    
-    //alloc struct
-    if(*line)
-        add_history(line);
-    (*data)->input = line;
-
+    (void)data;
+    printf("execute\n");
 }
