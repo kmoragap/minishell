@@ -4,7 +4,5 @@ minishell
 
 ## TO-DO
 
-- [] Implement own versions of some utils functions, like split, strdup, etc.
-- [] Improve the split function...
-- [] Improve the linked list implementation
-- [] Implement a parser tree.
+- [] Implement own versions of some utils functions
+- [] Implement a parser and excuter for the command line
