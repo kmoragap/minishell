@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:19:53 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/01 13:32:18 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/04 16:18:18 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,25 @@
 
 
 
-void check_tokens_lst(t_token *tokens)
-{
-    while (tokens->next != NULL)
-    {
-        printf("content: %s\n", tokens->content);
-        if(tokens->type == WORD)
-            printf("type: WORD\n");
-        else if(tokens->type == PIPE)
-            printf("type: PIPE\n");
-        else if(tokens->type == REDIR_O)
-            printf("type: REDIR_O\n");
-        else if(tokens->type == REDIR_I)
-            printf("type: REDIR_I\n");
-        printf("id: %d\n", tokens->id);
-
-        if(tokens->prev != NULL) {
-            printf("PREV\n");
-            printf("prev content: %s\n", tokens->prev->content);
-            printf("prev id: %d\n", tokens->prev->id);
+// Function to check the token list
+void check_tokens_lst(t_token *tokens) {
+    printf("Token list:\n");
+    t_token *current = tokens;
+    while (current != NULL) {
+        printf("cmd: %s\n", current->cmd);
+        printf("id: %d\n", current->id);
+        printf("type: %d\n", current->type);
+        printf("delim: %d\n", current->delim);
+        if (current->next != NULL) {
+            printf("next: %s\n", current->next->cmd);
+        } else {
+            printf("next: NULL\n");
         }
-
-        tokens = tokens->next;
+        if (current->prev != NULL) {
+            printf("prev: %s\n", current->prev->cmd);
+        } else {
+            printf("prev: NULL\n");
+        }
+        current = current->next;
     }
 }
