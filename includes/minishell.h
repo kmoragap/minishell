@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:40:52 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/04 16:58:37 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/06 09:43:54 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef enum e_type
 typedef struct s_token
 {
     int id;
-    char *cmd;    // "ls -la"
+    char *cmd;    // "ls"
+    char *args;   // "-la"   
     t_type type;  // CMD or FILE or EXPAND
     t_type delim; // PIPE or REDIR_I/O
     struct s_token *next;
@@ -61,6 +62,7 @@ t_token *split_input(char *input);
 void parse_input(t_data **data);
 void lexer(t_data **data);
 /* FUNCTIONS */
+void parse_args(char *input, int *index, t_token *tokens);
 void detect_delimiter(char *input, int *index, t_token *new_token);
 void parse_command(char *input, int *index, t_token *tokens);
 int is_delimiter(char c);

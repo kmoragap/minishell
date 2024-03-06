@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:46:13 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/04 18:38:01 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/06 11:37:54 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int check_type_tk(char *token)
             return (REDIR_O);
         if(token[i] == '<')
             return (REDIR_I);
+        if(token[i] == '$')
+            return (EXPAND);
         i++;
     }
     return (CMD);
@@ -46,6 +48,7 @@ t_token *tokenizer(char *input) {
             return NULL;
         new_token->id = id++;
         parse_command(input, &index, new_token);
+        parse_args(input, &index, new_token);
         new_token->type = check_type_tk(new_token->cmd);
         new_token->next = NULL;
         new_token->prev = prev;

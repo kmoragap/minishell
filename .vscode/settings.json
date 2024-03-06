@@ -1,3 +1,6 @@
 {
-    "functionHeaderExtension.headerFilePath": "/workspaces/minishell/includes/minishell.h"
+    "functionHeaderExtension.headerFilePath": "/workspaces/minishell/includes/minishell.h",
+    "files.associations": {
+        "minishell.h": "c"
+    }
 }

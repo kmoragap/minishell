@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:57:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/04 18:37:52 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/06 10:14:55 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,13 @@ int is_delimiter(char c)
 void parse_command(char *input, int *index, t_token *tokens) {
     
         int i = *index;
-        int start = i;
-
+        int start;
         // Saltar los espacios en blanco
         while (input[i] != '\0' && is_whitespace(input[i]))
             i++;
-
         start = i; // Guardar el inicio del token
-
         // Copiar el token hasta encontrar un delimitador o el final de la cadena
-        while (input[i] != '\0' && !is_delimiter(input[i]))
+        while (input[i] != '\0' && !is_delimiter(input[i]) && !is_whitespace(input[i]))
             i++;
 
         // Asignar memoria para el token y copiarlo
@@ -48,6 +45,39 @@ void parse_command(char *input, int *index, t_token *tokens) {
         tokens->cmd[i - start] = '\0'; // Agregar el carácter nulo al final del token
 
         *index = i; // Actualizar el índice para apuntar al próximo token
+}
+
+void parse_args(char *input, int *index, t_token *tokens)
+{
+    int i = *index;
+    int start = i;
+
+    // Saltar los espacios en blanco
+    while (input[i] != '\0' && is_whitespace(input[i]))
+        i++;
+
+    start = i; // Guardar el inicio del token
+
+    // Copiar el token hasta encontrar un delimitador o el final de la cadena
+    while (input[i] != '\0' && !is_delimiter(input[i]))
+        i++;
+
+    // Si no se encontró ningún argumento, asignar NULL a tokens->args
+    if (start == i) {
+        tokens->args = NULL;
+    } else {
+        // Asignar memoria para el token y copiarlo
+        tokens->args = malloc(i - start + 1); // +1 para el carácter nulo
+        if (tokens->args == NULL) {
+            // Manejar el error de memoria
+            return;
+        }
+
+        strncpy(tokens->args, &input[start], i - start);
+        tokens->args[i - start] = '\0'; // Agregar el carácter nulo al final del token
+    }
+
+    *index = i; // Actualizar el índice para apuntar al próximo token
 }
 
 void detect_delimiter(char* input, int* index, t_token* new_token) 

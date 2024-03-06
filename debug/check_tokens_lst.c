@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:19:53 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/04 16:18:18 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/06 09:48:35 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void check_tokens_lst(t_token *tokens) {
     t_token *current = tokens;
     while (current != NULL) {
         printf("cmd: %s\n", current->cmd);
+        printf("args: %s\n", current->args);
         printf("id: %d\n", current->id);
         printf("type: %d\n", current->type);
         printf("delim: %d\n", current->delim);
