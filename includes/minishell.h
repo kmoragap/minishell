@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:40:52 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/06 09:43:54 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/07 12:41:23 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum e_type
     REDIR_I,
     REDIR_O,
     EXPAND,
+    BUILT_IN,
     NULL_TYPE
 } t_type;
 
@@ -57,7 +58,7 @@ typedef struct s_data
 } t_data;
 
 void read_input(t_data **data);
-void execute(t_data **data);
+void execute(t_token *token, int is_pipe, int is_redir);
 t_token *split_input(char *input);
 void parse_input(t_data **data);
 void lexer(t_data **data);

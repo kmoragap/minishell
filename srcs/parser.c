@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:29:37 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/06 13:02:54 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/07 12:38:40 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 */
 
 
-
+#include <string.h>
 
 
 int check_expand_args(char *args)
@@ -37,31 +37,39 @@ int check_expand_args(char *args)
     return (0);
 }
 
-void create_pipe(t_token *prev, t_token *next, t_data **data)
-{
-    
-}
 /**
  * [] check if there are expansions and expand them
  * [] check if there are pipes
  * [] check if there are redirections
+ * preparar el input:
+ *
 */
+
 
 
 void parser(t_data **data)
 {
-    t_token *tokens = (*data)->tokens;
-    t_token *start = tokens;
-    t_token *prev = NULL;
+    t_token *tokens;
+    t_token *prev;
+    int is_pipe;
+    int is_redir;
     
+    tokens = (*data)->tokens;
+    prev = NULL;
+
     while(tokens != NULL)
     {
+        is_pipe = 0;
+        is_redir = 0;
         if(tokens->type == EXPAND || check_expand_args(tokens->args))
-        {
-            //expand the token and replace it with the expanded token
-            //if the token is a command, expand the command and also check if there are arguments to expand
-        }
-        //continuar.. mñn
+            ; // to-do
+        if(tokens->delim == PIPE)
+            is_pipe = PIPE;
+        if(tokens->delim == REDIR_I || tokens->delim == REDIR_O)
+            is_redir = 1;
+        execute(tokens, is_pipe, is_redir);     
+        tokens->prev = prev;   
+        tokens = tokens->next;
+        prev = tokens;
     }
-    (*data)->tokens = start;
 }

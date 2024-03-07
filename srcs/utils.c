@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:57:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/06 10:14:55 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/07 11:45:47 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,24 @@ void detect_delimiter(char* input, int* index, t_token* new_token)
     } else {
         new_token->delim = CMD;
     }
+}
+
+int check_builtins(t_token *token)
+{
+    if(strcmp(token->cmd, "echo") == 0)
+        return 1;
+    else if(strcmp(token->cmd, "cd") == 0)
+        return 1;
+    else if(strcmp(token->cmd, "pwd") == 0)
+        return 1;
+    else if(strcmp(token->cmd, "export") == 0)
+        return 1;
+    else if(strcmp(token->cmd, "unset") == 0)
+        return 1;
+    else if(strcmp(token->cmd, "env") == 0)
+        return 1;
+    else if(strcmp(token->cmd, "exit") == 0)
+        return 1;
+    else
+        return 0;
 }
