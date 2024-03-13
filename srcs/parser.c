@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:29:37 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/07 12:38:40 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/08 14:53:59 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,16 @@ void parser(t_data **data)
     {
         is_pipe = 0;
         is_redir = 0;
-        if(tokens->type == EXPAND || check_expand_args(tokens->args))
-            ; // to-do
+        //if(tokens->type == EXPAND || check_expand_args(tokens->args))
+        //    ; // to-do
         if(tokens->delim == PIPE)
             is_pipe = PIPE;
-        if(tokens->delim == REDIR_I || tokens->delim == REDIR_O)
-            is_redir = 1;
+        if(tokens->delim == REDIR_I)
+            is_redir = REDIR_I;
+        else if(tokens->delim == REDIR_O)
+            is_redir = REDIR_O;
+        else
+            is_redir = 0;
         execute(tokens, is_pipe, is_redir);     
         tokens->prev = prev;   
         tokens = tokens->next;

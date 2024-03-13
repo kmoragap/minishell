@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:46:13 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/06 11:37:54 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/08 14:54:34 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_token *tokenizer(char *input) {
 void lexer(t_data **data)
 {
     (*data)->tokens = tokenizer((*data)->input);
-    check_tokens_lst((*data)->tokens);
+    //check_tokens_lst((*data)->tokens);
     // Additional processing if needed
     // Free tokens when done
     // free_tokens((*data)->tokens);

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:40:52 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/07 12:41:23 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/08 14:54:53 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 #include <stdio.h>             //printf
 #include <stdlib.h>
 #include <string.h>
-
+#include <unistd.h>
+#include <sys/wait.h> 
 typedef enum e_type
 {
     WORD,
@@ -60,9 +61,11 @@ typedef struct s_data
 void read_input(t_data **data);
 void execute(t_token *token, int is_pipe, int is_redir);
 t_token *split_input(char *input);
-void parse_input(t_data **data);
+void parser(t_data **data);
 void lexer(t_data **data);
 /* FUNCTIONS */
+void execute(t_token *token, int is_pipe, int is_redir);
+void handle_pipe(int fd[2]);
 void parse_args(char *input, int *index, t_token *tokens);
 void detect_delimiter(char *input, int *index, t_token *new_token);
 void parse_command(char *input, int *index, t_token *tokens);

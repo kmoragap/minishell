@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 14:21:15 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/07 14:10:24 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/13 18:04:06 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@
 
 void execute(t_token *token, int is_pipe, int is_redir)
 {
-    int id_p;
+
+    (void)is_pipe;
+    (void)is_redir;
     //verificar si hay pipe
-    if(is_pipe == PIPE)
-        //prepare pipe: that's means create the pipe and cpy the cmd/args and wait for the next command
-        //check the next commmand id an set id_p to the next command id
-    if(id_p == token->id && token->prev->delim == PIPE)
-        //check the std_i
-        //execute command and the previus one;
     //verificar si hay redir
+    //if(is_redir == REDIR_I || is_redir == REDIR_O && (token->delim == REDIR_I || token->delim == REDIR_O))
+    //    ;
+    char *args[] = {token->args, NULL};
+    execvp(token->cmd, args);
+    //seguir implementando, solo estoy probando esta parte.
 }
