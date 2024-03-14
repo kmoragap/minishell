@@ -29,25 +29,20 @@ typedef enum e_type
     SUBCMD,
     PIPE,
     REDIR_I,
-    REDIR_O
+    REDIR_O,
+    EXPAND
 } t_type;
 
 typedef struct s_token
 {
     int id;
-    char *content;
-    t_type type;
-    struct s_token *next;
+    char *cmd; // "ls"
+    char **args; // -la
+    t_type type; // CMD or FILE or EXPAND or REDIR_I/O
+    t_type delim; // PIPE or REDIR_I/O
+    struct s_token *next; 
+    struct s_token *prev;
 } t_token;
-
-/*not finish*/
-typedef struct s_tree
-{
-    t_token *token;
-    struct s_tree *next;
-    struct s_tree *left;
-    struct s_tree *right;
-} t_tree;
 
 typedef struct s_data
 {
@@ -61,7 +56,9 @@ typedef struct s_data
 
 void read_input(t_data **data);
 void lexer(t_data **data);
-t_token *split_input(char *input);
+
+//tokenizer
+void tokenizer(t_data *data);
 void parse_input(t_data **data);
 
 /* FUNCTIONS */
