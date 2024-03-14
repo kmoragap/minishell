@@ -56,7 +56,9 @@ void    skip_whitespace(int *i, char *input)
 
 void    check_special(int *i, char *input, t_token **tokens, t_data **data)
 {
-    if (input[*i] == '<' || input[*i] == '>' || '|')
+    if (input[*i] == '|' && tokens->id == 0)
+        error; //error_function to do
+    if (input[*i] == '<' || input[*i] == '>' || input[*i] == '|')
         add_delim(i, input, tokens);
     if ((input[*i] == 34 || input[*i] == 39) && check_whitespaces(input, i) == 1)
         error; //error_function to do
@@ -95,35 +97,4 @@ int     check_whitespaces(char *input, int *i)
         j++;
     }
     return (1);
-}
-
-
-
-
-void    fill_tokens(t_token *tokens, char *input)
-{
-    int     i;
-
-    i = 0;
-    while (input[i] && input[i] == ' ');
-        i++;
-    while (input[i])
-    {
-        if (input[i] == 34)
-        {
-            if (tokenize_quote(input, &i, tokens) == 1)
-                error_tokens(tokens, "some error text");
-        }
-        else if (input[i] == 39)
-        {
-            if (tokenize_single_quote(input, &i, tokens) == 1)
-                error_tokens(tokens, "some error text");
-        }
-        else if (input[i] == '|')
-            tokenize_pipe(tokens, &i);
-        else if (input[i] == ' ')
-            skip_spaces(input, &i);
-        else
-            tokenize_txt(input, &i, tokens);
-    }
 }
