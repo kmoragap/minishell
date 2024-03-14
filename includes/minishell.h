@@ -28,8 +28,10 @@ typedef enum e_type
     CMD,
     SUBCMD,
     PIPE,
-    REDIR_I,
-    REDIR_O,
+    REDIR_I, // < (redirect input)
+    REDIR_O, // > (redirect output)
+    REDIR_A, // >> (append)
+    REDIR_H, // << (here-document)
     EXPAND
 } t_type;
 
@@ -39,7 +41,7 @@ typedef struct s_token
     char *cmd; // "ls"
     char **args; // -la
     t_type type; // CMD or FILE or EXPAND or REDIR_I/O
-    t_type delim; // PIPE or REDIR_I/O
+    t_type delim; // PIPE or REDIR_I/O/A/H
     struct s_token *next; 
     struct s_token *prev;
 } t_token;
@@ -57,9 +59,16 @@ typedef struct s_data
 void read_input(t_data **data);
 void lexer(t_data **data);
 
-//tokenizer
-void tokenizer(t_data *data);
-void parse_input(t_data **data);
+//tokenizer.c
+void    tokenizer(t_data *data);
+void    create_tokens(char *input, t_token *tokens, t_data **data);
+void    skip_whitespace(int *i, char *input);
+void    check_special(int *i, char *input, t_token *tokens, t_data **data);
+void    add_delim(int *i, char *input,t_token **tokens);
+int     check_whitespaces(char *input, int *i);
+//void parse_input(t_data **data);
+
+
 
 /* FUNCTIONS */
 void add_right(t_tree *parent, t_tree *child);
