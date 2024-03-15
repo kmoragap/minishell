@@ -63,9 +63,21 @@ void lexer(t_data **data);
 void    tokenizer(t_data *data);
 void    create_tokens(char *input, t_token *tokens, t_data **data);
 void    skip_whitespace(int *i, char *input);
+
+// check_special.c
 void    check_special(int *i, char *input, t_token *tokens, t_data **data);
 void    add_delim(int *i, char *input,t_token **tokens);
 int     check_whitespaces(char *input, int *i);
+
+// get_cmd.c
+void    get_cmd(int *i, char *input, t_token *tokens, t_data **data);
+void    check_quote(char c, int *column, int *j);
+void    delim_space(char c);
+void    text_in_quotes(int column, int *i, int *j, char *input);
+void    inputcpy(char *input, int *i, int j, t_token *tokens);
+
+// get_args.c
+
 //void parse_input(t_data **data);
 
 
