@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:40:52 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/08 14:54:53 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/19 14:35:14 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@
 #include <readline/readline.h> //readline
 #include <signal.h>            //signal
 #include <stdio.h>             //printf
+#include <string.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h> 
-typedef enum e_type
+#define MAX_ARGS 100
+
+typedef enum e_errcode
 {
     WORD,
     CMD,
@@ -59,19 +62,26 @@ typedef struct s_data
 } t_data;
 
 void read_input(t_data **data);
-void execute(t_token *token, int is_pipe, int is_redir);
-t_token *split_input(char *input);
 void parser(t_data **data);
 void lexer(t_data **data);
+
+
+
+
 /* FUNCTIONS */
-void execute(t_token *token, int is_pipe, int is_redir);
-void handle_pipe(int fd[2]);
+void expand_token(t_token *token, char **env);
+char *expand_cmd(char *cmd, char **env);
+int check_expand_args(char *args);
+int is_valid_variable_char(char c);
+void execute(t_token *token, char **env, int is_pipe, int is_redir);
 void parse_args(char *input, int *index, t_token *tokens);
 void detect_delimiter(char *input, int *index, t_token *new_token);
 void parse_command(char *input, int *index, t_token *tokens);
 int is_delimiter(char c);
 int is_whitespace(char c);
 void read_input(t_data **data);
+
+
 /*checker*/
 void check_tokens_lst(t_token *tokens);
 

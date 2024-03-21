@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/08 14:54:21 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/15 14:43:41 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,5 @@ int main(int ac, char **av, char **env)
         read_input(&data);
         lexer(&data);
         parser(&data);
-        //execute(&data);
-        //parse_input(&data);
-        //print_dot(data->node);
     }
 }

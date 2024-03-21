@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 14:21:15 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/13 18:04:06 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/21 15:47:58 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,13 @@
 */
 
 
-void execute(t_token *token, int is_pipe, int is_redir)
+void execute(t_token *token, char **env, int is_pipe, int is_redir)
 {
-
     (void)is_pipe;
     (void)is_redir;
-    //verificar si hay pipe
-    //verificar si hay redir
-    //if(is_redir == REDIR_I || is_redir == REDIR_O && (token->delim == REDIR_I || token->delim == REDIR_O))
-    //    ;
-    char *args[] = {token->args, NULL};
-    execvp(token->cmd, args);
-    //seguir implementando, solo estoy probando esta parte.
+    (void)token;
+    (void)env;    
 }
+
+
+

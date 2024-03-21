@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/03/04 15:46:12 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/03/19 13:44:26 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC = 	srcs/main.c \
 		srcs/read_input.c \
 		srcs/utils.c \
 		srcs/execute.c \
+		srcs/expand.c \
 		debug/check_tokens_lst.c \
 
 OBJ = $(SRC:.c=.o)
