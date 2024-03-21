@@ -17,18 +17,55 @@ void    get_args(int *i, char *input, t_token *tokens, t_data **data)
     int     total_arg_len;
 
     total_arg_len = 0;
-    if (malloc_args(input, i, tokens, &total_arg_len) != 0)
+    get_total_args_len(input, i, &total_arg_len);
+    get_args_num(input, i, tokens, total_arg_len);
+    if (malloc_args(input, i, tokens, total_arg_len) != 0)
         error;
     if (fill_args(input, i, tokens, total_arg_len) != 0)
         error;
 }
 
-int    malloc_args(char *input, int *i, t_token *tokens, int *total_arg_len)
+void    get_total_args_len(char *input, int *i, int *total_arg_len)
 {
-    while(input[*i])
+    while(input[*i + *total_arg_len] && input[*i + *total_arg_len] != '|' && input[*i + *total_arg_len] != '<' && input[*i + *total_arg_len] != '>')
+        *total_arg_len += 1;
+}
+
+void    get_args_num(char *input, int *i, t_token *tokens, int total_arg_len)
+{
+    int     j;
+
+    j = *i;
+    tokens->args_num = 0;
+    while (input[j] && (j - *i) < total_arg_len)
+    {
+        skip_whitespace(&j, input);
+        if (get_arg(&j, (total_arg_len - (j - *i)), input) == NULL)
+            break;
+        tokens->args_num += 1;
+    }
+}
+
+char    *get_arg(int *j, int left, char *input)
+{
+    while (input[*j] && left >= 0)
     {
         
     }
+    
+}
+
+int    malloc_args(char *input, int *i, t_token *tokens, int total_arg_len)
+{
+    int     arg;
+    int     str;
+
+    arg = 0;
+    str = 0;
+    tokens->args = malloc(sizeof(char *) * tokens->num_args);
+    
+
+
 }
 
 

@@ -40,6 +40,7 @@ typedef struct s_token
     int id;
     char *cmd; // "ls"
     char **args; // -la
+    int args_num;
     t_type type; // CMD or FILE or EXPAND or REDIR_I/O
     t_type delim; // PIPE or REDIR_I/O/A/H
     struct s_token *next; 
