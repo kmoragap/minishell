@@ -34,25 +34,25 @@ void    get_total_args_len(char *input, int *i, int *total_arg_len)
 void    get_args_num(char *input, int *i, t_token *tokens, int total_arg_len)
 {
     int     j;
+    int     quote;
 
+    quote = 0;
     j = *i;
     tokens->args_num = 0;
     while (input[j] && (j - *i) < total_arg_len)
     {
-        skip_whitespace(&j, input);
-        if (get_arg(&j, (total_arg_len - (j - *i)), input) == NULL)
-            break;
+        while (input[j] && (j - *i) < total_arg_len)
+        {
+            skip_whitespace(&j, input);
+            while (quote = 0 && delim_space(input[j]) == 0)
+                check_quote(input[j], &quote, &j);
+            if (quote != 0)
+                text_in_quotes(quote, &0, &j, input);
+            if (delim_space(input[*j] != 0))
+                break;
+        }
         tokens->args_num += 1;
     }
-}
-
-char    *get_arg(int *j, int left, char *input)
-{
-    while (input[*j] && left >= 0)
-    {
-        
-    }
-    
 }
 
 int    malloc_args(char *input, int *i, t_token *tokens, int total_arg_len)
@@ -62,7 +62,8 @@ int    malloc_args(char *input, int *i, t_token *tokens, int total_arg_len)
 
     arg = 0;
     str = 0;
-    tokens->args = malloc(sizeof(char *) * tokens->num_args);
+    tokens->args = malloc(sizeof(char *) * tokens->args_num);
+    
     
 
 

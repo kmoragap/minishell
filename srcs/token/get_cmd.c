@@ -15,28 +15,28 @@
 void    get_cmd(int *i, char *input, t_token *tokens, t_data **data)
 {
     int     j;
-    int     column; 
+    int     quote; 
 
     j = 0;
-    column = 0;
+    quote = 0;
     while (input[*i + j])
     {
-        while (column == 0 && delim_space(input[*i + j]) == 0)
-            check_quote(input[*i + j], &column, &j);
-        if (column != 0)
-            text_in_quotes(column, i, &j, input);
+        while (quote == 0 && delim_space(input[*i + j]) == 0)
+            check_quote(input[*i + j], &quote, &j);
+        if (quote != 0)
+            text_in_quotes(quote, i, &j, input);
         if (delim_space(input[*i + j] != 0))
             break;
     }
     inputcpy(input, i, j, tokens);
 }
 
-void    check_quote(char c, int *column, int *j)
+void    check_quote(char c, int *quote, int *j)
 {
     if (c == 39)
-        *column = 1;
+        *quote = 1;
     else if (c == 34)
-        *column = 2;
+        *quote = 2;
     *j += 1;
 }
 
@@ -49,7 +49,7 @@ void    delim_space(char c)
     return (0);
 }
 
-void    text_in_quotes(int column, int *i, int *j, char *input)
+void    text_in_quotes(int quote, int *i, int *j, char *input)
 {
     if (input[*i + *j] == 34 && input[*i + *j + 1] == '|' && input[*i + *j + 2] == 34)
         error; 
@@ -58,9 +58,9 @@ void    text_in_quotes(int column, int *i, int *j, char *input)
     *j += 1;
     while (input[*i + *j])
     {
-        if (column == 1 && input[*i + *j] == 39)
+        if (quote == 1 && input[*i + *j] == 39)
             return;
-        if (column == 2 && input[*i + *j] == 34)
+        if (quote == 2 && input[*i + *j] == 34)
             return;
         *j += 1;
     }
