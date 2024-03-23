@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/03/01 23:37:05 by creuther         ###   ########.fr       */
+/*   Updated: 2024/03/23 09:15:21 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void    check_quote(char c, int *quote, int *j)
     *j += 1;
 }
 
-void    delim_space(char c)
+int    delim_space(char c)
 {
     if (c == '|' || c == '<' || c == '>')
         return (1);
@@ -76,7 +76,7 @@ void    inputcpy(char *input, int *i, int j, t_token *tokens)
         error; //error_function to do
     while (n < j)
     {
-        tokens->cmd[n] = input[*i + n]
+        tokens->cmd[n] = input[*i + n];
         n++;
         *i += 1;
     }

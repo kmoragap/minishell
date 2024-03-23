@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/03/01 23:37:05 by creuther         ###   ########.fr       */
+/*   Updated: 2024/03/23 09:15:55 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void    get_args_num(char *input, int *i, t_token *tokens, int total_arg_len)
                 check_quote(input[j], &quote, &j);
             if (quote != 0)
                 text_in_quotes(quote, &0, &j, input);
-            if (delim_space(input[*j] != 0))
+            if (delim_space(input[j]) != 0)
                 break;
         }
         tokens->args_num += 1;
@@ -105,7 +105,7 @@ void    inputcpy_args(char *input, int *i, int j, t_token *tokens)
         error; //error_function to do
     while (n < j)
     {
-        tokens->cmd[n] = input[*i + n]
+        tokens->cmd[n] = input[*i + n];
         n++;
         *i += 1;
     }

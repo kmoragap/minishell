@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:40:52 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/02/28 22:31:24 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/23 09:15:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int     check_whitespaces(char *input, int *i);
 // get_cmd.c
 void    get_cmd(int *i, char *input, t_token *tokens, t_data **data);
 void    check_quote(char c, int *column, int *j);
-void    delim_space(char c);
+int    delim_space(char c);
 void    text_in_quotes(int column, int *i, int *j, char *input);
 void    inputcpy(char *input, int *i, int j, t_token *tokens);
 
