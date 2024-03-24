@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:40:52 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/19 14:35:14 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/24 15:29:45 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 #include <unistd.h>
 #include <sys/wait.h> 
 #define MAX_ARGS 100
+#define TRUE 1
+#define  FALSE 0
 
 typedef enum e_errcode
 {

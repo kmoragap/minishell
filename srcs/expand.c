@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:16:48 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/21 18:24:14 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/24 15:29:52 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,7 @@ void expand_token(t_token *token, char **env)
             free(token->cmd); 
             token->cmd = expanded_cmd; 
         }
-        /*
-        else 
-            // keep the original string
-            ;
-        */
     }
-    //I'm not sure about this else if
     else if (check_expand_args(token->args)) 
     {
         expanded_args = expand_cmd(token->args, env);
@@ -97,10 +91,5 @@ void expand_token(t_token *token, char **env)
             free(token->args); 
             token->args = expanded_args;
         } 
-        /*
-        else 
-            // keep the original string
-            ;
-        */
     }
 }
