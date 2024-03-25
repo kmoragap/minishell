@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:46:13 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/14 14:37:49 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/25 16:37:30 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_token *tokenizer(char *input) {
         if(new_token == NULL)
             return NULL;
         new_token->id = id++;
+        new_token->exit_status = 0;
         parse_command(input, &index, new_token);
         parse_args(input, &index, new_token);
         new_token->type = check_type_tk(new_token->cmd);

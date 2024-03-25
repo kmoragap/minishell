@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 14:21:15 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/21 15:47:58 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/25 16:38:29 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@ void execute(t_token *token, char **env, int is_pipe, int is_redir)
     (void)is_pipe;
     (void)is_redir;
     (void)token;
-    (void)env;    
+    (void)env;
+
+    /*
+        each execution stored the exit status on token->exit_status;
+    */
+
 }
 
 

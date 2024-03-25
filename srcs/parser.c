@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:29:37 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/24 16:01:39 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/25 16:35:48 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
  * [] expand token when is $0, $?, etc
  * [] maybe add the ints values used here to the data structure 
 */
+
+    /*
+        each time a command is executed it will be stored in a variable called last_exit_status added to each token structure, 
+        this means that it can be tracked by the exit status of the previous/next token and when the $? expander is called, 
+        it can be easily tracked what was the last existing status in the exxpand variable.
+    */
 
 void parser(t_data **data)
 {

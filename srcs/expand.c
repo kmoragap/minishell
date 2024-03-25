@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:16:48 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/24 15:29:52 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/25 16:45:10 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ char *expand_cmd(char *cmd, char **env)
     char *var;
     char *nested_value;
     int i;
+    
+    /*
+        if cmd == $?
+            cmd = ft_itoa(tokens->prev->exit_status)
+            return cmd;
+    */
     
     cmd++;
     value = getenv(cmd);

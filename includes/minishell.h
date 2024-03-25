@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:40:52 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/24 15:29:45 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/25 16:36:20 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ typedef enum e_errcode
 typedef struct s_token
 {
     int id;
+    int exit_status;
     char *cmd;    // "ls"
-    char *args;   // "-la"   
+    char *args;   // "-la"
     t_type type;  // CMD or FILE or EXPAND
     t_type delim; // PIPE or REDIR_I/O
     struct s_token *next;
