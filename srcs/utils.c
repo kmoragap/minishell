@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:57:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/07 11:45:47 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:35:07 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,44 @@ void parse_args(char *input, int *index, t_token *tokens)
 
     *index = i; // Actualizar el índice para apuntar al próximo token
 }
+
+char *ft_itoa(int nbr) 
+{
+	if(nbr == -2147483648)
+		return("-2147483648\0");
+	int n = nbr;
+	int len = 0;
+	if (nbr <= 0)
+	{
+		len++;
+    	}
+	while (n) 
+	{
+		n /= 10;
+		len++;
+	}
+	char *result = (char *)malloc(sizeof(char) * (len + 1));
+	if (result == NULL) 
+		return NULL;
+	result[len] = '\0';
+	if (nbr == 0)
+	{
+		result[0] = '0';
+		return(result);
+	}
+	if (nbr < 0) 
+	{
+		result[0] = '-';
+		nbr = -nbr;
+	}
+	while (nbr) 
+	{
+		result[--len] = nbr % 10 + '0';
+		nbr /= 10;
+	}
+	return result;
+}
+
 
 void detect_delimiter(char* input, int* index, t_token* new_token) 
 {

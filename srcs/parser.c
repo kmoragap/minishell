@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:29:37 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/25 16:35:48 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:35:58 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
         each time a command is executed it will be stored in a variable called last_exit_status added to each token structure, 
         this means that it can be tracked by the exit status of the previous/next token and when the $? expander is called, 
         it can be easily tracked what was the last existing status in the exxpand variable.
+
+        Also, the especial cases in the expand could be handle easily returning a empty string, for example with $0
     */
 
 void parser(t_data **data)
@@ -44,8 +46,8 @@ void parser(t_data **data)
         is_builtins = FALSE;
         
         expand_token(tokens, env);
-        //if(check builtins func)
-                //is_builtins = TRUE;
+        if(check_builtins(tokens) == 1)
+                is_builtins = TRUE;
         if(tokens->delim == PIPE)
             is_pipe = PIPE;
         if(tokens->delim == REDIR_I)
@@ -54,7 +56,7 @@ void parser(t_data **data)
             is_redir = REDIR_O;
         else
             is_redir = FALSE;
-        execute(tokens, env, is_pipe, is_redir);
+        execute_helper(tokens, env, is_pipe, is_redir, is_builtins);
         tokens->prev = prev;
         tokens = tokens->next;
         prev = tokens;

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:40:52 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/25 16:36:20 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:35:15 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,13 @@ void lexer(t_data **data);
 
 
 /* FUNCTIONS */
+char *ft_itoa(int nbr);
+int check_builtins(t_token *token);
 void expand_token(t_token *token, char **env);
-char *expand_cmd(char *cmd, char **env);
+char *expand_cmd(char *cmd, char **env, int exit_status);
 int check_expand_args(char *args);
 int is_valid_variable_char(char c);
-void execute(t_token *token, char **env, int is_pipe, int is_redir);
+void execute_helper(t_token *token, char **env, int is_pipe, int is_redir, int is_builtins);
 void parse_args(char *input, int *index, t_token *tokens);
 void detect_delimiter(char *input, int *index, t_token *new_token);
 void parse_command(char *input, int *index, t_token *tokens);

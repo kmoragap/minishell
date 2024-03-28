@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:16:48 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/25 16:45:10 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:35:51 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,19 @@ int check_expand_args(char *args)
     return 0;
 }
 
-char *expand_cmd(char *cmd, char **env) 
+char *expand_cmd(char *cmd, char **env, int exit_status) 
 {
+    if(cmd[0] == '$' && cmd[1] == '?')
+        return ft_itoa(exit_status);
+    else if(cmd[0] == '$' && cmd[1] == '0')
+        return strdup("");
+
+
     char *value;
     char *var;
     char *nested_value;
     int i;
     
-    /*
-        if cmd == $?
-            cmd = ft_itoa(tokens->prev->exit_status)
-            return cmd;
-    */
     
     cmd++;
     value = getenv(cmd);
@@ -63,7 +64,7 @@ char *expand_cmd(char *cmd, char **env)
         var = strtok(env[i], "=");
         value = strtok(NULL, "=");
         if (strcmp(var, cmd) == 0) {
-            nested_value = expand_cmd(value, env);
+            nested_value = expand_cmd(value, env, exit_status);
             if (nested_value != NULL)
                 return strdup(nested_value);
             return strdup(value);
@@ -82,7 +83,7 @@ void expand_token(t_token *token, char **env)
     expanded_args = NULL;
     if (token->type == EXPAND) 
     {
-        expanded_cmd = expand_cmd(token->cmd, env);
+        expanded_cmd = expand_cmd(token->cmd, env, token->exit_status);
         if (expanded_cmd != NULL) 
         {
             free(token->cmd); 
@@ -91,7 +92,7 @@ void expand_token(t_token *token, char **env)
     }
     else if (check_expand_args(token->args)) 
     {
-        expanded_args = expand_cmd(token->args, env);
+        expanded_args = expand_cmd(token->args, env, token->exit_status);
         if (expanded_args != NULL) 
         {
             free(token->args); 
