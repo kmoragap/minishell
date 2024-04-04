@@ -24,15 +24,14 @@
 
 typedef enum e_type
 {
-    WORD,
     CMD,
-    SUBCMD,
+    FILE,
+    EXPAND,
     PIPE,
     REDIR_I, // < (redirect input)
     REDIR_O, // > (redirect output)
     REDIR_A, // >> (append)
-    REDIR_H, // << (here-document)
-    EXPAND
+    REDIR_H // << (here-document)
 } t_type;
 
 typedef struct s_token
@@ -41,7 +40,7 @@ typedef struct s_token
     char *cmd; // "ls"
     char **args; // -la
     int args_num;
-    t_type type; // CMD or FILE or EXPAND or REDIR_I/O
+    t_type type; // CMD or FILE or EXPAND
     t_type delim; // PIPE or REDIR_I/O/A/H
     struct s_token *next; 
     struct s_token *prev;
