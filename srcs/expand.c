@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:16:48 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/03/28 15:35:51 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/04 13:26:04 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,16 @@ void expand_token(t_token *token, char **env)
             token->cmd = expanded_cmd; 
         }
     }
-    else if (check_expand_args(token->args)) 
+    else if (token->args != NULL) 
     {
-        expanded_args = expand_cmd(token->args, env, token->exit_status);
-        if (expanded_args != NULL) 
+        if(check_expand_args(token->args) != 0)
         {
-            free(token->args); 
-            token->args = expanded_args;
-        } 
+            expanded_args = expand_cmd(token->args, env, token->exit_status);
+            if (expanded_args != NULL) 
+            {
+                free(token->args); 
+                token->args = expanded_args;
+            } 
+        }
     }
 }
