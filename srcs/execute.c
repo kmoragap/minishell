@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 14:21:15 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/04 13:08:51 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:46:06 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,20 @@
 
 /**
  * from parser we have our command ready to be execute
- * here:
- * [] check for the pipes and excute them
+ * maybe put all the int true/false variables in the data structure bc is not allowed more than 5 args in a func
+ * 
+ * 
+ * 
  * 
 */
 
-
+void execute_command(t_token *token, char **env)
+{
+    /**
+     * execute simple command
+     * 
+    */
+}
 
 
 
