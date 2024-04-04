@@ -17,25 +17,20 @@ void    get_args(int *i, char *input, t_token *tokens, t_data **data)
     int     total_arg_len;
 
     total_arg_len = 0;
-    get_total_args_len(input, i, &total_arg_len);
+    while(input[*i + total_arg_len] && input[*i + total_arg_len] != '|' && input[*i + total_arg_len] != '<' && input[*i + total_arg_len] != '>')
+        total_arg_len++;
     get_args_num(input, i, tokens, total_arg_len);
     if (malloc_args(input, i, tokens, total_arg_len) != 0)
-        error;
-    if (fill_args(input, i, tokens, total_arg_len) != 0)
-        error;
-}
-
-void    get_total_args_len(char *input, int *i, int *total_arg_len)
-{
-    while(input[*i + *total_arg_len] && input[*i + *total_arg_len] != '|' && input[*i + *total_arg_len] != '<' && input[*i + *total_arg_len] != '>')
-        *total_arg_len += 1;
+        error; // error_function to do
 }
 
 void    get_args_num(char *input, int *i, t_token *tokens, int total_arg_len)
 {
     int     j;
     int     quote;
+    int     zero;
 
+    zero = 0;
     quote = 0;
     j = *i;
     tokens->args_num = 0;
@@ -47,7 +42,7 @@ void    get_args_num(char *input, int *i, t_token *tokens, int total_arg_len)
             while (quote = 0 && delim_space(input[j]) == 0)
                 check_quote(input[j], &quote, &j);
             if (quote != 0)
-                text_in_quotes(quote, &0, &j, input);
+                text_in_quotes(quote, zero, &j, input);
             if (delim_space(input[j]) != 0)
                 break;
         }
@@ -55,60 +50,59 @@ void    get_args_num(char *input, int *i, t_token *tokens, int total_arg_len)
     }
 }
 
-int    malloc_args(char *input, int *i, t_token *tokens, int total_arg_len)
+int     malloc_args(char *input, int *i, t_token *tokens, int total_arg_len)
 {
     int     arg;
-    int     str;
+    int     len;
 
     arg = 0;
-    str = 0;
     tokens->args = malloc(sizeof(char *) * tokens->args_num);
-    
-    
-
-
+    if (!tokens->args)
+        return (1);
+    while (arg <= tokens->args_num)
+    {
+        len = get_arg_len(input, i);
+        tokens->args[arg] = malloc(len + 1);
+        if (!tokens->args[arg])
+            return (1);
+        input_arg(input, i, len, &(tokens->args[arg]));
+        arg++;
+    }
+    return (0);
 }
 
-
-
-void    old_get_args(int *i, char *input, t_token *tokens, t_data **data)
+int     get_arg_len(char *input, int *i)
 {
-    int     j;
-    int     column; 
+    int     len;
+    int     skip;
+    int     quote;
 
-    j = 0;
-    column = 0;
-    while (input[*i + j])
+    len = 0;
+    skip = *i;
+    quote = 0;
+    while (input[skip + len])
     {
-        while (input[*i + j])
-        {
-            while (column == 0 && delim_space(input[*i + j]) == 0)
-                check_quote(input[*i + j], &column, &j);
-            if (column != 0)
-                text_in_quotes(column, i, &j, input);
-            if (delim_space(input[*i + j] != 0))
-                break;
-        }
-        inputcpy_args(input, i, j, tokens);
-        if (input[*i + j] == '|' || input[*i + j] == '<' || input[*i + j] == '>')
+        skip_whitespace(&skip, input);
+        while (quote = 0 && delim_space(input[skip + len]) == 0)
+            check_quote(input[skip + len], &quote, &len);
+        if (quote != 0)
+            text_in_quotes(quote, skip, &len, input);
+        if (delim_space(input[skip + len]) != 0)
             break;
     }
+    return (len);
 }
 
-void    inputcpy_args(char *input, int *i, int j, t_token *tokens)
+void    input_arg(char *input, int *i, int len, char **arg)
 {
     int     n;
 
     n = 0;
-    tokens->cmd = malloc(j + 1);
-    if (!tokens->cmd)
-        error; //error_function to do
-    while (n < j)
+    while (n < len)
     {
-        tokens->cmd[n] = input[*i + n];
+        *(arg[n]) = input[*i];
         n++;
         *i += 1;
     }
-    tokens->cmd[n] = '\0';
+    *(arg[n]) = '\0';
 }
-

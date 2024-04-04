@@ -24,11 +24,11 @@ void    get_cmd(int *i, char *input, t_token *tokens, t_data **data)
         while (quote == 0 && delim_space(input[*i + j]) == 0)
             check_quote(input[*i + j], &quote, &j);
         if (quote != 0)
-            text_in_quotes(quote, i, &j, input);
+            text_in_quotes(quote, *i, &j, input);
         if (delim_space(input[*i + j] != 0))
             break;
     }
-    inputcpy(input, i, j, tokens);
+    input_cmd(input, i, j, tokens);
 }
 
 void    check_quote(char c, int *quote, int *j)
@@ -49,7 +49,7 @@ int    delim_space(char c)
     return (0);
 }
 
-void    text_in_quotes(int quote, int *i, int *j, char *input)
+void    text_in_quotes(int quote, int i, int *j, char *input)
 {
     if (input[*i + *j] == 34 && input[*i + *j + 1] == '|' && input[*i + *j + 2] == 34)
         error; 
@@ -66,7 +66,7 @@ void    text_in_quotes(int quote, int *i, int *j, char *input)
     }
 }
 
-void    inputcpy(char *input, int *i, int j, t_token *tokens)
+void    input_cmd(char *input, int *i, int j, t_token *tokens)
 {
     int     n;
 
@@ -76,7 +76,7 @@ void    inputcpy(char *input, int *i, int j, t_token *tokens)
         error; //error_function to do
     while (n < j)
     {
-        tokens->cmd[n] = input[*i + n];
+        tokens->cmd[n] = input[*i];
         n++;
         *i += 1;
     }

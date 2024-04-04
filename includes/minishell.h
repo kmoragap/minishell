@@ -74,10 +74,15 @@ int     check_whitespaces(char *input, int *i);
 void    get_cmd(int *i, char *input, t_token *tokens, t_data **data);
 void    check_quote(char c, int *column, int *j);
 int    delim_space(char c);
-void    text_in_quotes(int column, int *i, int *j, char *input);
-void    inputcpy(char *input, int *i, int j, t_token *tokens);
+void    text_in_quotes(int column, int i, int *j, char *input);
+void    input_cmd(char *input, int *i, int j, t_token *tokens);
 
 // get_args.c
+void    get_args(int *i, char *input, t_token *tokens, t_data **data);
+void    get_args_num(char *input, int *i, t_token *tokens, int total_arg_len);
+int     malloc_args(char *input, int *i, t_token *tokens, int total_arg_len);
+int     get_arg_len(char *input, int *i);
+void    input_arg(char *input, int *i, int len, char **arg);
 
 //void parse_input(t_data **data);
 
