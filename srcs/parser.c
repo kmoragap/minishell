@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 14:29:37 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/04 14:39:34 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/05 13:15:59 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void parser(t_data **data)
         is_builtins = FALSE;
         printf("CMD: %s\n", tokens->cmd);        
         expand_token(tokens, env);
-        printf("CMD: %s\n", tokens->args);
+        printf("ARG: %s\n", tokens->args);
         if(check_builtins(tokens) == 1)
                 is_builtins = TRUE;
         if(tokens->delim == PIPE)
