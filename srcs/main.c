@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/02/28 22:28:30 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/05 17:37:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "../includes/minishell.h"
 
 t_data *init_data(char **envp)
 {
@@ -65,8 +65,9 @@ int main(int ac, char **av, char **env)
     while(1)
     {
         read_input(&data);
+        printf("input: %s\n", data->input);
         tokenizer(&data);
-        lexer(&data);
+        //lexer(&data);
         //parse_input(&data);
         //print_dot(data->node);
     }

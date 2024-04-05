@@ -6,13 +6,14 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/03/23 09:15:21 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/05 17:36:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "../../includes/minishell.h"
+// t_data **data --> eigentlich rein für error function
 
-void    get_cmd(int *i, char *input, t_token *tokens, t_data **data)
+void    get_cmd(int *i, char *input, t_token **tokens) 
 {
     int     j;
     int     quote; 
@@ -21,14 +22,19 @@ void    get_cmd(int *i, char *input, t_token *tokens, t_data **data)
     quote = 0;
     while (input[*i + j])
     {
-        while (quote == 0 && delim_space(input[*i + j]) == 0)
+        while (quote == 0 && delim_space(input[*i + j]) == 0 && input[*i + j])
             check_quote(input[*i + j], &quote, &j);
         if (quote != 0)
-            text_in_quotes(quote, *i, &j, input);
-        if (delim_space(input[*i + j] != 0))
+        {
+            if (text_in_quotes(quote, *i, &j, input) != 0)
+                exit (0); //error
+        }
+        if (delim_space(input[*i + j]) != 0)
             break;
     }
     input_cmd(input, i, j, tokens);
+    if (!(*tokens)->cmd)
+        exit (0); //error
 }
 
 void    check_quote(char c, int *quote, int *j)
@@ -49,36 +55,38 @@ int    delim_space(char c)
     return (0);
 }
 
-void    text_in_quotes(int quote, int i, int *j, char *input)
+int    text_in_quotes(int quote, int i, int *j, char *input)
 {
-    if (input[*i + *j] == 34 && input[*i + *j + 1] == '|' && input[*i + *j + 2] == 34)
-        error; 
-    if (input[*i + *j] == 39 && input[*i + *j + 1] == '|' && input[*i + *j + 2] == 39)
-        error;
+    if (input[i + *j] == 34 && input[i + *j + 1] == '|' && input[i + *j + 2] == 34)
+        return (1); 
+    if (input[i + *j] == 39 && input[i + *j + 1] == '|' && input[i + *j + 2] == 39)
+        return (1);
     *j += 1;
-    while (input[*i + *j])
+    while (input[i + *j])
     {
-        if (quote == 1 && input[*i + *j] == 39)
-            return;
-        if (quote == 2 && input[*i + *j] == 34)
-            return;
+        if (quote == 1 && input[i + *j] == 39)
+            return (0);
+        if (quote == 2 && input[i + *j] == 34)
+            return (0);
         *j += 1;
     }
+    return (0);
 }
 
-void    input_cmd(char *input, int *i, int j, t_token *tokens)
+int    input_cmd(char *input, int *i, int j, t_token **tokens)
 {
     int     n;
 
     n = 0;
-    tokens->cmd = malloc(j + 1);
-    if (!tokens->cmd)
-        error; //error_function to do
+    (*tokens)->cmd = malloc(sizeof(char) * (j + 1));
+    if (!(*tokens)->cmd)
+        return (1);
     while (n < j)
     {
-        tokens->cmd[n] = input[*i];
+        (*tokens)->cmd[n] = input[*i];
         n++;
         *i += 1;
     }
-    tokens->cmd[n] = '\0';
+    (*tokens)->cmd[n] = '\0';
+    return (0);
 }

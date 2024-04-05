@@ -3,43 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   check_special.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/03/01 23:37:05 by creuther         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:36:02 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void    check_special(int *i, char *input, t_token *tokens, t_data **data)
+void    check_special(int *i, char *input, t_token **tokens, t_data **data)
 {
-    if (input[*i] == '|' && tokens->id == 0)
-        error; //error_function to do
+    t_data  *temp;
+
+    temp = *data;
+    *data = temp;
+    (*tokens)->delim = 0;
+    //data mitgegeben für error, muss deshalb temp kreieren (sonst unused variable)
+    if (input[*i] == '|' && (*tokens)->id == 0)
+        exit (0); //error; //error_function to do
     if (input[*i] == '<' || input[*i] == '>' || input[*i] == '|')
+    {
         add_delim(i, input, tokens);
+        return ;
+    }
     if ((input[*i] == 34 || input[*i] == 39) && check_whitespaces(input, i) == 1)
-        error; //error_function to do
+        exit (0);//error; //error_function to do
 }
 
-void    add_delim(int *i, char *input,t_token *tokens)
+void    add_delim(int *i, char *input, t_token **tokens)
 {
     if (input[*i] == '|')
-        tokens->delim = PIPE;
+        (*tokens)->delim = PIPE;
     else if (input[*i] == '<' && input[*i + 1] == '<')
     {
         *i += 1;
-        tokens->delim = REDIR_H;
+        (*tokens)->delim = REDIR_H;
     }
     else if (input[*i] == '>' && input[*i + 1] == '>')
     {
         *i += 1;
-        tokens->delim = REDIR_A;
+        (*tokens)->delim = REDIR_A;
     }
     else if (input[*i] == '>')
-        tokens->delim = REDIR_O;
+        (*tokens)->delim = REDIR_O;
     else
-        tokens->delim = REDIR_I;
+        (*tokens)->delim = REDIR_I;
     *i += 1;
 }
 
