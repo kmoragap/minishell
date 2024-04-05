@@ -8,3 +8,8 @@ minishell
 - [] Improve the split function...
 - [] Improve the linked list implementation
 - [] Implement a parser tree.
+
+
+
+
+- check also if every token has a cmd!!!
