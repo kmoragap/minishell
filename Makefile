@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/02/28 22:29:35 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/04/05 17:39:09 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-SRC = 	main.c \
-		parser.c \
-		lexer.c \
-		tree_vis.c \
-		debug/check_tokens_lst.c \
+SRC = 	srcs/main.c \
+		srcs/token/tokenizer.c \
+		srcs/token/check_special.c \
+		srcs/token/get_cmd.c \
+		srcs/token/get_args.c
 
 OBJ = $(SRC:.c=.o)
 CC = gcc

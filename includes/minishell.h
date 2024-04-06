@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:40:52 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/02/28 22:31:24 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/05 17:37:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,57 +21,73 @@
 #include <stdio.h>             //printf
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 typedef enum e_type
 {
-    WORD,
+    NOTHING,
     CMD,
-    SUBCMD,
+    FLE,
+    FD,
+    EXPAND,
     PIPE,
-    REDIR_I,
-    REDIR_O
+    REDIR_I, // < (redirect input)
+    REDIR_O, // > (redirect output)
+    REDIR_A, // >> (append)
+    REDIR_H // << (here-document)
 } t_type;
 
 typedef struct s_token
 {
     int id;
-    char *content;
-    t_type type;
-    struct s_token *next;
+    char *cmd; // "ls"
+    char **args; // -la
+    int args_num;
+    t_type type; // CMD or FILE or EXPAND
+    t_type delim; // PIPE or REDIR_I/O/A/H
+    struct s_token *next; 
+    struct s_token *prev;
 } t_token;
-
-/*not finish*/
-typedef struct s_tree
-{
-    t_token *token;
-    struct s_tree *next;
-    struct s_tree *left;
-    struct s_tree *right;
-} t_tree;
 
 typedef struct s_data
 {
     char *input;     // read the line
     char **env;      //save the env
-    t_token *tokens; //token list
-    t_tree *node;    //tree
+    t_token **tokens; //token list
+    //t_tree *node;    //tree
     int env_len;     //env len
 
 } t_data;
 
+// main.c
+int main(int ac, char **av, char **env);
 void read_input(t_data **data);
-void lexer(t_data **data);
-t_token *split_input(char *input);
-void parse_input(t_data **data);
+t_data *init_data(char **envp);
 
-/* FUNCTIONS */
-void add_right(t_tree *parent, t_tree *child);
-void add_left(t_tree *parent, t_tree *child);
-t_tree *new_node(char *content, t_type type);
-void print_dot_node(FILE *file, t_tree *node, int *node_counter);
-void print_dot(t_tree *root);
+// tokenizer.c
+void    tokenizer(t_data **data);
+void    create_tokens(char *input, t_token **tokens, t_data **data);
+void    skip_whitespace(int *i, char *input);
 
-/*checker*/
-void check_tokens_lst(t_token *tokens);
+// check_special.c
+void    check_special(int *i, char *input, t_token **tokens, t_data **data);
+void    add_delim(int *i, char *input,t_token **tokens);
+int     check_whitespaces(char *input, int *i);
+
+// get_cmd.c
+void    get_cmd(int *i, char *input, t_token **tokens); //add t_data **data noch!
+void    check_quote(char c, int *column, int *j);
+int     delim_space(char c);
+int     text_in_quotes(int column, int i, int *j, char *input);
+int     input_cmd(char *input, int *i, int j, t_token **tokens);
+
+// get_args.c
+void    get_args(int *i, char *input, t_token **tokens, t_data **data);
+void    get_args_num(char *input, int *i, t_token **tokens, int total_arg_len);
+int     malloc_args(char *input, int *i, t_token **tokens);
+int     get_arg_len(char *input, int *i);
+void    input_arg(char *input, int *i, int len, t_token **tokens, int arg);
+void    create_empty_args(t_token **tokens);
+
 
 #endif // MINISHELL_H
