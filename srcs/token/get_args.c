@@ -32,7 +32,7 @@ void    get_args(int *i, char *input, t_token **tokens, t_data **data)
         create_empty_args(tokens);
         return ;    
     }
-    get_args_num(input, i, tokens, total_arg_len);
+    get_args_num(input, i, total_arg_len, tokens);
     if (malloc_args(input, i, tokens) != 0)
         exit (0); //error; // error_function to do
 }
@@ -45,7 +45,7 @@ void    create_empty_args(t_token **tokens)
     (*tokens)->args_num = 0;
 }
 
-void    get_args_num(char *input, int *i, t_token **tokens, int total_arg_len)
+void    get_args_num(char *input, int *i, int total_arg_len, t_token **tokens)
 {
     int     j;
     int     quote;

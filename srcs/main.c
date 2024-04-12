@@ -67,8 +67,7 @@ int main(int ac, char **av, char **env)
         read_input(&data);
         printf("input: %s\n", data->input);
         tokenizer(&data);
-        //lexer(&data);
-        //parse_input(&data);
-        //print_dot(data->node);
+        //parser(&data);
+        print(&data);
     }
 }
