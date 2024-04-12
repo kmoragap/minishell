@@ -89,6 +89,7 @@ int     malloc_args(char *input, int *i, t_token **tokens)
         input_arg(input, i, len, tokens, arg);
         arg++;
     }
+    (*tokens)->args[(*tokens)->args_num] = NULL;
     return (0);
 }
 
