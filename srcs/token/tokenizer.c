@@ -24,6 +24,8 @@ void    tokenizer(t_data **data)
     (*data)->tokens = &tokens;
     create_tokens((*data)->input, (*data)->tokens, data);
     (*data)->tokens = &start;
+    printf("start = %d", start->id);
+    parser(data);
 }
 
 void    create_tokens(char *input, t_token **tokens, t_data **data)
@@ -37,19 +39,20 @@ void    create_tokens(char *input, t_token **tokens, t_data **data)
     while (input[i])
     {
         (*tokens)->id = id;
-        printf("Token_ID: %d\n", id);
+        //printf("Token_ID: %d\n", id);
         skip_whitespace(&i, input);
         check_special(&i, input, tokens, data);
         skip_whitespace(&i, input);
         get_cmd(&i, input, tokens);
-        printf("cmd: %s\n", (*tokens)->cmd);
+        //printf("cmd: %s\n", (*tokens)->cmd);
         skip_whitespace(&i, input);
         get_args(&i, input, tokens, data);
-        printf("arg: %s\n", (*tokens)->args[0]);
-        printf("arg: %s\n", (*tokens)->args[1]);
+        //printf("arg: %s\n", (*tokens)->args[0]);
+        //printf("arg: %s\n", (*tokens)->args[1]);
         //printf("arg: %s\n", (*tokens)->args[2]);
-        printf("delim: %d\n", (*tokens)->delim);
+        //printf("delim: %d\n", (*tokens)->delim);
         id++;
+        (*data)->token_num = id; 
         if (!input[i])
             break ;
         temp = malloc(sizeof(t_token));
@@ -59,7 +62,7 @@ void    create_tokens(char *input, t_token **tokens, t_data **data)
         temp->prev = (*tokens);
         (*tokens) = (*tokens)->next;
         (*tokens)->next = NULL;
-        write(1, "---------------------------------\n", 33);
+        //write(1, "---------------------------------\n", 33);
     }
 }
 

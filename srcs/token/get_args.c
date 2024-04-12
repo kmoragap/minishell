@@ -19,7 +19,7 @@ void    get_args(int *i, char *input, t_token **tokens, t_data **data)
 
     if (!input[*i])
     {
-        create_empty_args(tokens, data);
+        create_empty_args(tokens);
         return ;
     }
     temp = *data;
@@ -29,23 +29,23 @@ void    get_args(int *i, char *input, t_token **tokens, t_data **data)
         total_arg_len++;
     if (total_arg_len == 0)
     {
-        create_empty_args(tokens, data);
+        create_empty_args(tokens);
         return ;    
     }
-    get_args_num(input, i, tokens, total_arg_len, data);
-    if (malloc_args(input, i, tokens, data) != 0)
+    get_args_num(input, i, total_arg_len, tokens);
+    if (malloc_args(input, i, tokens) != 0)
         exit (0); //error; // error_function to do
 }
 
-void    create_empty_args(t_token **tokens, t_data **data)
+void    create_empty_args(t_token **tokens)
 {
     (*tokens)->args = malloc(sizeof(char *));
     (*tokens)->args[0] = malloc(1);
     (*tokens)->args[0][0] = '\0';
-    (*data)->token_num = 0;
+    (*tokens)->args_num = 0;
 }
 
-void    get_args_num(char *input, int *i, t_token **tokens, int total_arg_len, t_data **data)
+void    get_args_num(char *input, int *i, int total_arg_len, t_token **tokens)
 {
     int     j;
     int     quote;
@@ -54,7 +54,7 @@ void    get_args_num(char *input, int *i, t_token **tokens, int total_arg_len, t
     zero = 0;
     quote = 0;
     j = *i;
-    (*data)->token_num = 0;
+    (*tokens)->args_num = 0;
     while (input[j] && (j - *i) < total_arg_len)
     {
         while (input[j] && (j - *i) < total_arg_len)
@@ -67,20 +67,20 @@ void    get_args_num(char *input, int *i, t_token **tokens, int total_arg_len, t
             if (delim_space(input[j]) != 0)
                 break;
         }
-        (*data)->token_num += 1;
+        (*tokens)->args_num += 1;
     }
 }
 
-int     malloc_args(char *input, int *i, t_token **tokens, t_data **data)
+int     malloc_args(char *input, int *i, t_token **tokens)
 {
     int     arg;
     int     len;
 
     arg = 0;
-    (*tokens)->args = malloc(sizeof(char *) * ((*data)->token_num));
+    (*tokens)->args = malloc(sizeof(char *) * ((*tokens)->args_num));
     if (!(*tokens)->args)
         return (1);
-    while (arg < (*data)->token_num)
+    while (arg < (*tokens)->args_num)
     {
         len = get_arg_len(input, i);
         (*tokens)->args[arg] = malloc(len + 1);

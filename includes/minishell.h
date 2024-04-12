@@ -41,7 +41,8 @@ typedef struct s_token
 {
     int id;
     char *cmd; // "ls"
-    char **args; // -la
+    char **args; // -la 
+    int args_num;
     t_type type; // CMD or FILE or EXPAND
     t_type delim; // PIPE or REDIR_I/O/A/H
     struct s_token *next; 
@@ -83,11 +84,20 @@ int     input_cmd(char *input, int *i, int j, t_token **tokens);
 
 // get_args.c
 void    get_args(int *i, char *input, t_token **tokens, t_data **data);
-void    get_args_num(char *input, int *i, t_token **tokens, int total_arg_len, t_data **data);
-int     malloc_args(char *input, int *i, t_token **tokens, t_data **data);
+void    get_args_num(char *input, int *i, int total_arg_len, t_token **tokens);
+int     malloc_args(char *input, int *i, t_token **tokens);
 int     get_arg_len(char *input, int *i);
 void    input_arg(char *input, int *i, int len, t_token **tokens, int arg);
-void    create_empty_args(t_token **tokens, t_data **data);
+void    create_empty_args(t_token **tokens);
 
+// parser.c
+void    parser(t_data **data);
+int     check_empty_cmd(t_token **move);
+int     check_expand(t_token **move);
+int     check_fd(t_token **move);
+int     check_file(t_token **move);
+
+//print.c
+void    print(t_data **data);
 
 #endif // MINISHELL_H

@@ -15,7 +15,9 @@ SRC = 	srcs/main.c \
 		srcs/token/tokenizer.c \
 		srcs/token/check_special.c \
 		srcs/token/get_cmd.c \
-		srcs/token/get_args.c
+		srcs/token/get_args.c \
+		srcs/parse/parser.c \
+		srcs/print_data/print.c
 
 OBJ = $(SRC:.c=.o)
 CC = gcc
