@@ -42,7 +42,6 @@ typedef struct s_token
     int id;
     char *cmd; // "ls"
     char **args; // -la
-    int args_num;
     t_type type; // CMD or FILE or EXPAND
     t_type delim; // PIPE or REDIR_I/O/A/H
     struct s_token *next; 
@@ -54,6 +53,7 @@ typedef struct s_data
     char *input;     // read the line
     char **env;      //save the env
     t_token **tokens; //token list
+    int token_num;
     //t_tree *node;    //tree
     int env_len;     //env len
 
@@ -83,11 +83,11 @@ int     input_cmd(char *input, int *i, int j, t_token **tokens);
 
 // get_args.c
 void    get_args(int *i, char *input, t_token **tokens, t_data **data);
-void    get_args_num(char *input, int *i, t_token **tokens, int total_arg_len);
-int     malloc_args(char *input, int *i, t_token **tokens);
+void    get_args_num(char *input, int *i, t_token **tokens, int total_arg_len, t_data **data);
+int     malloc_args(char *input, int *i, t_token **tokens, t_data **data);
 int     get_arg_len(char *input, int *i);
 void    input_arg(char *input, int *i, int len, t_token **tokens, int arg);
-void    create_empty_args(t_token **tokens);
+void    create_empty_args(t_token **tokens, t_data **data);
 
 
 #endif // MINISHELL_H
