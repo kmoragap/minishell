@@ -1,0 +1,8 @@
+Makefile
+README.md
+blub.c
+debug
+includes
+minishell
+o.txt
+srcs

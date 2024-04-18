@@ -12,12 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-void    check_special(int *i, char *input, t_token **tokens, t_data **data)
+void    check_special(int *i, char *input, t_token **tokens, t_data *data)
 {
     t_data  *temp;
 
-    temp = *data;
-    *data = temp;
+    temp = data;
+    data = temp;
     (*tokens)->delim = 0;
     //data mitgegeben für error, muss deshalb temp kreieren (sonst unused variable)
     if (input[*i] == '|' && (*tokens)->id == 0)
@@ -56,7 +56,7 @@ int     check_whitespaces(char *input, int *i)
 {
     int     j;
 
-    j = 0;
+    j = 1;
     while (input[*i + j] && input[*i + j] != 34 && input[*i + j] != 39)
     {
         if (input[*i + j] != ' ' && input[*i + j] != '\t' && input[*i + j] != '\n' && input[*i + j] != '\v' && input[*i + j] != '\f' && input[*i + j] != '\r')

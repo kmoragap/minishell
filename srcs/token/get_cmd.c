@@ -28,6 +28,7 @@ void    get_cmd(int *i, char *input, t_token **tokens)
         {
             if (text_in_quotes(quote, *i, &j, input) != 0)
                 exit (0); //error
+            j += 1;
         }
         if (delim_space(input[*i + j]) != 0)
             break;
@@ -70,6 +71,8 @@ int    text_in_quotes(int quote, int i, int *j, char *input)
             return (0);
         *j += 1;
     }
+    if (!input[i + *j])
+        return (1);
     return (0);
 }
 
