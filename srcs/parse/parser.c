@@ -14,6 +14,8 @@
 
 t_data  *parser(t_data *data)
 {
+    if (!data->input[0])
+        return (data);
     while ((data)->tokens->id < (data)->token_num)
     {
         if (check_empty_cmd(data->tokens) == 1)

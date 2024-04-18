@@ -41,9 +41,9 @@ void    create_tokens(char *input, t_token **tokens, t_data *data)
         get_args(&i, input, tokens, data);
         id++;
         (data)->token_num = id; 
+        tokens = next_token(tokens);
         if (!input[i])
             break ;
-        tokens = next_token(tokens);
     }
 }
 

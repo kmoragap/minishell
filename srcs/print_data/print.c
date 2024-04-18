@@ -16,6 +16,8 @@ t_data  *print(t_data *data)
 {
     int         x;
 
+    if (!data->input[0])
+        return (data);
     while (data->tokens->id < (data)->token_num)
     {
         x = 0;
