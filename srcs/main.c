@@ -66,8 +66,9 @@ int main(int ac, char **av, char **env)
     {
         read_input(&data);
         printf("input: %s\n", data->input);
-        tokenizer(&data);
-        //parser(&data);
-        print(&data);
+        tokenizer(data);
+        data = parser(data);
+        data = print(data);
+        printf("input done\n");
     }
 }

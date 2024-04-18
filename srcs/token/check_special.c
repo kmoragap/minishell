@@ -12,12 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-void    check_special(int *i, char *input, t_token **tokens, t_data **data)
+void    check_special(int *i, char *input, t_token **tokens, t_data *data)
 {
     t_data  *temp;
 
-    temp = *data;
-    *data = temp;
+    temp = data;
+    data = temp;
     (*tokens)->delim = 0;
     //data mitgegeben für error, muss deshalb temp kreieren (sonst unused variable)
     if (input[*i] == '|' && (*tokens)->id == 0)

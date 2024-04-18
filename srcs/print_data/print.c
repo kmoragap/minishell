@@ -12,27 +12,27 @@
 
 #include "../../includes/minishell.h"
 
-void    print(t_data **data)
+t_data  *print(t_data *data)
 {
-    t_token     **move;
-    int         i;
+    int         x;
 
-    i = 0;
-    move = (*data)->tokens;
-    while ((*move)->id < (*data)->token_num)
+    while (data->tokens->id < (data)->token_num)
     {
-        printf("Token_ID: %d\n", (*move)->id);
-        printf("cmd: %s\n", (*move)->cmd);
-        while ((*move)->args[i] && (*move)->args[i][0])
+        x = 0;
+        printf("Token_ID: %d\n", data->tokens->id);
+        printf("cmd: %s\n", data->tokens->cmd);
+        printf("arg_num: %d\n", data->tokens->args_num);
+        while (data->tokens->args[x] && data->tokens->args[x][0])
         {
-            printf("arg: %s\n", (*move)->args[i]);
-            i++;
+            printf("arg: %s\n", data->tokens->args[x]);
+            x++;
         }
-        printf("delim: %d\n", (*move)->delim);
-        printf("type: %d\n", (*move)->type);
+        printf("delim: %d\n", data->tokens->delim);
+        printf("type: %d\n", data->tokens->type);
         write(1, "---------------------------------\n", 34);
-        if ((*move)->id == ((*data)->token_num - 1))
+        if (data->tokens->id == ((data)->token_num - 1))
             break;
-        *move = (*move)->next;
+        data->tokens = data->tokens->next;
     }
+    return (data);
 }

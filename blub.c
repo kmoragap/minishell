@@ -1,12 +1,34 @@
-total 100
-drwxrwxrwx+ 7 codespace root       4096 Apr 12 15:31 .
-drwxr-xrwx+ 5 codespace root       4096 Apr  6 09:27 ..
-drwxrwxrwx+ 9 codespace root       4096 Apr 12 15:16 .git
-drwxrwxrwx+ 2 codespace root       4096 Apr 12 12:45 .vscode
--rw-rw-rw-  1 codespace root       2018 Apr 12 11:31 Makefile
--rw-rw-rw-  1 codespace root        221 Apr  6 11:26 README.md
--rw-rw-rw-  1 codespace codespace     0 Apr 12 15:31 blub.c
-drwxrwxrwx+ 2 codespace root       4096 Apr  6 09:27 debug
-drwxrwxrwx+ 2 codespace root       4096 Apr  6 09:27 includes
--rwxrwxrwx  1 codespace codespace 63256 Apr 12 15:30 minishell
-drwxrwxrwx+ 5 codespace root       4096 Apr 12 15:16 srcs
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/minishell",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+        
+
+    ]
+}

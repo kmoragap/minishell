@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void    get_args(int *i, char *input, t_token **tokens, t_data **data)
+void    get_args(int *i, char *input, t_token **tokens, t_data *data)
 {
     int     total_arg_len;
     t_data  *temp;
@@ -22,8 +22,8 @@ void    get_args(int *i, char *input, t_token **tokens, t_data **data)
         create_empty_args(tokens);
         return ;
     }
-    temp = *data;
-    *data = temp;
+    temp = data;
+    data = temp;
     total_arg_len = 0;
     while(input[*i + total_arg_len] && input[*i + total_arg_len] != '|' && input[*i + total_arg_len] != '<' && input[*i + total_arg_len] != '>')
         total_arg_len++;
@@ -55,9 +55,9 @@ void    get_args_num(char *input, int *i, int total_arg_len, t_token **tokens)
     quote = 0;
     j = *i;
     (*tokens)->args_num = 0;
-    while (input[j] && (j - *i) < total_arg_len)
+    while (input[j] && (j - *i) < (total_arg_len - 1))
     {
-        while (input[j] && (j - *i) < total_arg_len)
+        while (input[j] && (j - *i) < (total_arg_len - 1))
         {
             skip_whitespace(&j, input);
             while (quote == 0 && delim_space(input[j]) == 0 && input[j])
