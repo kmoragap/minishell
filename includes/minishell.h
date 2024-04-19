@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:40:52 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/05 17:37:42 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/19 17:49:20 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@
 #include <string.h>
 #include <unistd.h>
 
+typedef enum e_builtin
+{
+    ECHO,
+    CD,
+    PWD,
+    EXPORT,
+    UNSET,
+    ENV,
+    EXIT
+} t_builtin;
+
+
 typedef enum e_type
 {
     NOTHING,
@@ -34,18 +46,19 @@ typedef enum e_type
     REDIR_I, // < (redirect input)
     REDIR_O, // > (redirect output)
     REDIR_A, // >> (append)
-    REDIR_H // << (here-document)
+    REDIR_H  // << (here-document)
 } t_type;
 
 typedef struct s_token
 {
     int id;
-    char *cmd; // "ls"
-    char **args; // -la 
+    char *cmd;   // "ls"
+    char **args; // -la
     int args_num;
-    t_type type; // CMD or FILE or EXPAND
+    int exit_status;
+    t_type type;  // CMD or FILE or EXPAND
     t_type delim; // PIPE or REDIR_I/O/A/H
-    struct s_token *next; 
+    struct s_token *next;
     struct s_token *prev;
 } t_token;
 
@@ -56,7 +69,7 @@ typedef struct s_data
     t_token *tokens; //token list
     int token_num;
     //t_tree *node;    //tree
-    int env_len;     //env len
+    int env_len; //env len
 
 } t_data;
 
@@ -77,11 +90,11 @@ void    add_delim(int *i, char *input,t_token **tokens);
 int     check_whitespaces(char *input, int *i);
 
 // get_cmd.c
-void    get_cmd(int *i, char *input, t_token **tokens); //add t_data **data noch!
-void    check_quote(char c, int *column, int *j);
-int     delim_space(char c);
-int     text_in_quotes(int column, int i, int *j, char *input);
-int     input_cmd(char *input, int *i, int j, t_token **tokens);
+void get_cmd(int *i, char *input, t_token **tokens); //add t_data **data noch!
+void check_quote(char c, int *column, int *j);
+int delim_space(char c);
+int text_in_quotes(int column, int i, int *j, char *input);
+int input_cmd(char *input, int *i, int j, t_token **tokens);
 
 // get_args.c
 void    get_args(int *i, char *input, t_token **tokens, t_data *data);
@@ -93,12 +106,34 @@ void    create_empty_args(t_token **tokens);
 
 // parser.c
 t_data  *parser(t_data *data);
+int check_expand(t_token *move, char **env);
 int     check_empty_cmd(t_token *move);
-int     check_expand(t_token *move);
 int     check_fd(t_token *move);
 int     check_file(t_token *move);
 
-//print.c
+// print.c
 t_data  *print(t_data *data);
+
+// expander.c
+void expand_cmd(t_token *token, char **env);
+void expand_args(t_token *token, char **env);
+char *expand_token(char *token, char **env, int exit_status);
+
+// expander_utils.c
+char *check_special_expand(char *special, int exit_status);
+int check_expand_quotes(const char *str);
+int check_expand_var(char *var);
+int is_valid_variable_char(char c);
+int check_expand_args(char **args);
+
+// builtins_utils.c
+int check_builtins(char *cmd);
+
+// utils
+char	*ft_itoa(int n);
+int	ft_isascii(int c);
+int	ft_isdigit(int c);
+int	ft_isalpha(int c);
+int	ft_isalnum(int c);
 
 #endif // MINISHELL_H

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/04/05 17:35:27 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/19 14:20:00 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void    create_tokens(char *input, t_token **tokens, t_data *data)
     while (input[i])
     {
         (*tokens)->id = id;
+        (*tokens)->exit_status = NOTHING;
         skip_whitespace(&i, input);
         check_special(&i, input, tokens, data);
         skip_whitespace(&i, input);

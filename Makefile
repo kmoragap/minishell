@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/04/05 17:39:09 by codespace        ###   ########.fr        #
+#    Updated: 2024/04/19 14:55:19 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,10 @@ SRC = 	srcs/main.c \
 		srcs/token/get_cmd.c \
 		srcs/token/get_args.c \
 		srcs/parse/parser.c \
-		srcs/print_data/print.c
+		srcs/print_data/print.c \
+		srcs/expansion/expansion.c \
+		srcs/expansion/expansion_utils.c \
+		srcs/utils/utils.c
 
 OBJ = $(SRC:.c=.o)
 CC = gcc
