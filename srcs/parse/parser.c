@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/04/05 17:35:27 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/17 16:28:30 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void    parser(t_data **data)
 
     move = (*data)->tokens;
     start = *((*data)->tokens);
-    printf("start = %d", (*move)->id);
+    printf("start = %d\n", (*move)->id);
     while ((*move)->id < (*data)->token_num)
     {
         if (check_empty_cmd(move) == 1)
             exit(0); //error         
-        else if (check_expand(move) == 1)
+        else if (check_expand(move, (*data)->env) == 1)
             (*move)->type = EXPAND;
         else if (check_fd(move) == 1)
             (*move)->type = FD;
@@ -46,12 +46,19 @@ int     check_empty_cmd(t_token **move)
     return (1);
 }
 
-int     check_expand(t_token **move)
+int check_expand(t_token **move, char **env)
 {
-    if ((*move)->cmd[0] == '$' && (((*move)->cmd[1] >= 'a' && (*move)->cmd[1] <= 'z') || ((*move)->cmd[1] >= 'A' && (*move)->cmd[1] <= 'Z')))
+    if (check_expand_var((*move)->cmd))
+    {
+        expand_cmd(move, env);
         return (1);
-    else if ((*move)->cmd[0] == 34 && (*move)->cmd[1] == '$' && (((*move)->cmd[2] >= 'a' && (*move)->cmd[2] <= 'z') || ((*move)->cmd[2] >= 'A' && (*move)->cmd[2] <= 'Z')))
-        return (1);
+    }
+
+    if((*move)->args_num != 0)
+    {
+       expand_args(move, env);
+       return (1);   
+    }
     return (0);
 }
 

@@ -1,3 +1,6 @@
 {
-    "functionHeaderExtension.headerFilePath": "/Users/krismoraga/Desktop/minishell/minishell.h"
+    "functionHeaderExtension.headerFilePath": "/Users/krismoraga/Desktop/minishell/minishell.h",
+    "files.associations": {
+        "minishell.h": "c"
+    }
 }
