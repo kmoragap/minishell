@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 12:40:52 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/19 17:49:20 by kmoraga          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/04/20 11:05:31 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 #define MINISHELL_H
@@ -22,6 +23,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+
+typedef enum e_builtin
+{
+    ECHO,
+    CD,
+    PWD,
+    EXPORT,
+    UNSET,
+    ENV,
+    EXIT
+} t_builtin;
+
 
 typedef enum e_builtin
 {
@@ -58,7 +71,7 @@ typedef struct s_token
     int exit_status;
     t_type type;  // CMD or FILE or EXPAND
     t_type delim; // PIPE or REDIR_I/O/A/H
-    struct s_token *next;
+    struct s_token *next; 
     struct s_token *prev;
 } t_token;
 
@@ -97,7 +110,7 @@ int text_in_quotes(int column, int i, int *j, char *input);
 int input_cmd(char *input, int *i, int j, t_token **tokens);
 
 // get_args.c
-void    get_args(int *i, char *input, t_token **tokens, t_data *data);
+void    get_args(int *i, char *input, t_token **tokens, t_data **data);
 void    get_args_num(char *input, int *i, int total_arg_len, t_token **tokens);
 int     malloc_args(char *input, int *i, t_token **tokens);
 int     get_arg_len(char *input, int *i);
