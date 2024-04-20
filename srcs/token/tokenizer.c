@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/04/05 17:35:27 by codespace        ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/04/20 11:09:27 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../includes/minishell.h"
 
@@ -33,6 +34,7 @@ void    create_tokens(char *input, t_token **tokens, t_data *data)
     while (input[i])
     {
         (*tokens)->id = id;
+        (*tokens)->exit_status = NOTHING;
         skip_whitespace(&i, input);
         check_special(&i, input, tokens, data);
         skip_whitespace(&i, input);
