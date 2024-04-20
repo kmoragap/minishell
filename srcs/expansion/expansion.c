@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/19 17:57:48 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/20 10:54:39 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ char *expand_token(char *token, char **env, int exit_status)
     var = NULL;
     nested_value = NULL;
 
-    if(check_expand_quotes(token) == 1)
+    /*if(check_expand_quotes(token) == 1)
         return NULL;
 
     value = check_special_expand(token, exit_status);
     if(value != NULL)
-        return value;
+        return value;*/
+
     token++;
-    //funcion que verifica si está o no dentro de comillas
     
     value = getenv(token);
     if (value != NULL) 

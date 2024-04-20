@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 16:34:33 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/19 17:49:27 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/20 10:54:15 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int check_expand_args(char **args)
     }
     return 0;
 }
+
+/*
 
 char *check_special_expand(char *special, int exit_status)
 {
@@ -105,3 +107,4 @@ int check_expand_quotes(const char *str)
     }
     return 0;
 }
+*/

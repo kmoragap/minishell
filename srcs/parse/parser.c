@@ -6,12 +6,11 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/04/19 13:54:41 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/20 10:52:42 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 t_data  *parser(t_data *data)
 {
