@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/20 11:05:31 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/20 11:09:57 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,6 @@ typedef enum e_builtin
     ENV,
     EXIT
 } t_builtin;
-
-
-typedef enum e_builtin
-{
-    ECHO,
-    CD,
-    PWD,
-    EXPORT,
-    UNSET,
-    ENV,
-    EXIT
-} t_builtin;
-
 
 typedef enum e_type
 {
@@ -110,7 +97,7 @@ int text_in_quotes(int column, int i, int *j, char *input);
 int input_cmd(char *input, int *i, int j, t_token **tokens);
 
 // get_args.c
-void    get_args(int *i, char *input, t_token **tokens, t_data **data);
+void    get_args(int *i, char *input, t_token **tokens, t_data *data);
 void    get_args_num(char *input, int *i, int total_arg_len, t_token **tokens);
 int     malloc_args(char *input, int *i, t_token **tokens);
 int     get_arg_len(char *input, int *i);
