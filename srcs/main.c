@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/16 12:14:41 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/25 17:01:29 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int main(int ac, char **av, char **env)
         printf("input: %s\n", data->input);
         tokenizer(data);
         data = parser(data);
+        execute_token(data);
         data = print(data);
         printf("input done\n");
     }

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/20 11:08:33 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/25 13:47:04 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,11 @@ int check_expand(t_token *move, char **env)
 
     if(move->args_num != 0)
     {
-       expand_args(move, env);
-       return (1);   
+        if(check_expand_args(move->args) == 1)
+        {
+            expand_args(move, env);
+            return (1);   
+        }
     }
     return (0);
 }

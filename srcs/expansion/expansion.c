@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/20 11:07:27 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/25 17:04:25 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ char *expand_token(char *token, char **env, int exit_status)
     char *value;
     char *var;
     char *nested_value;
+    char **cpy_env;
     int i;
     
     value = NULL;
     var = NULL;
     nested_value = NULL;
-
+    cpy_env = env;
     /*if(check_expand_quotes(token) == 1)
         return NULL;
 
@@ -31,18 +32,19 @@ char *expand_token(char *token, char **env, int exit_status)
         return value;*/
 
     token++;
-    
+/*
+
     value = getenv(token);
     if (value != NULL) 
         return strdup(value);
-
+*/
     i = 0;
-    while (env[i] != NULL) 
+    while (cpy_env[i] != NULL) 
     {
-        var = strtok(env[i], "=");
+        var = strtok(cpy_env[i], "=");
         value = strtok(NULL, "=");
         if (strcmp(var, token) == 0) {
-            nested_value = expand_token(value, env, exit_status);
+            nested_value = expand_token(value, cpy_env, exit_status);
             if (nested_value != NULL)
                 return strdup(nested_value);
             return strdup(value);
@@ -60,7 +62,6 @@ void expand_cmd(t_token *token, char **env)
 
     if (check_expand_var(token->cmd)) 
     {
-        printf("llegue aqui\n");
         //funcion para alloc mem in expanded variable
         expanded_cmd = expand_token(token->cmd, env, token->exit_status);
         if (expanded_cmd != NULL) 
@@ -83,7 +84,6 @@ void expand_args(t_token *token, char **env)
 
     while(token->args[i] != NULL)
     {
-        printf("llegue aqui\n");
         if(check_expand_args(&token->args[i]) == 1)
         {
             //funcion para alloc mem in expanded variable

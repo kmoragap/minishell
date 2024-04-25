@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/20 11:09:57 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/25 16:55:05 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,12 @@ int check_expand_args(char **args);
 
 // builtins_utils.c
 int check_builtins(char *cmd);
+void execute_builtin(t_data *data);
+int check_builtins_type(char *cmd);
+void execute_export_builtin(t_data *data);
+
+// execution.c
+void execute_token(t_data *data);
 
 // utils
 char	*ft_itoa(int n);

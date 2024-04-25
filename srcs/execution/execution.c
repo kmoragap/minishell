@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:35:50 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/18 15:40:26 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/25 17:31:50 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
  * a la hora de ejecutar los comandos
 */
                                     //data->env
-void execute_token(t_token **token, char **env)
+void execute_token(t_data *data)
 {
     //if is builtin
-    if(check_builtins((*token)->cmd) == 1)
-        execute_builtin((*token)->cmd, (*token)->args, env);
+    if(check_builtins_type(data->tokens->cmd) != -1)
+        execute_builtin(data);
 }

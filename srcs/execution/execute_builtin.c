@@ -6,14 +6,19 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:36:48 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/18 15:39:22 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/25 16:54:43 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 
-void execute_builtin(char *cmd, char **args, char **env)
+void execute_builtin(t_data *data)
 {
+    int type;
+    type = check_builtins_type(data->tokens->cmd);
+    printf("estoy en builtin\n");
+    if(type == EXPORT)
+        execute_export_builtin(data);
     
 }
