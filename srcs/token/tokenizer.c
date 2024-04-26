@@ -11,15 +11,18 @@
 /* ************************************************************************** */
 
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void    tokenizer(t_data *data)
 {
     t_token *tokens;
 
-    tokens = malloc(sizeof(t_token));
+    tokens = calloc(1, sizeof(t_token));
     if (!tokens)
-        exit (0);//error; //error_function to do
+    {
+        malloc_error(data, F_INPUT);
+        return ;
+    }
     data->tokens = tokens;
     create_tokens(data->input, &tokens, data);
 }
@@ -31,33 +34,37 @@ void    create_tokens(char *input, t_token **tokens, t_data *data)
 
     i = 0;
     id = 0;
-    while (input[i])
+    while (input[i] && data->err_code == ER_NO)
     {
         (*tokens)->id = id;
         (*tokens)->exit_status = NOTHING;
         skip_whitespace(&i, input);
         check_special(&i, input, tokens, data);
+        if (data->err_code != ER_NO)
+            break ;
         skip_whitespace(&i, input);
-        get_cmd(&i, input, tokens);
+        get_cmd(&i, input, tokens, data);
+        if (data->err_code != ER_NO)
+            break ;
         skip_whitespace(&i, input);
         get_args(&i, input, tokens, data);
+        if (data->err_code != ER_NO)
+            break ;
         id++;
         (data)->token_num = id; 
-        tokens = next_token(tokens);
-        if (!input[i])
-            break ;
+        tokens = next_token(tokens, data);
     }
 }
 
-t_token **next_token(t_token **tokens)
+t_token **next_token(t_token **tokens, t_data *data)
 {
     t_token *temp;
     
     if ((*tokens)->id == 0)
         (*tokens)->prev = NULL;
-    temp = malloc(sizeof(t_token));
+    temp = calloc(1, sizeof(t_token));
     if (!temp)
-        exit (0); //error_function to do
+        malloc_error(data, F_TOKS);
     (*tokens)->next = temp;
     temp->prev = (*tokens);
     (*tokens) = (*tokens)->next;
