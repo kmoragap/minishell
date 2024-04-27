@@ -13,11 +13,12 @@
 
 #include "minishell.h"
 
-void    tokenizer(t_data *data)
+t_token  *tokenizer(t_data *data)
 {
     if (ft_calloc(data, F_INPUT, (void *)&(data->tokens), sizeof(t_token)) == 1)
-        return ;
+        return (data->tokens);
     create_tokens(data->input, &data->tokens, data);
+    return (data->tokens);
 }
 
 void    create_tokens(char *input, t_token **tokens, t_data *data)
@@ -44,8 +45,9 @@ void    create_tokens(char *input, t_token **tokens, t_data *data)
         if (data->err_code != ER_NO)
             break ;
         id++;
-        (data)->token_num = id; 
-        tokens = next_token(tokens, data);
+        (data)->token_num = id;
+        if (input[i])
+            tokens = next_token(tokens, data);
     }
 }
 

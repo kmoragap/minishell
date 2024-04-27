@@ -70,7 +70,8 @@ int main(int ac, char **av, char **env)
         read_input(&data);
         printf("input: %s\n", data->input);
         if (data->err_code == ER_NO)
-            tokenizer(data);
+            data->tokens = tokenizer(data);
+        free(data->input);
         if (data->err_code == ER_NO)
             data = parser(data);
         if (data->err_code == ER_NO)
