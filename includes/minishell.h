@@ -98,7 +98,7 @@ void read_input(t_data **data);
 t_data *init_data(char **envp);
 
 // tokenizer.c
-void    tokenizer(t_data *data);
+t_token  *tokenizer(t_data *data);
 void    create_tokens(char *input, t_token **tokens, t_data *data);
 t_token **next_token(t_token **tokens, t_data *data);
 void    skip_whitespace(int *i, char *input);
@@ -161,6 +161,7 @@ int	ft_strlen(const char *str);
 void	*ft_calloc_norm(size_t n, size_t size);
 void	ft_bzero(void *str, size_t n);
 int		ft_calloc(t_data *data, t_free code, void **arr, size_t size);
+t_token	*move_to_first_token(t_token *token);
 
 // error.c
 void    input_error(t_data *data, t_free code, char *txt);
