@@ -159,3 +159,9 @@ void	ft_bzero(void *str, size_t n)
 	}
 }
 
+t_token	*move_to_first_token(t_token *token)
+{
+	while (token->prev)
+		token = token->prev;
+	return (token);
+}
