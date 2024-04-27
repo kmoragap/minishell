@@ -166,5 +166,6 @@ void    malloc_error(t_data *data, t_free code);
 // free.c
 void    free_all(t_data *data);
 void    free_toks(t_data *data);
+void    reinit_data(t_data *data);
 
 #endif // MINISHELL_H

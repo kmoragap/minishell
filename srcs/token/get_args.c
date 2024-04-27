@@ -46,11 +46,13 @@ int     get_total_arg_len(char *input, int i)
         if (input[i + len] == 34 || input[i + len] == 39)
         {
             temp = i + len;
+            len++;
             while (input[i + len] != input[temp] && input[i + len])
                 len++;
         }
         if (input[i + len] == '|' || input[i + len] == '<' || input[i + len] == '>')
             break ;
+        len++;
     }
     return (len);
 }
