@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/04/26 16:43:57 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/04/27 14:40:04 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,10 @@ SRC = 	srcs/main.c \
 		srcs/expansion/expansion.c \
 		srcs/expansion/expansion_utils.c \
 		srcs/utils/utils.c \
+		srcs/free/free.c \
+		srcs/error/error.c
+
+INC = includes/ \
 		srcs/utils/utils2.c \
 		srcs/utils/strtok.c \
 		srcs/builtins/builtins_utils.c \
@@ -30,7 +34,7 @@ SRC = 	srcs/main.c \
 
 OBJ = $(SRC:.c=.o)
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -I $(INC)
 LDFLAGS = -lreadline
 
 #Colores
@@ -53,7 +57,7 @@ $(NAME): $(OBJ)
 
 $(OBJ): %.o: %.c
 	@echo "$(YELLOW) Compiling object files $@...$(RESET)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@echo "$(RED) Cleaning object files...(RESET)"

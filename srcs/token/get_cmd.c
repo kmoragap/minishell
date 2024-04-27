@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: creuther <creuther@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
 /*   Updated: 2024/04/05 17:36:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-// t_data **data --> eigentlich rein für error function
+#include "minishell.h"
 
-void    get_cmd(int *i, char *input, t_token **tokens) 
+void    get_cmd(int *i, char *input, t_token **tokens, t_data *data) 
 {
     int     j;
     int     quote; 
@@ -27,15 +26,14 @@ void    get_cmd(int *i, char *input, t_token **tokens)
         if (quote != 0)
         {
             if (text_in_quotes(quote, *i, &j, input) != 0)
-                exit (0); //error
+                input_error(data, F_EMPTOK, "Minishell: syntax error due to unclosed quote\n");
             j += 1;
         }
         if (delim_space(input[*i + j]) != 0)
             break;
     }
-    input_cmd(input, i, j, tokens);
-    if (!(*tokens)->cmd)
-        exit (0); //error
+    if (input_cmd(input, i, j, tokens) != 0)
+        malloc_error(data, F_EMPTOK); 
 }
 
 void    check_quote(char c, int *quote, int *j)
@@ -58,10 +56,6 @@ int    delim_space(char c)
 
 int    text_in_quotes(int quote, int i, int *j, char *input)
 {
-    if (input[i + *j] == 34 && input[i + *j + 1] == '|' && input[i + *j + 2] == 34)
-        return (1); 
-    if (input[i + *j] == 39 && input[i + *j + 1] == '|' && input[i + *j + 2] == 39)
-        return (1);
     *j += 1;
     while (input[i + *j])
     {
@@ -81,7 +75,7 @@ int    input_cmd(char *input, int *i, int j, t_token **tokens)
     int     n;
 
     n = 0;
-    (*tokens)->cmd = malloc(sizeof(char) * (j + 1));
+    (*tokens)->cmd = ft_calloc_norm((j + 1), sizeof(char));
     if (!(*tokens)->cmd)
         return (1);
     while (n < j)

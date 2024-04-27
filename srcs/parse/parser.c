@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_data  *parser(t_data *data)
 {
@@ -19,8 +19,8 @@ t_data  *parser(t_data *data)
         return (data);
     while ((data)->tokens->id < (data)->token_num)
     {
-        if (check_empty_cmd(data->tokens) == 1)
-            exit(0); //error         
+        if (check_empty_cmd(data->tokens, data) == 1)
+            return (data);         
         else if (check_expand(data->tokens, data->env) == 1)
             (data->tokens)->type = EXPAND;
         else if (check_fd(data->tokens) == 1)
@@ -38,10 +38,11 @@ t_data  *parser(t_data *data)
     return (data);
 }
 
-int     check_empty_cmd(t_token *move)
+int     check_empty_cmd(t_token *move, t_data *data)
 {
     if ((move)->cmd && (move)->cmd[0])
         return (0);
+    input_error(data, F_TOKS, "\n");
     return (1);
 }
 
