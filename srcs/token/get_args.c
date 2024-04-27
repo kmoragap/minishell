@@ -59,13 +59,13 @@ int     get_total_arg_len(char *input, int i)
 
 void    create_empty_args(t_token **tokens, t_data *data)
 {
-    (*tokens)->args = calloc(1, sizeof(char *));
+    (*tokens)->args = ft_calloc(1, sizeof(char *));
     if (!(*tokens)->args)
     {
         malloc_error(data, F_TOKCMD);
         return ;
     }
-    (*tokens)->args[0] = calloc(1, sizeof(char));
+    (*tokens)->args[0] = ft_calloc(1, sizeof(char));
     if (!(*tokens)->args[0])
     {
         free((*tokens)->args);
@@ -108,13 +108,13 @@ int     malloc_args(char *input, int *i, t_token **tokens)
     int     len;
 
     arg = 0;
-    (*tokens)->args = calloc(((*tokens)->args_num), sizeof(char *));
+    (*tokens)->args = ft_calloc(((*tokens)->args_num), sizeof(char *));
     if (!(*tokens)->args)
         return (1);
     while (arg < (*tokens)->args_num)
     {
         len = get_arg_len(input, i);
-        (*tokens)->args[arg] = calloc(len + 1, sizeof(char));
+        (*tokens)->args[arg] = ft_calloc(len + 1, sizeof(char));
         if (!(*tokens)->args[arg])
         {
             free((*tokens)->args);

@@ -75,7 +75,7 @@ int    input_cmd(char *input, int *i, int j, t_token **tokens)
     int     n;
 
     n = 0;
-    (*tokens)->cmd = calloc((j + 1), sizeof(char));
+    (*tokens)->cmd = ft_calloc((j + 1), sizeof(char));
     if (!(*tokens)->cmd)
         return (1);
     while (n < j)
