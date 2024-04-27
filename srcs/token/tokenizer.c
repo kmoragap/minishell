@@ -15,16 +15,9 @@
 
 void    tokenizer(t_data *data)
 {
-    t_token *tokens;
-
-    tokens = ft_calloc(1, sizeof(t_token));
-    if (!tokens)
-    {
-        malloc_error(data, F_INPUT);
+    if (ft_calloc(data, F_INPUT, (void *)&(data->tokens), sizeof(t_token)) == 1)
         return ;
-    }
-    data->tokens = tokens;
-    create_tokens(data->input, &tokens, data);
+    create_tokens(data->input, &data->tokens, data);
 }
 
 void    create_tokens(char *input, t_token **tokens, t_data *data)
@@ -62,7 +55,7 @@ t_token **next_token(t_token **tokens, t_data *data)
     
     if ((*tokens)->id == 0)
         (*tokens)->prev = NULL;
-    temp = ft_calloc(1, sizeof(t_token));
+    temp = ft_calloc_norm(1, sizeof(t_token));
     if (!temp)
         malloc_error(data, F_TOKS);
     (*tokens)->next = temp;

@@ -117,3 +117,45 @@ int	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
+
+int		ft_calloc(t_data *data, t_free code, void **arr, size_t size)
+{
+	*arr = ft_calloc_norm(1, size);
+	if (!(*arr))
+	{
+		*arr = NULL;
+		malloc_error(data, code);
+		return (1);
+	}
+	ft_bzero(*arr, size);
+	return (0);
+}
+
+void	*ft_calloc_norm(size_t n, size_t size)
+{
+	size_t	i;
+	void	*arr;
+
+	i = n * size;
+	arr = (void *) malloc (i);
+	if (arr == NULL)
+		return (NULL);
+	ft_bzero(arr, i);
+	return (arr);
+}
+
+void	ft_bzero(void *str, size_t n)
+{
+	unsigned char	*c;
+	size_t			i;
+
+	c = str;
+	i = 0;
+	while (i < n)
+	{
+		*c = '\0';
+		i++;
+		c++;
+	}
+}
+

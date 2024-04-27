@@ -158,6 +158,9 @@ int	ft_isalnum(int c);
 char	*ft_strdup(const char *src);
 char	*ft_strcpy(char *src, char *dest);
 int	ft_strlen(const char *str);
+void	*ft_calloc_norm(size_t n, size_t size);
+void	ft_bzero(void *str, size_t n);
+int		ft_calloc(t_data *data, t_free code, void **arr, size_t size);
 
 // error.c
 void    input_error(t_data *data, t_free code, char *txt);
