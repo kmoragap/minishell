@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 14:35:50 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/27 12:06:31 by kmoraga          ###   ########.fr       */
+/*   Created: 2024/04/26 15:04:40 by kmoraga           #+#    #+#             */
+/*   Updated: 2024/04/27 13:36:49 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/**
- * tratar de hacer una funcion de estados para saber en que estado estoy ejecutando
- * a la hora de ejecutar los comandos
-*/
-                                    //data->env
-void execute_token(t_data *data)
+int ft_strcmp(char *s1, char *s2)
 {
-    //if is builtin
-    if(check_builtins_type(data->tokens->cmd) != -1)
-        execute_builtin(data);
+	int i = 0;
+	
+	while(s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
 }

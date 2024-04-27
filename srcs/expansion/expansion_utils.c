@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 16:34:33 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/20 11:07:11 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/27 11:28:53 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int check_expand_args(char **args)
     while (args[i] != NULL) {
         j = 0;
         while (args[i][j] != '\0') {
-            if (args[i][j] == '$' && args[i][j + 1] != '\0' && args[i][j + 1] != ' ') {
+            if (args[i][j] == '$' && args[i][j + 1] != '\0' && args[i][j + 1] != ' ') 
+            {
                 k = j + 1;
                 while (is_valid_variable_char(args[i][k])) {
                     k++;

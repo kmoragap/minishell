@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/04/25 12:02:00 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/04/26 16:43:57 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ SRC = 	srcs/main.c \
 		srcs/expansion/expansion.c \
 		srcs/expansion/expansion_utils.c \
 		srcs/utils/utils.c \
+		srcs/utils/utils2.c \
+		srcs/utils/strtok.c \
 		srcs/builtins/builtins_utils.c \
 		srcs/builtins/export.c \
 		srcs/execution/execution.c \

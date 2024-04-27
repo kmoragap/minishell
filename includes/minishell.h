@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/25 16:55:05 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/27 11:41:04 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,15 +131,19 @@ int check_builtins(char *cmd);
 void execute_builtin(t_data *data);
 int check_builtins_type(char *cmd);
 void execute_export_builtin(t_data *data);
+char *ft_strtok(char *str, const char *delim);
 
 // execution.c
 void execute_token(t_data *data);
 
 // utils
+char	*ft_strchr_before_c(const char *s, int c);
+char	*ft_strchr(const char *s, int c);
 char	*ft_itoa(int n);
 int	ft_isascii(int c);
 int	ft_isdigit(int c);
 int	ft_isalpha(int c);
 int	ft_isalnum(int c);
+int ft_strcmp(char *s1, char *s2);
 
 #endif // MINISHELL_H
