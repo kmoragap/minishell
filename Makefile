@@ -20,11 +20,15 @@ SRC = 	srcs/main.c \
 		srcs/print_data/print.c \
 		srcs/expansion/expansion.c \
 		srcs/expansion/expansion_utils.c \
-		srcs/utils/utils.c
+		srcs/utils/utils.c \
+		srcs/free/free.c \
+		srcs/error/error.c
+
+INC = includes/
 
 OBJ = $(SRC:.c=.o)
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -I $(INC)
 LDFLAGS = -lreadline
 
 #Colores
@@ -47,7 +51,7 @@ $(NAME): $(OBJ)
 
 $(OBJ): %.o: %.c
 	@echo "$(YELLOW) Compiling object files $@...$(RESET)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@echo "$(RED) Cleaning object files...(RESET)"
