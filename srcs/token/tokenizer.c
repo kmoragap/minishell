@@ -18,6 +18,7 @@ t_token  *tokenizer(t_data *data)
     if (ft_calloc(data, F_INPUT, (void *)&(data->tokens), sizeof(t_token)) == 1)
         return (data->tokens);
     create_tokens(data->input, &data->tokens, data);
+    data->tokens = move_to_first_token(data->tokens);
     return (data->tokens);
 }
 
