@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:35:50 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/27 12:06:31 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/27 17:27:44 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
  * tratar de hacer una funcion de estados para saber en que estado estoy ejecutando
  * a la hora de ejecutar los comandos
 */
-                                    //data->env
 void execute_token(t_data *data)
 {
     //if is builtin
-    if(check_builtins_type(data->tokens->cmd) != -1)
+    if(check_builtins(data->tokens->cmd) != -1)
         execute_builtin(data);
 }

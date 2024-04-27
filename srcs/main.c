@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/27 14:38:35 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/27 17:41:56 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ t_data *init_data(char **envp)
     int i;
     int j;
 
-    re = malloc(sizeof(t_data));
+    re = ft_calloc_norm(1, sizeof(t_data));
     if (!re)
-        return (NULL);
+        return NULL;
     re->env_len = 0;
     re->input = NULL;
     i = 0;
     while(envp[i])
         i++;
-    re->env = malloc(sizeof(char *) * (i + 2));
+    re->env = ft_calloc_norm((i + 2), sizeof(char *));
     if (!re->env)
     {
         free(re);
@@ -38,7 +38,7 @@ t_data *init_data(char **envp)
         re->env[j] = ft_strdup(envp[j]); // create a utils that contain this func
         j++;
     }
-    re->env[j] = ft_strdup(" "); // cadena vacia para el prompt 
+    re->env[j] = ft_strdup(" "); // cadena vacia para crear el export
     re->env[j + 2] = NULL; // caracter nulo al final
     re->env_len = i + 2;
     re->err_code = ER_NO;

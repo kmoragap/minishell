@@ -6,11 +6,11 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/27 12:21:10 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/27 17:34:57 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 /**
  * TODO:
@@ -36,7 +36,7 @@ static int check_env(t_data *data)
         if(var != NULL && ft_strcmp(var, env_cpy[i]) == 0)
         {
             free(data->env[i]);
-            data->env[i] = strdup(arg);
+            data->env[i] = ft_strdup(arg);
             printf("ARG: %s\n", data->env[i]);
             return 1;
         }
@@ -49,7 +49,7 @@ void execute_export_builtin(t_data *data)
     //check if the variable already exist or not, if exist: have to replace the value with the current value
     //if doesnt exist: have to create a new variable name and set the value to this variable
 
-    if(!check_env(data))
+    if(check_env(data) == 0)
         printf("creando nueva variable\n");
         //create_env_var(data);
 }

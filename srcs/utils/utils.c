@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:34:26 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/19 17:48:58 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/27 16:42:14 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_itoa(int n)
 
 	len = f_len(n);
 	num = n;
-	s = (char *)malloc((sizeof(char) * len) + 1);
+	s = malloc((sizeof(char ) * len) + 1 );
 	if (s == NULL)
 		return (NULL);
 	s[len] = '\0';

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/27 12:11:14 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/27 16:23:16 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ char *expand_token(char *token, char **env, int exit_status)
         {
             nested_value = expand_token(value, env, exit_status);
             if (nested_value != NULL)
-                return strdup(nested_value);
-            return strdup(value);
+                return ft_strdup(nested_value);
+            return ft_strdup(value);
         }
         else
             i++;
@@ -92,6 +92,7 @@ void expand_args(t_token *token, char **env)
             {
                 free(token->args[i]); 
                 token->args[i] = expanded_arg;
+                printf("token cambiado: %s\n", token->args[i]); 
             }
             else
                 printf("Error\n"); 

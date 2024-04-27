@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 16:34:33 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/27 11:28:53 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/04/27 17:30:56 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char *check_special_expand(char *special, int exit_status)
         {
             exit_status_str = ft_itoa(exit_status);
             rest_of_special = special + 2;
-            result = malloc(strlen(exit_status_str) + strlen(rest_of_special) + 1);
+            result = malloc(ft_strlen(exit_status_str) + strlen(rest_of_special) + 1);
             strcpy(result, exit_status_str);
             strcat(result, rest_of_special);
             free(exit_status_str);
@@ -82,7 +82,7 @@ char *check_special_expand(char *special, int exit_status)
             return ft_itoa(exit_status);
     }
     else if(special[0] == '$' && ft_isascii(special[1]))
-        return strdup("");
+        return ft_strdup("");
     else
         return NULL;
 }
@@ -93,7 +93,7 @@ int check_expand_quotes(const char *str)
     int len;
     int i;
     
-    len = strlen(str);
+    len = ft_strlen(str);
     i = 1;
     
     if (len < 4) // Minimum length to contain "$()"

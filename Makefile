@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/04/27 14:40:58 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/04/27 14:44:40 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC = 	srcs/main.c \
 		srcs/expansion/expansion.c \
 		srcs/expansion/expansion_utils.c \
 		srcs/free/free.c \
-		srcs/error/error.c
+		srcs/error/error.c \
 		srcs/utils/utils.c \
 		srcs/utils/utils2.c \
 		srcs/utils/strtok.c \
@@ -30,7 +30,7 @@ SRC = 	srcs/main.c \
 		srcs/execution/execution.c \
 		srcs/execution/execute_builtin.c \
 
-INC = includes/ \
+INC = includes/ 
 
 
 OBJ = $(SRC:.c=.o)
