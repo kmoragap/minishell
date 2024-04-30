@@ -20,8 +20,8 @@ void    free_all(t_data *data)
         free(data->tokens->cmd);
     if (data->free_code >= F_EMPTOK || data->free_code == NO_FREE) 
         free(data->tokens);
-    //if (data->free_code >= F_INPUT || data->free_code == NO_FREE)
-    //    free(data->input);
+    if (data->free_code >= F_INPUT || data->free_code == NO_FREE)
+        free(data->input);
     reinit_data(data);
 }
 // finishhhhhhhhhh! --> free toks isn't done yet! and add a new initializer for the data 
