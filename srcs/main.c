@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/27 17:41:56 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/01 16:37:41 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,18 @@ t_data *init_data(char **envp)
     int i;
     int j;
 
-    re = ft_calloc_norm(1, sizeof(t_data));
-    if (!re)
+    re = NULL;
+    if(ft_calloc(re, ER_SHUTDOWN, (void *)&re, sizeof(t_data)) == 1)
         return NULL;
     re->env_len = 0;
     re->input = NULL;
     i = 0;
     while(envp[i])
         i++;
-    re->env = ft_calloc_norm((i + 2), sizeof(char *));
-    if (!re->env)
+    if(ft_calloc(re, ER_SHUTDOWN, (void *)&re->env, (sizeof(char *) * (i + 2))) == 1)
     {
         free(re);
-        return (NULL);
+        return NULL;
     }
     j = 0;
     while(j < i)
@@ -38,11 +37,13 @@ t_data *init_data(char **envp)
         re->env[j] = ft_strdup(envp[j]); // create a utils that contain this func
         j++;
     }
-    re->env[j] = ft_strdup(" "); // cadena vacia para crear el export
-    re->env[j + 2] = NULL; // caracter nulo al final
-    re->env_len = i + 2;
+    re->env[j + 1] = NULL; // caracter nulo al final
+    re->env_len = i + 1;
     re->err_code = ER_NO;
     re->free_code = NO_FREE;
+
+    for(int s = 0; s < (re->env_len + 1); s++)
+        printf("env: %s\n", re->env[s++]);
     return re;   
 }
 
@@ -71,12 +72,15 @@ int main(int ac, char **av, char **env)
         printf("input: %s\n", data->input);
         if (data->err_code == ER_NO)
             data->tokens = tokenizer(data);
-        free(data->input);
         if (data->err_code == ER_NO)
             data = parser(data);
+        if(data->err_code == ER_NO)
+            execute_token(data);
         if (data->err_code == ER_NO)
             data = print(data);
         printf("input done\n");
         free_all(data);
+        for(int s = 0; s < (data->env_len); s++)
+            printf("env: %s\n", data->env[s++]);
     }
 }

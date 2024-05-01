@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/27 16:23:16 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/01 12:19:49 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@ char *expand_token(char *token, char **env, int exit_status)
     char *value;
     char *var;
     char *nested_value;
-    char **cpy_env;
     int i;
     value = NULL;
     var = NULL;
     nested_value = NULL;
-    cpy_env = env;
     /*if(check_expand_quotes(token) == 1)
         return NULL;
 
@@ -37,20 +35,21 @@ char *expand_token(char *token, char **env, int exit_status)
         return strdup(value);
 */
     i = 0;
-    while (cpy_env[i] != NULL) 
+    while (env[i] != NULL) 
     {
-        var = ft_strchr_before_c(cpy_env[i], 61);
-        value = ft_strchr(cpy_env[i], 61);
+        var = ft_strchr_before_c(env[i], 61);
+        value = ft_strchr(env[i], 61);
         if (ft_strcmp(var, token) == 0) 
         {
-            nested_value = expand_token(value, env, exit_status);
-            if (nested_value != NULL)
+            if(value[0] == 36)
+                nested_value = expand_token(value, env, exit_status);
+            else if (nested_value != NULL)
                 return ft_strdup(nested_value);
             return ft_strdup(value);
         }
-        else
-            i++;
+        i++;
     }
+
     return NULL;
 }
 

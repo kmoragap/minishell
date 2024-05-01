@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/04/27 14:44:40 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/05/01 15:54:03 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,6 @@ fclean:
 	@echo "$(GREEN) Object files cleaned.$(RESET)"
 	@echo "$(RED) Cleaning executable...$(RESET)"
 	@rm -f $(NAME)
-	@echo "$(GREEN) Executable cleaned.$(RESET)"	
-
+	@echo "$(GREEN) Executable cleaned.$(RESET)"
 
 re: fclean all

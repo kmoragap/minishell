@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:36:48 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/27 17:26:21 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/01 15:43:26 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ void execute_builtin(t_data *data)
     printf("estoy en builtin\n");
     if(type == EXPORT)
         execute_export_builtin(data);
-    
+
 }

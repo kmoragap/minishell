@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/27 17:34:57 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/01 16:49:17 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,53 @@
 */
 
 
-static int check_env(t_data *data)
+/**
+ * asignar memoria a una variable
+ * anadir esta variable al array de la lista
+*/
+
+
+
+static void create_env_var(t_data *data)
 {
+  int env_len;
+  static int i; 
+  char **env;
+
+  env = data->env;
+  env_len = data->env_len;
+  i = i + 1;
+  
+  
+  free(env[env_len - i]);
+  env[env_len - i] = ft_strdup(data->tokens->args[0]);
+  env[env_len + i] = NULL;
+
+  data->env = env;
+  data->env_len = env_len + 2;
+}
+
+
+static int check_env(t_data *data)
+    {
     int i;
     char *arg;
     char *var;
     char **env_cpy;
+
+    arg = NULL;
+    var = NULL;
+    env_cpy = NULL;
     i = 0;
     env_cpy = data->env;
-    arg = data->tokens->args[0];
+    arg = ft_strchr_before_c(data->tokens->args[0], 61);
     while(env_cpy[i] != NULL)
     {
-        var = ft_strtok(env_cpy[i], "=");
-        if(var != NULL && ft_strcmp(var, env_cpy[i]) == 0)
+        var = ft_strchr_before_c(env_cpy[i], 61);
+        if(var != NULL && ft_strcmp(var, arg) == 0)
         {
             free(data->env[i]);
             data->env[i] = ft_strdup(arg);
-            printf("ARG: %s\n", data->env[i]);
             return 1;
         }
         i++;
@@ -50,6 +80,7 @@ void execute_export_builtin(t_data *data)
     //if doesnt exist: have to create a new variable name and set the value to this variable
 
     if(check_env(data) == 0)
-        printf("creando nueva variable\n");
-        //create_env_var(data);
+        create_env_var(data);
+      
+    
 }
