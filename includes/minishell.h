@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/27 17:41:54 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/04 10:39:47 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ char *ft_strtok(char *str, const char *delim);
 void execute_token(t_data *data);
 
 // utils
+int is_valid_expand_var(char *str, int c);
 char	*ft_strchr_before_c(const char *s, int c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_itoa(int n);

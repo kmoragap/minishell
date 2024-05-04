@@ -6,11 +6,12 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/01 12:19:49 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/03 12:40:44 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 char *expand_token(char *token, char **env, int exit_status) 
 {
@@ -28,9 +29,9 @@ char *expand_token(char *token, char **env, int exit_status)
     if(value != NULL)
         return value;*/
 
-    token++;
-/*
-    value = getenv(token);
+   token++;
+
+    /*value = getenv(token);
     if (value != NULL) 
         return strdup(value);
 */
@@ -52,6 +53,7 @@ char *expand_token(char *token, char **env, int exit_status)
 
     return NULL;
 }
+
 
 
 void expand_cmd(t_token *token, char **env) 

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/01 16:49:17 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/04 12:01:35 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,70 +17,91 @@
  * -Iterate the env
  * -Create a new env variable at the start of the env
  * -Update the env
- * 
+ * -Debe no funcionar cuando no hay export o eso es lo q creo (??????)
+ * -No 
 */
+
 
 
 /**
- * asignar memoria a una variable
- * anadir esta variable al array de la lista
+ * cambiar por una lista que se va reemplazando por el arg,
+ * No reinventar la rueda
 */
 
 
 
-static void create_env_var(t_data *data)
+static void create_env_var(t_data *data, int arg_num)
 {
   int env_len;
-  static int i; 
   char **env;
 
   env = data->env;
   env_len = data->env_len;
-  i = i + 1;
   
   
-  free(env[env_len - i]);
-  env[env_len - i] = ft_strdup(data->tokens->args[0]);
-  env[env_len + i] = NULL;
-
+  env[env_len - 1] = ft_strdup(data->tokens->args[arg_num]);
+  env[env_len + 1] = NULL;
+  
   data->env = env;
-  data->env_len = env_len + 2;
+  data->env_len = env_len + 1;
 }
 
+static int replace_var_env(t_data *data, char *arg)
+{
 
-static int check_env(t_data *data)
-    {
-    int i;
-    char *arg;
+    char *ar;
+
+    ar = ft_strchr_before_c(arg, 61);
+    if(!arg)
+        return 0;
+
     char *var;
     char **env_cpy;
+    int i;
 
-    arg = NULL;
     var = NULL;
     env_cpy = NULL;
     i = 0;
     env_cpy = data->env;
-    arg = ft_strchr_before_c(data->tokens->args[0], 61);
     while(env_cpy[i] != NULL)
     {
         var = ft_strchr_before_c(env_cpy[i], 61);
-        if(var != NULL && ft_strcmp(var, arg) == 0)
+        if(var != NULL && ft_strcmp(var, ar) == 0)
         {
             free(data->env[i]);
             data->env[i] = ft_strdup(arg);
             return 1;
         }
         i++;
+        free(var);
     }
     return 0;
 }
+
+
+
 void execute_export_builtin(t_data *data)
 {
     //check if the variable already exist or not, if exist: have to replace the value with the current value
     //if doesnt exist: have to create a new variable name and set the value to this variable
+    //check if every arg has a = and only create a new variable if that arg has a = between to valid chars
+    int i;
+    char **args;
+    char *var;
 
-    if(check_env(data) == 0)
-        create_env_var(data);
-      
+    var = NULL;
+    args = data->tokens->args;
+    i = 0;
     
+    while(i < data->tokens->args_num)
+    {
+        var = ft_strchr_before_c(args[i], 61);
+        if(var != NULL)
+            if(replace_var_env(data, args[i]) == 0)
+                if(is_valid_expand_var(args[i], 61) == 1)
+                    create_env_var(data, i);
+        i++;
+    }
+    free(args);
+    free(var);
 }

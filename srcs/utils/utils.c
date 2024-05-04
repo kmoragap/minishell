@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:34:26 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/27 16:42:14 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/04 10:39:57 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,4 +164,19 @@ t_token	*move_to_first_token(t_token *token)
 	while (token->prev)
 		token = token->prev;
 	return (token);
+}
+
+int is_valid_expand_var(char *str, int c)
+{
+	int i;
+
+	i = 0;
+
+	while(str[i])
+	{
+		if(str[i] == c)
+			return 1;
+		i++;
+	}
+	return 0;
 }
