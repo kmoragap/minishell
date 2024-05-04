@@ -73,11 +73,18 @@ typedef struct s_token
     char **args; // -la
     int args_num;
     int exit_status;
+    char    *path;
     t_type type;  // CMD or FILE or EXPAND
     t_type delim; // PIPE or REDIR_I/O/A/H
     struct s_token *next; 
     struct s_token *prev;
 } t_token;
+
+typedef struct s_child
+{
+    int cnt_childn;
+    int *pids;
+}               t_child;
 
 typedef struct s_data
 {
@@ -87,9 +94,9 @@ typedef struct s_data
     t_error err_code;   // error code 
     t_free  free_code;  // code which says how much we got to free
     t_token *tokens;    // token list
+    t_child *childn;
     int token_num;      // number of tokens
     //t_tree *node;     // tree
-
 } t_data;
 
 // main.c
@@ -162,6 +169,7 @@ void	*ft_calloc_norm(size_t n, size_t size);
 void	ft_bzero(void *str, size_t n);
 int		ft_calloc(t_data *data, t_free code, void **arr, size_t size);
 t_token	*move_to_first_token(t_token *token);
+int	ft_strchr(const char *str, int c);
 
 // error.c
 void    input_error(t_data *data, t_free code, char *txt);

@@ -165,3 +165,18 @@ t_token	*move_to_first_token(t_token *token)
 		token = token->prev;
 	return (token);
 }
+
+int	ft_strchr(const char *str, int c)
+{
+	while (c > 127)
+		c = c - 128;
+	while (*str)
+	{
+		if (c == *str)
+			return (0);
+		str++;
+	}
+	if (c == '\0')
+		return (1);
+	return (1);
+}

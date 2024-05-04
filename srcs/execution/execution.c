@@ -17,9 +17,13 @@
  * a la hora de ejecutar los comandos
 */
                                     //data->env
-void execute_token(t_token **token, char **env)
+t_data  *execute_token(t_data *data)
 {
+    //pipe & redirect everthing 
+    create_children(data);
     //if is builtin
-    if(check_builtins((*token)->cmd) == 1)
-        execute_builtin((*token)->cmd, (*token)->args, env);
+    if(check_builtins(data->tokens->cmd) == 1)
+        execute_builtin(data->tokens->cmd, data->tokens->args, data->env);
+    //else
+        //execute_nb(data);
 }

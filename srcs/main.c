@@ -43,6 +43,7 @@ t_data *init_data(char **envp)
     re->env_len = i + 2;
     re->err_code = ER_NO;
     re->free_code = NO_FREE;
+    re->childn = ft_calloc_norm(1, sizeof(t_child));
     return re;   
 }
 
@@ -73,6 +74,8 @@ int main(int ac, char **av, char **env)
             data->tokens = tokenizer(data);
         if (data->err_code == ER_NO)
             data = parser(data);
+        if (data->err_code == ER_NO)
+           data = execute_token(data);
         if (data->err_code == ER_NO)
             data = print(data);
         printf("input done\n");
