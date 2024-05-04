@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/03 12:40:44 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/04 15:41:12 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void expand_args(t_token *token, char **env)
             {
                 free(token->args[i]); 
                 token->args[i] = expanded_arg;
-                printf("token cambiado: %s\n", token->args[i]); 
             }
             else
                 printf("Error\n"); 

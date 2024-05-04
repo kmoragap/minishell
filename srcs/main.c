@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/04 13:00:31 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/04 15:40:36 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ t_data *init_data(char **envp)
         re->env[j] = ft_strdup(envp[j]); // create a utils that contain this func
         j++;
     }
-    re->env[j + 1] = NULL; // caracter nulo al final
-    re->env_len = i + 1;
+    re->env_len = i;
     re->err_code = ER_NO;
     re->free_code = NO_FREE;
 
-    for(int s = 0; s < (re->env_len + 1); s++)
-        printf("env: %s\n", re->env[s++]);
+
     return re;   
 }
 
@@ -76,13 +74,9 @@ int main(int ac, char **av, char **env)
             data = parser(data);
         if(data->err_code == ER_NO)
             execute_token(data);
-        printf("env_len: %d\n", data->env_len);
-        if (data->err_code == ER_NO)
-            data = print(data);
+//        if (data->err_code == ER_NO)
+//            data = print(data);
         printf("input done\n");
         free_all(data);
-        for(int s = 0; s < data->env_len; s++)
-            printf("env: %s\n", data->env[s++]);
-        printf("env_len: %d\n", data->env_len);
     }
 }

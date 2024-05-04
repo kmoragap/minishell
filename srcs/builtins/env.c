@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/27 17:34:11 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/04 15:38:14 by kmoraga          ###   ########.fr       */
+/*   Created: 2024/05/04 15:19:13 by kmoraga           #+#    #+#             */
+/*   Updated: 2024/05/04 15:21:51 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void get_pwd(void)
+void put_env(t_data *data)
 {
-    char *pwd;
+    int i;
 
-    pwd = getcwd(NULL, 0);
-    if(!pwd)
-        printf("error\n");
-    else
-        printf("%s\n", pwd);
+    i = 0;
+
+    while(i < data->env_len)
+    {
+        //aqui debe mandar algo al stdo
+        printf("%s\n", data->env[i]);
+        i++;
+    }
+    
 }

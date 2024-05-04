@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/04 12:01:35 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/04 15:18:45 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,23 @@
 
 static void create_env_var(t_data *data, int arg_num)
 {
-  int env_len;
   char **env;
+  int i;
+  env = malloc(sizeof(char *) * (data->env_len + 2));
 
-  env = data->env;
-  env_len = data->env_len;
+  i = 0;
+
+  while(i < data->env_len)
+  {
+    env[i] = data->env[i];
+    i++;
+  }
+
   
-  
-  env[env_len - 1] = ft_strdup(data->tokens->args[arg_num]);
-  env[env_len + 1] = NULL;
-  
+  env[i] = ft_strdup(data->tokens->args[arg_num]);
+
   data->env = env;
-  data->env_len = env_len + 1;
+  data->env_len = i + 1;
 }
 
 static int replace_var_env(t_data *data, char *arg)
@@ -70,6 +75,7 @@ static int replace_var_env(t_data *data, char *arg)
         {
             free(data->env[i]);
             data->env[i] = ft_strdup(arg);
+            free(var);
             return 1;
         }
         i++;
