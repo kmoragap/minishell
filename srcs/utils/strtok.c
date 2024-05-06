@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:41:49 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/27 12:22:02 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/06 17:21:11 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ static char	*ft_strncpy(char *dest, const char *src, size_t n)
 
 char	*ft_strchr_before_c(const char *s, int c)
 {
-    int i = 0;
+    char *result;
+    int i;
+
+    i = 0;
     while (s[i] != '\0')
     {
         if (s[i] == c)
@@ -40,7 +43,7 @@ char	*ft_strchr_before_c(const char *s, int c)
         i++;
     }
 
-    char *result = (char *)malloc(i + 1);
+    result = (char *)ft_calloc_norm(1, i + 1);
     if (result == NULL)
         return NULL;
 

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:34:26 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/04 10:39:57 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/06 18:18:13 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_itoa(int n)
 
 	len = f_len(n);
 	num = n;
-	s = malloc((sizeof(char ) * len) + 1 );
+	s = (char *)ft_calloc_norm(1, (sizeof(char) * len) + 1);
 	if (s == NULL)
 		return (NULL);
 	s[len] = '\0';
@@ -87,7 +87,7 @@ char	*ft_strdup(const char *src)
 {
 	char	*dest;
 
-	dest = (char *)malloc(ft_strlen((char *)src) + 1);
+	dest = (char *)ft_calloc_norm(1, ft_strlen((char *)src) + 1);
 	if (!dest)
 		return (NULL);
 	dest = ft_strcpy((char *)src, dest);

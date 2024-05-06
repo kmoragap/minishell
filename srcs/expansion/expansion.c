@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/04 15:41:12 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/06 18:22:54 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void expand_args(t_token *token, char **env)
     {
         if(check_expand_args(&token->args[i]) == 1)
         {
-            //funcion para alloc mem in expanded variable
             expanded_arg = expand_token(token->args[i], env, token->exit_status);
             if (expanded_arg != NULL) 
             {
