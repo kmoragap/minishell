@@ -1,30 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_builtin.c                                  :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 15:36:48 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/07 16:12:46 by kmoraga          ###   ########.fr       */
+/*   Created: 2024/05/07 16:48:53 by kmoraga           #+#    #+#             */
+/*   Updated: 2024/05/08 17:38:37 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
-void execute_builtin(t_data *data)
-{
-    int type;
-    type = check_builtins(data->tokens->cmd);
-    if(type == EXPORT)
-        execute_export_builtin(data);
-    if(type == ENV)
-        put_env(data);
-    if(type == PWD)
-        get_pwd();
-    if(type == UNSET)
-        ft_unset(data);
-    if(type == ECHO)
-        ft_echo(data);
-}

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/04 16:35:51 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/07 16:12:59 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,9 @@ void unset_env(t_data *data, int arg_num);
 
 // execution.c
 void execute_token(t_data *data);
+
+// echo.c
+void ft_echo(t_data *data);
 
 // utils
 int is_valid_expand_var(char *str, int c);

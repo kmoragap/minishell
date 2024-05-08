@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/06 18:11:47 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/07 15:44:58 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static void create_env_var(t_data *data, int arg_num)
 
   
   env[i] = ft_strdup(data->tokens->args[arg_num]);
-
+  if(env[i] == NULL)
+    return ;
   data->env = env;
   data->env_len = i + 1;
 }

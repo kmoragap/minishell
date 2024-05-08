@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/06 18:22:54 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/08 16:16:17 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char *expand_token(char *token, char **env, int exit_status)
     value = NULL;
     var = NULL;
     nested_value = NULL;
+    
     /*if(check_expand_quotes(token) == 1)
         return NULL;
 
@@ -31,21 +32,19 @@ char *expand_token(char *token, char **env, int exit_status)
 
    token++;
 
-    /*value = getenv(token);
-    if (value != NULL) 
-        return strdup(value);
-*/
     i = 0;
     while (env[i] != NULL) 
     {
-        var = ft_strchr_before_c(env[i], 61);
-        value = ft_strchr(env[i], 61);
+        var = ft_strchr_before_c(env[i], '=');
+        value = ft_strchr(env[i], '=');
         if (ft_strcmp(var, token) == 0) 
         {
-            if(value[0] == 36)
+            if(value[0] == '$')
+            {
                 nested_value = expand_token(value, env, exit_status);
-            else if (nested_value != NULL)
-                return ft_strdup(nested_value);
+                if (nested_value != NULL)
+                    return ft_strdup(nested_value);   
+            }
             return ft_strdup(value);
         }
         i++;
@@ -94,10 +93,10 @@ void expand_args(t_token *token, char **env)
                 token->args[i] = expanded_arg;
             }
             else
-                printf("Error\n"); 
+                printf("Error acá\n"); 
         }
         else
-            printf("Error\n");        
+            printf("Error aca\n");        
         i++;
     }    
 }
