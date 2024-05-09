@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/07 16:12:59 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/09 08:32:22 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,12 @@ int check_expand_args(char **args);
 int check_builtins(char *cmd);
 void execute_builtin(t_data *data);
 int check_builtins_type(char *cmd);
-void execute_export_builtin(t_data *data);
 char *ft_strtok(char *str, const char *delim);
+
+
+// export.c 
+void execute_export_builtin(t_data *data);
+int replace_var_env(t_data *data, char *arg);
 
 //env
 void put_env(t_data *data);

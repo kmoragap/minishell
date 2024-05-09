@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/07 15:44:58 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/09 09:10:43 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void create_env_var(t_data *data, int arg_num)
   data->env_len = i + 1;
 }
 
-static int replace_var_env(t_data *data, char *arg)
+int replace_var_env(t_data *data, char *arg)
 {
 
     char *ar;
@@ -89,9 +89,6 @@ static int replace_var_env(t_data *data, char *arg)
 
 void execute_export_builtin(t_data *data)
 {
-    //check if the variable already exist or not, if exist: have to replace the value with the current value
-    //if doesnt exist: have to create a new variable name and set the value to this variable
-    //check if every arg has a = and only create a new variable if that arg has a = between to valid chars
     int i;
     char **args;
     char *var;

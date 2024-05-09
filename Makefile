@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/05/07 16:13:10 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/05/09 09:06:09 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,14 +25,13 @@ SRC = 	srcs/main.c \
 		srcs/utils/utils.c \
 		srcs/utils/utils2.c \
 		srcs/utils/strtok.c \
-		srcs/builtins/builtins_utils.c \
 		srcs/builtins/export.c \
+		srcs/builtins/builtins_utils.c \
 		srcs/builtins/env.c \
 		srcs/builtins/unset.c \
 		srcs/builtins/pwd.c \
 		srcs/builtins/echo.c \
 		srcs/execution/execution.c \
-		srcs/execution/execute_builtin.c \
 
 INC = includes/ 
 
