@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_cmd.c                                          :+:      :+:    :+:   */
+/*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: creuther <creuther@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/04/05 17:36:56 by creuther         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:49:19 by creuther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,12 @@ void    create_children(t_data *data)
 
     child_id = 0;
     data->childn->cnt_childn = count_pipes(data);
-    data->childn->pids = ft_calloc_norm(data->childn->cnt_childn, sizeof(int));
+    data->childn->pids = ft_calloc_norm(data->childn->cnt_childn, sizeof(pid_t));
     while (child_id < data->childn->cnt_childn)
     {
         data->childn->pids[child_id] = fork();
         if (data->childn->pids[child_id] == 0 || data->childn->pids[child_id] == -1)
-        {
             child_routine(data, child_id); //have to check if pid == -1 and return if so
-            break;
-        }
         child_id++;
     }
     parent_wait(data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/20 11:09:57 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/09 21:01:41 by creuther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <readline/readline.h> //readline
 #include <signal.h>            //signal
 #include <stdio.h>             //printf
+#include <sys/types.h>         //fork
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -83,7 +84,7 @@ typedef struct s_token
 typedef struct s_child
 {
     int cnt_childn;
-    int *pids;
+    pid_t *pids;
 }               t_child;
 
 typedef struct s_data
@@ -155,6 +156,26 @@ int check_expand_args(char **args);
 
 // builtins_utils.c
 int check_builtins(char *cmd);
+
+//execution
+//execution.c
+t_data  *execute_token(t_data *data);
+
+//children.c
+void    create_children(t_data *data);
+int     count_pipes(t_data *data);
+void    child_routine(t_data *data, int child_id);
+void    get_token(t_data *data, int child_id);
+
+//check_cmd_path.c
+int     check_cmd_path(t_data *data);
+int     check_relative(char *cmd);
+int     find_path(t_data *data);
+char    *path_from_env(char **env);
+int     check_absolute_path(t_data *data);
+
+//join_cmd_arg.c
+char    **join_cmd_arg(t_data *data);
 
 // utils
 char	*ft_itoa(int n);
