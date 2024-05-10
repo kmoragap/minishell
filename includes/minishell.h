@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/09 08:32:22 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/10 12:16:04 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,11 @@ void put_env(t_data *data);
 //pwd
 void get_pwd(void);
 
+// cd.c
+void execute_cd(t_data *data, char *path, char *old_pwd);
+void ft_cd(t_data *data);
+void update_env_vars(t_data *data, char *old_pwd, char *new_pwd);
+
 //unset
 void ft_unset(t_data *data);
 void unset_env(t_data *data, int arg_num);
@@ -174,6 +179,7 @@ void execute_token(t_data *data);
 void ft_echo(t_data *data);
 
 // utils
+char *ft_strcat(char *dest, const char *src);
 int is_valid_expand_var(char *str, int c);
 char	*ft_strchr_before_c(const char *s, int c);
 char	*ft_strchr(const char *s, int c);

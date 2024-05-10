@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:34:26 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/06 18:18:13 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/10 12:15:56 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,4 +179,27 @@ int is_valid_expand_var(char *str, int c)
 		i++;
 	}
 	return 0;
+}
+
+char *ft_strcat(char *dest, const char *src) 
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (dest[i] != '\0')
+        i++;
+
+    j = 0;
+    
+    while (src[j] != '\0')
+    {
+        dest[i] = src[j];
+        i++;
+        j++;
+    }
+
+    dest[i] = '\0';
+
+    return dest;
 }
