@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:34:26 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/19 17:48:58 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/10 16:29:48 by creuther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,3 +180,81 @@ int	ft_strchr(const char *str, int c)
 		return (1);
 	return (1);
 }
+
+char	*ft_strrchr(const char *str, int c)
+{
+	int	i;
+
+	while (c > 127)
+		c = c - 128;
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	while (i >= 0)
+	{	
+		if (str[i] == c)
+			return ((char *) &str[i]);
+		i--;
+	}
+	return (NULL);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*new;
+	size_t	len;
+
+	len = ft_strlen((char *)s1) + ft_strlen((char *)s2);
+	new = (char *)malloc(len + 1);
+	if (new == NULL)
+		return (NULL);
+	ft_memcpy((void *)new, (const void *)s1, ft_strlen((char *)s1));
+	ft_memmove((void *)(new + ft_strlen((char *)s1)),
+		(const void *)s2, ft_strlen((char *)s2));
+	new[len] = '\0';
+	return (new);
+}
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	const char	*s;
+	char		*d;
+	size_t		i;
+
+	i = 0;
+	d = dest;
+	s = src;
+	if (!dest && !src)
+		return (NULL);
+	while (i < n)
+	{
+		*d = *s;
+		s++;
+		d++;
+		i++;
+	}
+	return (dest);
+}
+
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	const char	*s;
+	char		*d;
+	size_t		i;
+
+	if (!dest && !src)
+		return (NULL);
+	i = 0;
+	d = dest;
+	s = src;
+	while (i < n)
+	{
+		if (s < d)
+			d[n - 1 - i] = s[n - 1 - i];
+		else
+			d[i] = s[i];
+		i++;
+	}
+	return (dest);
+}
+

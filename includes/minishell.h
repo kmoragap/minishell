@@ -6,7 +6,7 @@
 /*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/09 21:01:41 by creuther         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:32:23 by creuther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ t_data  *execute_token(t_data *data);
 //children.c
 void    create_children(t_data *data);
 int     count_pipes(t_data *data);
-void    child_routine(t_data *data, int child_id);
+void    child_routine(t_data *data, int child_id, char **cmd_arg);
 void    get_token(t_data *data, int child_id);
 
 //check_cmd_path.c
@@ -176,6 +176,11 @@ int     check_absolute_path(t_data *data);
 
 //join_cmd_arg.c
 char    **join_cmd_arg(t_data *data);
+int     size_of_args(t_data *data);
+char    *get_cmd_for_args(t_data *data);
+char    **cpy_token_args(t_data *data, char **args, int *args_cntr);
+char    **cpy_next_token_args(t_data *data, char **args, int *args_cntr);
+void    free_args(char **args, int *cnt);
 
 // utils
 char	*ft_itoa(int n);
@@ -191,6 +196,11 @@ void	ft_bzero(void *str, size_t n);
 int		ft_calloc(t_data *data, t_free code, void **arr, size_t size);
 t_token	*move_to_first_token(t_token *token);
 int	ft_strchr(const char *str, int c);
+char	*ft_strrchr(const char *str, int c);
+char	*ft_strjoin(char const *s1, char const *s2);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	*ft_memmove(void *dest, const void *src, size_t n);
+char	**ft_split(char const *s, char c);
 
 // error.c
 void    input_error(t_data *data, t_free code, char *txt);

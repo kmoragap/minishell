@@ -6,7 +6,7 @@
 /*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/09 20:39:41 by creuther         ###   ########.fr       */
+/*   Updated: 2024/05/10 17:26:42 by creuther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 int     check_cmd_path(t_data *data)
 {
-    if (check_builtins(data->tokens->cmd) == 0)
+    
+    if (check_builtins(data->tokens->cmd) != 0)
     {
-        execute_builtin(data->tokens->cmd, data->tokens->args, data->env);
+        //execute_builtin(data->tokens->cmd, data->tokens->args, data->env);
         return (1);
     }
     if (check_relative(data->tokens->cmd) == 0)
     {
         if (find_path(data) != 0)
         {
-            input_error(data, 0, data->tokens->cmd && ": command not found\n");
+            input_error(data, 0, ft_strjoin(data->tokens->cmd, ": command not found\n"));
             return (1);
         }
     }
@@ -31,7 +32,7 @@ int     check_cmd_path(t_data *data)
     {
         if (check_absolute_path(data) == 1)
         {
-            input_error(data, 0, "minishell: " && data->tokens->cmd && ": No such file or directory\n");
+            input_error(data, 0, ft_strjoin(ft_strjoin("minishell: ", data->tokens->cmd), ": No such file or directory\n"));
             return (1);
         }
     }
@@ -56,9 +57,10 @@ int     find_path(t_data *data)
     lop = 0;
     while (path[lop])
     {
-        path[lop] = ft_strjoin(path[lop], data->tokens->cmd);
+        path[lop] = ft_strjoin(ft_strjoin(path[lop],"/"), data->tokens->cmd);
         if (access(path[lop], F_OK) != 0)
         {
+            free_args(path, NULL);
             //error code == 126
             //free code!
             return (1);
@@ -67,6 +69,7 @@ int     find_path(t_data *data)
             data->tokens->path = ft_strdup(path[lop]);
         lop++;
     }
+    free_args(path, NULL);
     if (data->tokens->path)
         return (0);
     return (1);

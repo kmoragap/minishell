@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_builtin.c                                  :+:      :+:    :+:   */
+/*   parent_wait.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 15:36:48 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/18 15:39:22 by kmoraga          ###   ########.fr       */
+/*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
+/*   Updated: 2024/05/10 19:48:46 by creuther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-void execute_builtin(char *cmd, char **args, char **env)
+void    parent_wait(t_data *data)
 {
-    
+    while (data->childn->cnt_childn >= 0)
+    {
+        waitpid()
+    }
 }

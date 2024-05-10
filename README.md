@@ -28,3 +28,5 @@ minishell
 - if valid path: execve mit path, 2dimensional array with {1. cmd} {2. arg} {3. arg2} {...} 
 5. parent: waitpid (in order of creation of children)
 
+path = "/bin/ls"
+args = "ls" "-l" "NULL"
