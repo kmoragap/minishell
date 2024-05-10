@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static char	*ft_strncpy(char *dest, const char *src, size_t n)
+char	*ft_strncpy(char *dest, const char *src, size_t n)
 {
     size_t i;
 

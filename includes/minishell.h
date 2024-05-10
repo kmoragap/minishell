@@ -140,8 +140,8 @@ void expand_args(t_token *token, char **env);
 char *expand_token(char *token, char **env, int exit_status);
 
 // expander_utils.c
+char *remove_outer_quotes(char *arg);
 char *check_special_expand(char *special, int exit_status);
-int check_expand_quotes(const char *str);
 int check_expand_var(char *var);
 int is_valid_variable_char(char c);
 int check_expand_args(char **args);
@@ -179,6 +179,7 @@ void execute_token(t_data *data);
 void ft_echo(t_data *data);
 
 // utils
+char	*ft_strncpy(char *dest, const char *src, size_t n);
 char *ft_strcat(char *dest, const char *src);
 int is_valid_expand_var(char *str, int c);
 char	*ft_strchr_before_c(const char *s, int c);

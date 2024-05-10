@@ -2,6 +2,7 @@
     "functionHeaderExtension.headerFilePath": "/Users/krismoraga/Desktop/minishell/minishell.h",
     "files.associations": {
         "minishell.h": "c",
-        "random": "c"
+        "random": "c",
+        "functional": "c"
     }
 }

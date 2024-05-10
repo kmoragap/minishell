@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/08 16:16:17 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/10 18:27:12 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,37 @@
 char *expand_token(char *token, char **env, int exit_status) 
 {
     char *value;
+    char *processed_tok;
     char *var;
     char *nested_value;
     int i;
-    value = NULL;
+
     var = NULL;
     nested_value = NULL;
-    
-    /*if(check_expand_quotes(token) == 1)
+    processed_tok = remove_outer_quotes(token);
+    if (processed_tok == NULL)
         return NULL;
 
     value = check_special_expand(token, exit_status);
     if(value != NULL)
-        return value;*/
+        return value;
 
-   token++;
+   processed_tok++;
 
     i = 0;
     while (env[i] != NULL) 
     {
         var = ft_strchr_before_c(env[i], '=');
         value = ft_strchr(env[i], '=');
-        if (ft_strcmp(var, token) == 0) 
+        if (ft_strcmp(var, processed_tok) == 0) 
         {
             if(value[0] == '$')
             {
                 nested_value = expand_token(value, env, exit_status);
                 if (nested_value != NULL)
+                {
                     return ft_strdup(nested_value);   
+                }
             }
             return ft_strdup(value);
         }

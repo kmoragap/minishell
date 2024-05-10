@@ -19,14 +19,14 @@ t_data *init_data(char **envp)
     int j;
 
     re = NULL;
-    if(ft_calloc(re, ER_SHUTDOWN, (void *)&re, sizeof(t_data)) == 1)
+    if(ft_calloc(re, F_INPUT, (void *)&re, sizeof(t_data)) == 1)
         return NULL;
     re->env_len = 0;
     re->input = NULL;
     i = 0;
     while(envp[i])
         i++;
-    if(ft_calloc(re, ER_SHUTDOWN, (void *)&re->env, (sizeof(char *) * (i + 2))) == 1)
+    if(ft_calloc(re, F_INPUT, (void *)&re->env, (sizeof(char *) * (i + 2))) == 1)
     {
         free(re);
         return NULL;

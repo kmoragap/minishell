@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:07:09 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/09 16:50:51 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/10 18:41:15 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void ft_echo(t_data *data)
     t_token *curr_token;
     int newline;
     int i;
+    char *processed_arg;
 
     curr_token = data->tokens;
     newline = 1;
@@ -48,7 +49,9 @@ void ft_echo(t_data *data)
     {
         if (i > 0)
             printf(" ");
-        printf("%s", curr_token->args[i]);
+        processed_arg = remove_outer_quotes(curr_token->args[i]);
+        printf("%s", processed_arg);
+        free(processed_arg);
         i++;
     }
     if (newline)
