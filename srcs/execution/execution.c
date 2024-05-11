@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:35:50 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/10 11:44:25 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/11 16:23:50 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void execute_builtin(t_data *data)
         ft_echo(data);
     if(type == CD)
         ft_cd(data);
+    if(type == EXIT)
+        ft_exit(data);
 }
 
 void execute_token(t_data *data)

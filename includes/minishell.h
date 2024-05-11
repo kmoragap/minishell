@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/10 12:16:04 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/11 16:29:29 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void expand_args(t_token *token, char **env);
 char *expand_token(char *token, char **env, int exit_status);
 
 // expander_utils.c
+char *remove_outer_parentheses(char *arg);
 char *remove_outer_quotes(char *arg);
 char *check_special_expand(char *special, int exit_status);
 int check_expand_var(char *var);
@@ -163,6 +164,9 @@ void put_env(t_data *data);
 //pwd
 void get_pwd(void);
 
+//exit
+void ft_exit(t_data *data);
+
 // cd.c
 void execute_cd(t_data *data, char *path, char *old_pwd);
 void ft_cd(t_data *data);
@@ -179,6 +183,7 @@ void execute_token(t_data *data);
 void ft_echo(t_data *data);
 
 // utils
+int	ft_atoi(char *str);
 char	*ft_strncpy(char *dest, const char *src, size_t n);
 char *ft_strcat(char *dest, const char *src);
 int is_valid_expand_var(char *str, int c);

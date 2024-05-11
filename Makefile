@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/05/10 18:33:39 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/05/11 16:24:30 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC = 	srcs/main.c \
 		srcs/builtins/env.c \
 		srcs/builtins/unset.c \
 		srcs/builtins/pwd.c \
+		srcs/builtins/exit.c \
 		srcs/builtins/echo.c \
 		srcs/builtins/cd.c \
 		srcs/execution/execution.c \

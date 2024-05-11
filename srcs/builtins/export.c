@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/09 09:10:43 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/11 17:22:51 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ static void create_env_var(t_data *data, int arg_num)
     i++;
   }
 
-  
-  env[i] = ft_strdup(data->tokens->args[arg_num]);
+  if(!ft_isdigit(data->tokens->args[arg_num][0]))
+    env[i] = ft_strdup(data->tokens->args[arg_num]);
+  else
+    printf("export: %s: not a valid identifier\n", data->tokens->args[arg_num]);
   if(env[i] == NULL)
     return ;
   data->env = env;
@@ -89,6 +91,12 @@ int replace_var_env(t_data *data, char *arg)
 
 void execute_export_builtin(t_data *data)
 {
+
+    if(data->tokens->args_num == 0)
+    {
+      put_env(data);
+      return ;
+    }
     int i;
     char **args;
     char *var;

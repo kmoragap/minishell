@@ -6,57 +6,84 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/10 18:27:12 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/11 20:55:06 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 
-char *expand_token(char *token, char **env, int exit_status) 
+static char *preprocess_token(char *token, int exit_status, int pa) 
 {
-    char *value;
     char *processed_tok;
-    char *var;
-    char *nested_value;
-    int i;
+    char *value;
 
-    var = NULL;
-    nested_value = NULL;
     processed_tok = remove_outer_quotes(token);
-    if (processed_tok == NULL)
+
+    if (processed_tok == NULL) 
         return NULL;
 
+    processed_tok = remove_outer_parentheses(processed_tok);
+    if (processed_tok == NULL)
+       return NULL;
+    else
+        pa = 1;
+
     value = check_special_expand(token, exit_status);
-    if(value != NULL)
+    if (value != NULL)
         return value;
 
-   processed_tok++;
+    return processed_tok;
+}
+
+
+
+static char *resolve_token_value(char *token, char **env, int exit_status, int pa)
+{
+    int i;
+    char *var;
+    char *value;
 
     i = 0;
+    var = NULL;
+    value = NULL;
+
     while (env[i] != NULL) 
     {
         var = ft_strchr_before_c(env[i], '=');
         value = ft_strchr(env[i], '=');
-        if (ft_strcmp(var, processed_tok) == 0) 
+        if (ft_strcmp(var, token) == 0) 
         {
             if(value[0] == '$')
             {
-                nested_value = expand_token(value, env, exit_status);
-                if (nested_value != NULL)
-                {
-                    return ft_strdup(nested_value);   
-                }
+                value = expand_token(value, env, exit_status);
+                if (value != NULL)
+                    return ft_strdup(value);
             }
+            if(pa == 1)
+                // poner parentesis ?????????????????????????????????????????????????????????????????????????ß
             return ft_strdup(value);
         }
         i++;
     }
-
     return NULL;
 }
 
 
+char *expand_token(char *token, char **env, int exit_status) 
+{
+    char *processed_tok;
+    int pa;
+
+    pa = 0;
+
+    processed_tok = preprocess_token(token, exit_status, pa);
+    if (processed_tok == NULL)
+        return NULL;
+
+    processed_tok++;
+    return resolve_token_value(processed_tok, env, exit_status, pa);
+}
 
 void expand_cmd(t_token *token, char **env) 
 {
@@ -65,7 +92,6 @@ void expand_cmd(t_token *token, char **env)
 
     if (check_expand_var(token->cmd)) 
     {
-        //funcion para alloc mem in expanded variable
         expanded_cmd = expand_token(token->cmd, env, token->exit_status);
         if (expanded_cmd != NULL) 
         {

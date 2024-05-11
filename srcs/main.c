@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/04 15:40:36 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/11 18:48:10 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int main(int ac, char **av, char **env)
             data = parser(data);
         if(data->err_code == ER_NO)
             execute_token(data);
-//        if (data->err_code == ER_NO)
-//            data = print(data);
+        if (data->err_code == ER_NO)
+            data = print(data);
         printf("input done\n");
         free_all(data);
     }
