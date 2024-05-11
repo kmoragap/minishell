@@ -23,7 +23,8 @@ SRC = 	srcs/main.c \
 		srcs/execution/check_cmd_path.c \
 		srcs/execution/children.c \
 		srcs/execution/execution.c \
-		srcs/execution/join_cmd_path.c \
+		srcs/execution/join_cmd_arg.c \
+		srcs/execution/parent_wait.c \
 		srcs/utils/utils.c \
 		srcs/utils/ft_split.c \
 		srcs/free/free.c \

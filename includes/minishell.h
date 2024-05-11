@@ -21,6 +21,7 @@
 #include <signal.h>            //signal
 #include <stdio.h>             //printf
 #include <sys/types.h>         //fork
+#include <sys/wait.h>           //waitpid
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -64,7 +65,9 @@ typedef enum e_free
     F_INPUT,
     F_EMPTOK,
     F_TOKCMD,
-    F_TOKS
+    F_TOKS, 
+    F_PIDS, 
+    F_EXITSTATE,
 }   t_free;
 
 typedef struct s_token
@@ -85,6 +88,7 @@ typedef struct s_child
 {
     int cnt_childn;
     pid_t *pids;
+    int *exit_state;
 }               t_child;
 
 typedef struct s_data
@@ -164,7 +168,7 @@ t_data  *execute_token(t_data *data);
 //children.c
 void    create_children(t_data *data);
 int     count_pipes(t_data *data);
-void    child_routine(t_data *data, int child_id, char **cmd_arg);
+void    child_routine(t_data *data, int child_id);
 void    get_token(t_data *data, int child_id);
 
 //check_cmd_path.c
@@ -181,6 +185,9 @@ char    *get_cmd_for_args(t_data *data);
 char    **cpy_token_args(t_data *data, char **args, int *args_cntr);
 char    **cpy_next_token_args(t_data *data, char **args, int *args_cntr);
 void    free_args(char **args, int *cnt);
+
+//parent_wait.c
+void    parent_wait(t_data *data);
 
 // utils
 char	*ft_itoa(int n);

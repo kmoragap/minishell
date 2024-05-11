@@ -22,6 +22,9 @@ void    free_all(t_data *data)
         free(data->tokens);
     if (data->free_code >= F_INPUT || data->free_code == NO_FREE)
         free(data->input);
+    if (data->free_code >= F_PIDS || data->free_code == NO_FREE)
+        free(data->childn->pids);
+    if (data->free_code != F_EXITSTATE || data->free_code == NO_FREE)
     reinit_data(data);
 }
 // finishhhhhhhhhh! --> free toks isn't done yet! and add a new initializer for the data 

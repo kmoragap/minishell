@@ -18,7 +18,7 @@ t_data *init_data(char **envp)
     int i;
     int j;
 
-    re = malloc(sizeof(t_data));
+    re = calloc(sizeof(t_data), 1);
     if (!re)
         return (NULL);
     re->env_len = 0;
@@ -26,7 +26,7 @@ t_data *init_data(char **envp)
     i = 0;
     while(envp[i])
         i++;
-    re->env = malloc(sizeof(char *) * (i + 2));
+    re->env = calloc(sizeof(char *), (i + 2));
     if (!re->env)
     {
         free(re);

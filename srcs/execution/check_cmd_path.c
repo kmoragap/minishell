@@ -15,16 +15,18 @@
 int     check_cmd_path(t_data *data)
 {
     
-    if (check_builtins(data->tokens->cmd) != 0)
-    {
-        //execute_builtin(data->tokens->cmd, data->tokens->args, data->env);
-        return (1);
-    }
+    // if (check_builtins(data->tokens->cmd) != 0)
+    // {
+    //     //execute_builtin(data->tokens->cmd, data->tokens->args, data->env);
+    //     return (1);
+    // }
+    printf("check\n");
     if (check_relative(data->tokens->cmd) == 0)
     {
-        if (find_path(data) != 0)
+        if (find_path(data) == 1)
         {
-            input_error(data, 0, ft_strjoin(data->tokens->cmd, ": command not found\n"));
+            printf("%s", data->tokens->cmd);
+            input_error(data, 0, ": command not found\n");
             return (1);
         }
     }
@@ -32,7 +34,8 @@ int     check_cmd_path(t_data *data)
     {
         if (check_absolute_path(data) == 1)
         {
-            input_error(data, 0, ft_strjoin(ft_strjoin("minishell: ", data->tokens->cmd), ": No such file or directory\n"));
+            printf("minishell: %s", data->tokens->cmd);
+            input_error(data, 0, ": No such file or directory\n");
             return (1);
         }
     }
@@ -58,14 +61,7 @@ int     find_path(t_data *data)
     while (path[lop])
     {
         path[lop] = ft_strjoin(ft_strjoin(path[lop],"/"), data->tokens->cmd);
-        if (access(path[lop], F_OK) != 0)
-        {
-            free_args(path, NULL);
-            //error code == 126
-            //free code!
-            return (1);
-        }
-        if (access(path[lop], X_OK) == 0 && !data->tokens->path)
+        if (access(path[lop], F_OK) == 0 && access(path[lop], X_OK) == 0 && !data->tokens->path)
             data->tokens->path = ft_strdup(path[lop]);
         lop++;
     }
