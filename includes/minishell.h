@@ -22,6 +22,7 @@
 #include <stdio.h>             //printf
 #include <sys/types.h>         //fork
 #include <sys/wait.h>           //waitpid
+#include <sys/stat.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>

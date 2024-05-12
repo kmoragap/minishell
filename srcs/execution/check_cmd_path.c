@@ -25,6 +25,7 @@ int     check_cmd_path(t_data *data)
     {
         if (find_path(data) == 1)
         {
+            printf("ist relative & hat keinen funktionierenden Path\n");
             printf("%s", data->tokens->cmd);
             input_error(data, 0, ": command not found\n");
             return (1);
@@ -53,20 +54,29 @@ int     find_path(t_data *data)
 {
     char    **path;
     int     lop;
+    char    *tmp;
 
-    path = ft_split(path_from_env(data->env), ':');
+    tmp = path_from_env(data->env);
+    path = ft_split(tmp, ':');
+    free(tmp);
     if (!path)
         return (1);
     lop = 0;
     while (path[lop])
     {
-        path[lop] = ft_strjoin(ft_strjoin(path[lop],"/"), data->tokens->cmd);
+        tmp = ft_strjoin(path[lop],"/");
+        path[lop] = ft_strjoin(tmp, data->tokens->cmd);
+        free(tmp);
         if (access(path[lop], F_OK) == 0 && access(path[lop], X_OK) == 0 && !data->tokens->path)
             data->tokens->path = ft_strdup(path[lop]);
         lop++;
     }
-    free_args(path, NULL);
-    if (data->tokens->path)
+    while (lop >= 0)
+        free(path[lop--]);
+    free(path);
+    if (path)
+        printf("\n\nhallo\n\n");
+    if (data->tokens->path && data->tokens->path[0])
         return (0);
     return (1);
 }
