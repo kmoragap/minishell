@@ -18,7 +18,7 @@ void    parent_wait(t_data *data)
 
     i = 0;
     ft_calloc(data, 0, (void *)&data->childn->exit_state, data->childn->cnt_childn + 1);
-    while (i < (data->childn->cnt_childn - 1))
+    while (i < (data->childn->cnt_childn))
     {
         if (waitpid(data->childn->pids[i], &data->childn->exit_state[i], 0) == -1)
             printf("error\n");

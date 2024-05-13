@@ -19,8 +19,11 @@
                                     //data->env
 t_data  *execute_token(t_data *data)
 {
+    data = piping(data);
+    // if (data->err_code != ER_NO)
+    //   return (data);
     //pipe & redirect everthing 
-    create_children(data);
+    data = create_children(data);
     //if is builtin
     //if(check_builtins(data->tokens->cmd) == 1)
       //  execute_builtin(data->tokens->cmd, data->tokens->args, data->env);

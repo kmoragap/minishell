@@ -20,7 +20,6 @@ int     check_cmd_path(t_data *data)
     //     //execute_builtin(data->tokens->cmd, data->tokens->args, data->env);
     //     return (1);
     // }
-    printf("check\n");
     if (check_relative(data->tokens->cmd) == 0)
     {
         if (find_path(data) == 1)
@@ -74,8 +73,6 @@ int     find_path(t_data *data)
     while (lop >= 0)
         free(path[lop--]);
     free(path);
-    if (path)
-        printf("\n\nhallo\n\n");
     if (data->tokens->path && data->tokens->path[0])
         return (0);
     return (1);

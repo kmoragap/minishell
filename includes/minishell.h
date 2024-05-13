@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 typedef enum e_builtin
 {
@@ -67,6 +68,7 @@ typedef enum e_free
     F_EMPTOK,
     F_TOKCMD,
     F_TOKS, 
+    F_PIPES,
     F_PIDS, 
     F_EXITSTATE,
 }   t_free;
@@ -90,6 +92,7 @@ typedef struct s_child
     int cnt_childn;
     pid_t *pids;
     int *exit_state;
+    int **pipes;
 }               t_child;
 
 typedef struct s_data
@@ -166,9 +169,21 @@ int check_builtins(char *cmd);
 //execution.c
 t_data  *execute_token(t_data *data);
 
-//children.c
-void    create_children(t_data *data);
+//piping.c
+t_data  *piping(t_data *data);
 int     count_pipes(t_data *data);
+int     malloc_fds(t_data *data);
+t_data  *dup_pipe(t_data *data);
+void    redir_in(t_data *data, int cnt);
+void    redir_ap(t_data *data, int cnt);
+void    redir_out(t_data *data, int cnt);
+
+//close_pipes.c
+void    close_pipes(t_data *data);
+void    dup_pipes(t_data *data, int child_id);
+
+//children.c
+t_data  *create_children(t_data *data);
 void    child_routine(t_data *data, int child_id);
 void    get_token(t_data *data, int child_id);
 
@@ -217,6 +232,7 @@ void    malloc_error(t_data *data, t_free code);
 // free.c
 void    free_all(t_data *data);
 void    free_toks(t_data *data);
+void    free_pipes(int **pipes, t_data *data);
 void    reinit_data(t_data *data);
 
 #endif // MINISHELL_H
