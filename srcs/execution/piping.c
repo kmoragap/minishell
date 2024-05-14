@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   children.c                                         :+:      :+:    :+:   */
+/*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/10 17:27:35 by creuther         ###   ########.fr       */
+/*   Updated: 2024/05/14 21:33:30 by creuther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_data  *piping(t_data *data)
     if (malloc_fds(data) != 0)
         return (data);
     data = dup_pipe(data);
+    data->tokens = move_to_first_token(data->tokens);
     return (data);
 }
 

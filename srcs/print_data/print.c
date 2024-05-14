@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/20 11:09:06 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/14 21:02:00 by creuther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ t_data  *print(t_data *data)
             break;
         data->tokens = data->tokens->next;
     }
+    data->tokens = move_to_first_token(data->tokens);
     return (data);
 }

@@ -30,3 +30,7 @@ minishell
 
 path = "/bin/ls"
 args = "ls" "-l" "NULL"
+
+
+
+--> right now the filename after redirection is seen as a command and being tried to be executed --> should be skipped!
