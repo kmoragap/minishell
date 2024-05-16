@@ -78,7 +78,7 @@ int main(int ac, char **av, char **env)
             data = print(data);
         if (data->err_code == ER_NO)
            data = execute_token(data);
-        printf("input done\n");
+        printf("---------------------------------\ninput done\n");
         free_all(data);
     }
 }

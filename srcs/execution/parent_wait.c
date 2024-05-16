@@ -22,17 +22,17 @@ void    parent_wait(t_data *data)
     {
         if (waitpid(data->childn->pids[i], &data->childn->exit_state[i], 0) == -1)
             printf("error\n");
-        if (WIFEXITED(data->childn->exit_state[i]))
-            printf("Exit-State = %d\n", WEXITSTATUS(data->childn->exit_state[i]));
-        if (WIFSIGNALED(data->childn->exit_state[i]))
-        {
-            if (WTERMSIG(data->childn->exit_state[i]) == SIGSEGV)
-                printf("Segmentation fault\n");
-            else if (WTERMSIG(data->childn->exit_state[i]) == SIGQUIT)
-                printf("Quit\n");
-            if (WCOREDUMP(data->childn->exit_state[i]))
-                printf("Core Dumped = %d\n", WCOREDUMP(data->childn->exit_state[i]));
-        }
         i++;
+    }
+    if (WIFEXITED(data->childn->exit_state[i]))
+        printf("Exit-State = %d\n", WEXITSTATUS(data->childn->exit_state[i]));
+    if (WIFSIGNALED(data->childn->exit_state[i]))
+    {
+        if (WTERMSIG(data->childn->exit_state[i]) == SIGSEGV)
+            printf("blub Segmentation fault\n");
+        else if (WTERMSIG(data->childn->exit_state[i]) == SIGQUIT)
+            printf("Quit\n");
+        if (WCOREDUMP(data->childn->exit_state[i]))
+            printf("blub Core Dumped = %d\n", WCOREDUMP(data->childn->exit_state[i]));
     }
 }

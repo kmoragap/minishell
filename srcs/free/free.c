@@ -22,8 +22,8 @@ void    free_all(t_data *data)
         free(data->tokens);
     if (data->free_code >= F_INPUT || data->free_code == NO_FREE)
         free(data->input);
-    if (data->free_code >= F_PIPES || data->free_code == NO_FREE)
-        free_pipes(data->childn->pipes, data);
+    //if (data->free_code >= F_PIPES || data->free_code == NO_FREE)
+    //    free_pipes(data->childn->pipes, data);
     if (data->free_code >= F_PIDS || data->free_code == NO_FREE)
         free(data->childn->pids);
     if (data->free_code != F_EXITSTATE || data->free_code == NO_FREE)
@@ -36,7 +36,7 @@ void    free_toks(t_data *data)
     {
         if (data->tokens->args_num == 0)
             free(data->tokens->args[0]);
-        while (data->tokens->args_num >= 0)
+        while (data->tokens->args_num > 0)
         {
             free(data->tokens->args[data->tokens->args_num]);
             data->tokens->args_num -= 1;
@@ -44,7 +44,8 @@ void    free_toks(t_data *data)
         free(data->tokens->args);
         free(data->tokens->cmd);
         data->tokens = data->tokens->next;
-        free(data->tokens->prev);
+        if (data->tokens->prev)
+            free(data->tokens->prev);
     }
 }
 
@@ -53,7 +54,9 @@ void    free_pipes(int **pipes, t_data *data)
     int     i;
 
     i = 0;
-    while (pipes[i] && i <= data->childn->cnt_childn)
+    if (data->childn->cnt_childn == 1)
+        return ;
+    while (pipes && pipes[i] && i <= data->childn->cnt_childn)
     {
         free(pipes[i]);
         i++;

@@ -22,6 +22,7 @@ SRC = 	srcs/main.c \
 		srcs/expansion/expansion_utils.c \
 		srcs/execution/check_cmd_path.c \
 		srcs/execution/children.c \
+		srcs/execution/dup_pipes.c \
 		srcs/execution/close_pipes.c \
 		srcs/execution/execution.c \
 		srcs/execution/join_cmd_arg.c \

@@ -16,12 +16,12 @@ void    input_error(t_data *data, t_free code, char *txt)
 {
     data->err_code = ER_INPUT;
     data->free_code = code;
-    printf("%s", txt);
+    perror(txt);
 }
 
 void    malloc_error(t_data *data, t_free code)
 {
     data->free_code = code;
     data->err_code = ER_MALLOC;
-    printf("Error: malloc failure\n");
+    perror("Error: malloc failure");
 }

@@ -1,6 +1,5 @@
 # minishell
 
-
 making progress ✨
 minishell
 
@@ -14,6 +13,8 @@ minishell
 - change the token->exit_status in expand func to token->prev->exit_status. To avoid a seg fault with the previous token, i decide to put the exit_status for the current token
 - verificar single quotes
 
+# Flags to check
+valgrind --leak-check=full --track-fds=all --trace-children=yes ./minishell
 
 1. pipe (redirections!)
 # Executor

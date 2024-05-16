@@ -12,21 +12,20 @@
 
 #include "minishell.h"
 
-void    dup_pipes(t_data *data, int child_id)
-{
-    dup2(1, data->childn->pipes[child_id + 1][1]);
-    dup2(0, data->childn->pipes[child_id][0]);
-}
-
 void    close_pipes(t_data *data)
 {
     int     i;
 
     i = 0;
-    while (i <= data->childn->cnt_childn && data->childn->pipes[i])
+    if (data->childn->cnt_childn == 1)
+        return ;
+    while (i < data->childn->cnt_childn && data->childn->pipes && data->childn->pipes[i])
     {
-        close(data->childn->pipes[i][0]);
-        close(data->childn->pipes[i][1]);
+        if (data->childn->pipes[i][0] != STDIN_FILENO)
+            close(data->childn->pipes[i][0]);
+        if (data->childn->pipes[i][1] != STDOUT_FILENO)
+            close(data->childn->pipes[i][1]);
         i++;
     }
+    free_pipes(data->childn->pipes, data);
 }

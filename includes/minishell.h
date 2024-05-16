@@ -102,6 +102,7 @@ typedef struct s_data
     int env_len;        // env len
     t_error err_code;   // error code 
     t_free  free_code;  // code which says how much we got to free
+    int     exit_code;
     t_token *tokens;    // token list
     t_child *childn;
     int token_num;      // number of tokens
@@ -173,10 +174,13 @@ t_data  *execute_token(t_data *data);
 t_data  *piping(t_data *data);
 int     count_pipes(t_data *data);
 int     malloc_fds(t_data *data);
-t_data  *dup_pipe(t_data *data);
-void    redir_in(t_data *data, int cnt);
-void    redir_ap(t_data *data, int cnt);
-void    redir_out(t_data *data, int cnt);
+
+//dup_pipes.c
+void    dup_pipes(t_data *data, int child_id);
+void    check_redir_out_last(t_data *data);
+void    check_redir_in_first(t_data *data);
+int     check_redir_in(t_data *data, int child_id);
+int     check_redir_out(t_data *data, int child_id);
 
 //close_pipes.c
 void    close_pipes(t_data *data);

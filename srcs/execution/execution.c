@@ -12,22 +12,12 @@
 
 #include "minishell.h"
 
-/**
- * tratar de hacer una funcion de estados para saber en que estado estoy ejecutando
- * a la hora de ejecutar los comandos
-*/
-                                    //data->env
+
 t_data  *execute_token(t_data *data)
 {
     data = piping(data);
-    // if (data->err_code != ER_NO)
-    //   return (data);
-    //pipe & redirect everthing 
+    if (data->err_code != ER_NO)
+      return (data);
     data = create_children(data);
-    //if is builtin
-    //if(check_builtins(data->tokens->cmd) == 1)
-      //  execute_builtin(data->tokens->cmd, data->tokens->args, data->env);
-    //else
-        //execute_nb(data);
     return (data);
 }
