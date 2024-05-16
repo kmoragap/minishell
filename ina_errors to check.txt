@@ -1,0 +1,582 @@
+>minishell$ ls
+input: ls
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+ready for execve
+blub.c	debug  includes  Makefile  minishell  README.md  srcs
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ ls -la
+input: ls -la
+llegue aqui
+Error
+Token_ID: 0
+cmd: ls
+arg_num: 1
+arg: -la
+delim: 0
+type: 4
+---------------------------------
+ready for execve
+total 96
+drwxr-xr-x  7 creuther 2022_vienna   138 May 16 20:04 .
+drwxr-xr-x 10 creuther 2022_vienna   127 Apr 26 13:20 ..
+-rw-r--r--  1 creuther 2022_vienna  1098 Apr 25 19:22 blub.c
+drwxr-xr-x  2 creuther 2022_vienna    32 Apr 25 19:08 debug
+drwxr-xr-x  8 creuther 2022_vienna   220 May 16 20:03 .git
+drwxr-xr-x  2 creuther 2022_vienna    25 May 11 15:09 includes
+-rw-r--r--  1 creuther 2022_vienna  2461 May 16 19:33 Makefile
+-rwxr-xr-x  1 creuther 2022_vienna 83152 May 16 20:04 minishell
+-rw-r--r--  1 creuther 2022_vienna  1477 May 16 15:12 README.md
+drwxr-xr-x 11 creuther 2022_vienna   166 May 16 20:04 srcs
+drwxr-xr-x  2 creuther 2022_vienna    46 Apr 27 10:28 .vscode
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ ls | wc > o.txt
+input: ls | wc > o.txt
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+Token_ID: 1
+cmd: wc
+arg_num: 0
+delim: 5
+type: 1
+---------------------------------
+Token_ID: 2
+cmd: o.txt
+arg_num: 0
+delim: 7
+type: 2
+---------------------------------
+no redirection4
+no redirection3
+ww: 'standard input': Bad file descriptor
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ ls | wc > o.txt |
+input: ls | wc > o.txt |
+
+: Success
+---------------------------------
+input done
+>minishell$ ls 
+input: ls 
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+ready for execve
+blub.c	debug  includes  Makefile  minishell  o.txt  README.md	srcs
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ expr 1 +1 
+input: expr 1 +1 
+llegue aqui
+Error
+llegue aqui
+Error
+
+: Success
+---------------------------------
+input done
+>minishell$ expr 1 + 1 
+input: expr 1 + 1 
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+
+: Success
+---------------------------------
+input done
+>minishell$ expr 1 + 1 
+input: expr 1 + 1 
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+
+: Success
+---------------------------------
+input done
+>minishell$ ls | expr 1 + 1 
+input: ls | expr 1 + 1 
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+
+: Success
+---------------------------------
+input done
+>minishell$ ls | expr 1 + 1 | ls
+input: ls | expr 1 + 1 | ls
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+Token_ID: 1
+cmd: expr
+arg_num: 3
+arg: 1
+arg: +
+arg: 1
+delim: 5
+type: 4
+---------------------------------
+Token_ID: 2
+cmd: ls
+arg_num: 0
+delim: 5
+type: 1
+---------------------------------
+no redirection4
+no redirection4
+no redirection3
+no redirection1
+ready for execve
+blub.c	debug  includes  Makefile  minishell  o.txt  README.md	srcs
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ expr 1 + 1 | ls
+input: expr 1 + 1 | ls
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+Token_ID: 0
+cmd: expr
+arg_num: 3
+arg: 1
+arg: +
+arg: 1
+delim: 0
+type: 4
+---------------------------------
+Token_ID: 1
+cmd: ls
+arg_num: 0
+delim: 5
+type: 1
+---------------------------------
+no redirection4
+no redirection3
+no redirection1
+ready for execve
+blub.c	debug  includes  Makefile  minishell  o.txt  README.md	srcs
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ ls expr 1 + 1
+input: ls expr 1 + 1
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+Token_ID: 0
+cmd: ls
+arg_num: 4
+arg: expr
+arg: 1
+arg: +
+arg: 1
+delim: 0
+type: 4
+---------------------------------
+ready for execve
+ll: cannot access 'expr': No such file or directory
+ll: cannot access '1': No such file or directory
+ll: cannot access '+': No such file or directory
+ll: cannot access '1': No such file or directory
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ ls | expr 1 + 1
+input: ls | expr 1 + 1
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+Token_ID: 1
+cmd: expr
+arg_num: 3
+arg: 1
+arg: +
+arg: 1
+delim: 5
+type: 4
+---------------------------------
+no redirection4
+no redirection3
+no redirection1
+ready for execve
+2
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ ls | expr 1 + 1 
+input: ls | expr 1 + 1 
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+
+: Success
+---------------------------------
+input done
+>minishell$ ls | expr 1 + 1
+input: ls | expr 1 + 1
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+Token_ID: 1
+cmd: expr
+arg_num: 3
+arg: 1
+arg: +
+arg: 1
+delim: 5
+type: 4
+---------------------------------
+no redirection4
+no redirection3
+no redirection1
+ready for execve
+2
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ expr 1 + 1
+input: expr 1 + 1
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+Token_ID: 0
+cmd: expr
+arg_num: 3
+arg: 1
+arg: +
+arg: 1
+delim: 0
+type: 4
+---------------------------------
+ready for execve
+2
+Exit-State = 0
+---------------------------------
+input done
+>minishell$  expr 1 + 1
+input:  expr 1 + 1
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+Token_ID: 0
+cmd: expr
+arg_num: 3
+arg: 1
+arg: +
+arg: 1
+delim: 0
+type: 4
+---------------------------------
+ready for execve
+2
+Exit-State = 0
+---------------------------------
+input done
+>minishell$  expr 1 + 1 
+input:  expr 1 + 1 
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+
+: Success
+---------------------------------
+input done
+>minishell$ expr 1 + 1
+input: expr 1 + 1
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+Token_ID: 0
+cmd: expr
+arg_num: 3
+arg: 1
+arg: +
+arg: 1
+delim: 0
+type: 4
+---------------------------------
+ready for execve
+2
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ jnvkjdnkjsdfsd
+input: jnvkjdnkjsdfsd
+Token_ID: 0
+cmd: jnvkjdnkjsdfsd
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+ist relative & hat keinen funktionierenden Path
+: command not found
+: No such file or directory
+jnvkjdnkjsdfsdExit-State = 0
+---------------------------------
+input done
+>minishell$ echo $PWD
+input: echo $PWD
+llegue aqui
+Token_ID: 0
+cmd: echo
+arg_num: 1
+arg: /home/creuther/common_core/minishell
+delim: 0
+type: 4
+---------------------------------
+ready for execve
+/home/creuther/common_core/minishell
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ echo $PWD > o.txt
+input: echo $PWD > o.txt
+llegue aqui
+Token_ID: 0
+cmd: echo
+arg_num: 1
+arg: /home/creuther/common_core/minishell
+delim: 0
+type: 4
+---------------------------------
+Token_ID: 1
+cmd: o.txt
+arg_num: 0
+delim: 7
+type: 2
+---------------------------------
+ready for execve
+/home/creuther/common_core/minishell
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ echo $PWD > o.txt
+input: echo $PWD > o.txt
+llegue aqui
+Token_ID: 0
+cmd: echo
+arg_num: 1
+arg: /home/creuther/common_core/minishell
+delim: 0
+type: 4
+---------------------------------
+Token_ID: 1
+cmd: o.txt
+arg_num: 0
+delim: 7
+type: 2
+---------------------------------
+ready for execve
+/home/creuther/common_core/minishell
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ pwd
+input: pwd
+Token_ID: 0
+cmd: pwd
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+ready for execve
+/home/creuther/common_core/minishell
+blub Core Dumped = 128
+---------------------------------
+input done
+>minishell$ ls
+input: ls
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+ready for execve
+blub.c	debug  includes  Makefile  minishell  o.txt  README.md	srcs
+blub Core Dumped = 128
+---------------------------------
+input done
+>minishell$ echo $PWD > os.txt
+input: echo $PWD > os.txt
+llegue aqui
+Token_ID: 0
+cmd: echo
+arg_num: 1
+arg: /home/creuther/common_core/minishell
+delim: 0
+type: 4
+---------------------------------
+Token_ID: 1
+cmd: os.txt
+arg_num: 0
+delim: 7
+type: 2
+---------------------------------
+ready for execve
+/home/creuther/common_core/minishell
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ echo $PWD | wc > os.txt
+input: echo $PWD | wc > os.txt
+llegue aqui
+Token_ID: 0
+cmd: echo
+arg_num: 1
+arg: /home/creuther/common_core/minishell
+delim: 0
+type: 4
+---------------------------------
+Token_ID: 1
+cmd: wc
+arg_num: 0
+delim: 5
+type: 1
+---------------------------------
+Token_ID: 2
+cmd: os.txt
+arg_num: 0
+delim: 7
+type: 2
+---------------------------------
+no redirection4
+no redirection3
+ww: 'standard input': Bad file descriptor
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ ls | wc > k.txt
+input: ls | wc > k.txt
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+Token_ID: 1
+cmd: wc
+arg_num: 0
+delim: 5
+type: 1
+---------------------------------
+Token_ID: 2
+cmd: k.txt
+arg_num: 0
+delim: 7
+type: 2
+---------------------------------
+no redirection4
+no redirection3
+ww: 'standard input': Bad file descriptor
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ ls | grep k > o.txt
+input: ls | grep k > o.txt
+llegue aqui
+Error
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+Token_ID: 1
+cmd: grep
+arg_num: 1
+arg: k
+delim: 5
+type: 4
+---------------------------------
+Token_ID: 2
+cmd: o.txt
+arg_num: 0
+delim: 7
+type: 2
+---------------------------------
+no redirection4
+no redirection3
+gggg: (standard input): Bad file descriptor
+gggg: (standard input): Bad file descriptor
+Exit-State = 0
+---------------------------------
+input done
