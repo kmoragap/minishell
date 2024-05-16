@@ -18,7 +18,7 @@ t_data *init_data(char **envp)
     int i;
     int j;
 
-    re = malloc(sizeof(t_data));
+    re = calloc(sizeof(t_data), 1);
     if (!re)
         return (NULL);
     re->env_len = 0;
@@ -26,7 +26,7 @@ t_data *init_data(char **envp)
     i = 0;
     while(envp[i])
         i++;
-    re->env = malloc(sizeof(char *) * (i + 2));
+    re->env = calloc(sizeof(char *), (i + 2));
     if (!re->env)
     {
         free(re);
@@ -43,6 +43,7 @@ t_data *init_data(char **envp)
     re->env_len = i + 2;
     re->err_code = ER_NO;
     re->free_code = NO_FREE;
+    re->childn = ft_calloc_norm(1, sizeof(t_child));
     return re;   
 }
 
@@ -71,12 +72,13 @@ int main(int ac, char **av, char **env)
         printf("input: %s\n", data->input);
         if (data->err_code == ER_NO)
             data->tokens = tokenizer(data);
-        free(data->input);
         if (data->err_code == ER_NO)
             data = parser(data);
         if (data->err_code == ER_NO)
             data = print(data);
-        printf("input done\n");
+        if (data->err_code == ER_NO)
+           data = execute_token(data);
+        printf("---------------------------------\ninput done\n");
         free_all(data);
     }
 }

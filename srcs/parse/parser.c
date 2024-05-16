@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/20 11:08:33 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/14 21:02:45 by creuther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ t_data  *parser(t_data *data)
             break;
         data->tokens = (data->tokens)->next;
     }
-    while (data->tokens->prev)
-        data->tokens = data->tokens->prev;
+    data->tokens = move_to_first_token(data->tokens);
     return (data);
 }
 

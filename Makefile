@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
+#    By: creuther <creuther@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/04/20 11:01:40 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/05/10 16:34:37 by creuther         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,16 @@ SRC = 	srcs/main.c \
 		srcs/print_data/print.c \
 		srcs/expansion/expansion.c \
 		srcs/expansion/expansion_utils.c \
+		srcs/execution/check_cmd_path.c \
+		srcs/execution/children.c \
+		srcs/execution/dup_pipes.c \
+		srcs/execution/close_pipes.c \
+		srcs/execution/execution.c \
+		srcs/execution/join_cmd_arg.c \
+		srcs/execution/parent_wait.c \
+		srcs/execution/piping.c \
 		srcs/utils/utils.c \
+		srcs/utils/ft_split.c \
 		srcs/free/free.c \
 		srcs/error/error.c
 

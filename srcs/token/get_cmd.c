@@ -67,6 +67,8 @@ int    text_in_quotes(int quote, int i, int *j, char *input)
     }
     if (!input[i + *j])
         return (1);
+    if (input[i + *j] == input[i + *j - 1])
+        *j += 1;
     return (0);
 }
 

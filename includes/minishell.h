@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/20 11:09:57 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/10 16:32:23 by creuther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,13 @@
 #include <readline/readline.h> //readline
 #include <signal.h>            //signal
 #include <stdio.h>             //printf
+#include <sys/types.h>         //fork
+#include <sys/wait.h>           //waitpid
+#include <sys/stat.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 typedef enum e_builtin
 {
@@ -63,7 +67,10 @@ typedef enum e_free
     F_INPUT,
     F_EMPTOK,
     F_TOKCMD,
-    F_TOKS
+    F_TOKS, 
+    F_PIPES,
+    F_PIDS, 
+    F_EXITSTATE,
 }   t_free;
 
 typedef struct s_token
@@ -73,11 +80,20 @@ typedef struct s_token
     char **args; // -la
     int args_num;
     int exit_status;
+    char    *path;
     t_type type;  // CMD or FILE or EXPAND
     t_type delim; // PIPE or REDIR_I/O/A/H
     struct s_token *next; 
     struct s_token *prev;
 } t_token;
+
+typedef struct s_child
+{
+    int cnt_childn;
+    pid_t *pids;
+    int *exit_state;
+    int **pipes;
+}               t_child;
 
 typedef struct s_data
 {
@@ -86,10 +102,11 @@ typedef struct s_data
     int env_len;        // env len
     t_error err_code;   // error code 
     t_free  free_code;  // code which says how much we got to free
+    int     exit_code;
     t_token *tokens;    // token list
+    t_child *childn;
     int token_num;      // number of tokens
     //t_tree *node;     // tree
-
 } t_data;
 
 // main.c
@@ -149,6 +166,49 @@ int check_expand_args(char **args);
 // builtins_utils.c
 int check_builtins(char *cmd);
 
+//execution
+//execution.c
+t_data  *execute_token(t_data *data);
+
+//piping.c
+t_data  *piping(t_data *data);
+int     count_pipes(t_data *data);
+int     malloc_fds(t_data *data);
+
+//dup_pipes.c
+void    dup_pipes(t_data *data, int child_id);
+void    check_redir_out_last(t_data *data);
+void    check_redir_in_first(t_data *data);
+int     check_redir_in(t_data *data, int child_id);
+int     check_redir_out(t_data *data, int child_id);
+
+//close_pipes.c
+void    close_pipes(t_data *data);
+void    dup_pipes(t_data *data, int child_id);
+
+//children.c
+t_data  *create_children(t_data *data);
+void    child_routine(t_data *data, int child_id);
+void    get_token(t_data *data, int child_id);
+
+//check_cmd_path.c
+int     check_cmd_path(t_data *data);
+int     check_relative(char *cmd);
+int     find_path(t_data *data);
+char    *path_from_env(char **env);
+int     check_absolute_path(t_data *data);
+
+//join_cmd_arg.c
+char    **join_cmd_arg(t_data *data);
+int     size_of_args(t_data *data);
+char    *get_cmd_for_args(t_data *data);
+char    **cpy_token_args(t_data *data, char **args, int *args_cntr);
+char    **cpy_next_token_args(t_data *data, char **args, int *args_cntr);
+void    free_args(char **args, int *cnt);
+
+//parent_wait.c
+void    parent_wait(t_data *data);
+
 // utils
 char	*ft_itoa(int n);
 int	ft_isascii(int c);
@@ -162,6 +222,12 @@ void	*ft_calloc_norm(size_t n, size_t size);
 void	ft_bzero(void *str, size_t n);
 int		ft_calloc(t_data *data, t_free code, void **arr, size_t size);
 t_token	*move_to_first_token(t_token *token);
+int	ft_strchr(const char *str, int c);
+char	*ft_strrchr(const char *str, int c);
+char	*ft_strjoin(char const *s1, char const *s2);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	*ft_memmove(void *dest, const void *src, size_t n);
+char	**ft_split(char const *s, char c);
 
 // error.c
 void    input_error(t_data *data, t_free code, char *txt);
@@ -170,6 +236,7 @@ void    malloc_error(t_data *data, t_free code);
 // free.c
 void    free_all(t_data *data);
 void    free_toks(t_data *data);
+void    free_pipes(int **pipes, t_data *data);
 void    reinit_data(t_data *data);
 
 #endif // MINISHELL_H

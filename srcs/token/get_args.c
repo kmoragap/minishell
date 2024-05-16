@@ -108,7 +108,7 @@ int     malloc_args(char *input, int *i, t_token **tokens)
     int     len;
 
     arg = 0;
-    (*tokens)->args = ft_calloc_norm(((*tokens)->args_num), sizeof(char *));
+    (*tokens)->args = ft_calloc_norm(((*tokens)->args_num + 1), sizeof(char *));
     if (!(*tokens)->args)
         return (1);
     while (arg < (*tokens)->args_num)

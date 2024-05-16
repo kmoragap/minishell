@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/10 17:25:02 by creuther         ###   ########.fr       */
+/*   Updated: 2024/05/10 17:27:35 by creuther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    input_error(t_data *data, t_free code, char *txt)
+void    close_pipes(t_data *data)
 {
-    data->err_code = ER_INPUT;
-    data->free_code = code;
-    perror(txt);
-}
+    int     i;
 
-void    malloc_error(t_data *data, t_free code)
-{
-    data->free_code = code;
-    data->err_code = ER_MALLOC;
-    perror("Error: malloc failure");
+    i = 0;
+    if (data->childn->cnt_childn == 1)
+        return ;
+    while (i < data->childn->cnt_childn && data->childn->pipes && data->childn->pipes[i])
+    {
+        if (data->childn->pipes[i][0] != STDIN_FILENO)
+            close(data->childn->pipes[i][0]);
+        if (data->childn->pipes[i][1] != STDOUT_FILENO)
+            close(data->childn->pipes[i][1]);
+        i++;
+    }
+    free_pipes(data->childn->pipes, data);
 }
