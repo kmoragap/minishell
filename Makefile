@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/05/11 16:24:30 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/05/16 19:23:18 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC = 	srcs/main.c \
 		srcs/expansion/expansion_utils.c \
 		srcs/expansion/expand_special_cases.c \
 		srcs/free/free.c \
+		srcs/signal/signal.c \
 		srcs/error/error.c \
 		srcs/utils/utils.c \
 		srcs/utils/utils2.c \

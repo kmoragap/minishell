@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/11 18:48:10 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/16 20:34:11 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ void read_input(t_data **data)
     
     line = readline(PROMPT);
     if (!line)
-        (*data)->err_code = ER_MALLOC;
+    {
+        //free some data here like env and other stuffffff
+        exit(0);
+    }
     if(*line)
         add_history(line);
     (*data)->input = line;
@@ -64,6 +67,7 @@ int main(int ac, char **av, char **env)
     t_data *data;
 
     data = init_data(env);
+    init_signals();
     while(1)
     {
         read_input(&data);

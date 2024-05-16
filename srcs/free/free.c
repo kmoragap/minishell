@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_cmd.c                                          :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: creuther <creuther@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/04/05 17:36:56 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/16 19:39:58 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void    free_all(t_data *data)
         free(data->tokens->cmd);
     if (data->free_code >= F_EMPTOK || data->free_code == NO_FREE) 
         free(data->tokens);
-    //if (data->free_code >= F_INPUT || data->free_code == NO_FREE)
-    //    free(data->input);
+    if (data->free_code >= F_INPUT || data->free_code == NO_FREE)
+        free(data->input);
     reinit_data(data);
 }
 // finishhhhhhhhhh! --> free toks isn't done yet! and add a new initializer for the data 

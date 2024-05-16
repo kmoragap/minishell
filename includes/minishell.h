@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/11 16:29:29 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/16 19:22:04 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void expand_args(t_token *token, char **env);
 char *expand_token(char *token, char **env, int exit_status);
 
 // expander_utils.c
-char *remove_outer_parentheses(char *arg);
+char *remove_outer_parenthesis(char *arg);
 char *remove_outer_quotes(char *arg);
 char *check_special_expand(char *special, int exit_status);
 int check_expand_var(char *var);
@@ -211,5 +211,10 @@ void    malloc_error(t_data *data, t_free code);
 void    free_all(t_data *data);
 void    free_toks(t_data *data);
 void    reinit_data(t_data *data);
+
+// signals.c
+void init_signals(void);
+void handle_eof(t_data *data);
+
 
 #endif // MINISHELL_H

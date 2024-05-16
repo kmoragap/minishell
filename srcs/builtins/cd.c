@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:48:53 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/10 13:38:20 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/16 20:57:12 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
  *  - failed to get current directory
  * Si se usa solo cd usar getcwd para obtener HOME y establecerlo, ya que eso hace por default
  * Se podría usar getcwd para actualizar el valor de la variable PWD en el env, y también para guardar el old_pwd en otra variable para así actualizar el PWD
- * Estas dos variables deben ir actualizando las respectivas variables del env para que cuando alguien hag a
+ * Estas dos variables deben ir actualizando las respectivas variables del env para que cuando alguien...
+ * cd ~ y otros casos con argumentos, en ese caso devolver error, pq sería lo más sencillo
 */
 
 // Se puede usar perror?????

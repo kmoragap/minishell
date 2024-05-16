@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:28:19 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/11 20:41:05 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/13 16:16:22 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int has_outer_quotes(char *arg)
     return ((arg[0] == '"' && arg[len - 1] == '"'));
 }
 
-static int has_outer_parentheses(char *arg)
+static int has_outer_parenthesis(char *arg)
 {
     size_t len;
 
@@ -104,13 +104,13 @@ char *remove_outer_quotes(char *arg)
     return ft_strdup(arg);
 }
 
-char *remove_outer_parentheses(char *arg)
+char *remove_outer_parenthesis(char *arg)
 {
     char *new_arg;
     size_t len;
 
     new_arg = NULL;
-    if (has_outer_parentheses(arg)) 
+    if (has_outer_parenthesis(arg)) 
     {
         len = strlen(arg);
         new_arg = ft_calloc_norm(len - 1, sizeof(char));
