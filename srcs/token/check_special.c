@@ -16,14 +16,14 @@ void    check_special(int *i, char *input, t_token **tokens, t_data *data)
 {
     (*tokens)->delim = 0;
     if (input[*i] == '|' && (*tokens)->id == 0)
-        input_error(data, F_EMPTOK, "Minishell: syntax error near unexpected token `|'\n"); 
+        input_error(data, F_EMPTOK, 2, "Minishell: syntax error near unexpected token `|'\n"); 
     if (input[*i] == '<' || input[*i] == '>' || input[*i] == '|')
     {
         add_delim(i, input, tokens);
         return ;
     }
     if ((input[*i] == 34 || input[*i] == 39) && check_whitespaces(input, i) == 1)
-        input_error(data, F_EMPTOK, "\n"); 
+        input_error(data, F_EMPTOK, 127, "\n"); 
 }
 
 void    add_delim(int *i, char *input, t_token **tokens)

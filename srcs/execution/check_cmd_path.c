@@ -12,37 +12,27 @@
 
 #include "minishell.h"
 
-int     check_cmd_path(t_data *data)
+void     check_cmd_path(t_data *data)
 {
-    data = remove_quotes(data->tokens->cmd, data);
-    printf("in check cmd path cmd = %s\n", data->tokens->cmd);    
+    data = remove_quotes(data->tokens->cmd, data); 
     if (check_builtins(data->tokens->cmd) == 0)
     {
         execute_builtin(data);
-        return (1);
+        return ;
     }
     if (check_relative(data->tokens->cmd) == 0)
     {
-        printf("relative cmd = %s\n", data->tokens->cmd);
         if (find_path(data) == 1)
         {
-            printf("ist relative & hat keinen funktionierenden Path\n");
-            printf("%s\n", data->tokens->cmd);
-            input_error(data, 0, ": command not found\n");
-            return (1);
+            write(2, "minishell: ", 11);
+            write(2, data->tokens->cmd, ft_strlen(data->tokens->cmd));
+            write(2, ": command not found\n", 20);
+            exit (127);
         }
     }
     else
-    {
-        printf("absolute cmd = %s\n", data->tokens->cmd);
-        if (check_absolute_path(data) == 1)
-        {
-            printf("minishell: %s", data->tokens->cmd);
-            input_error(data, 0, ": No such file or directory\n");
-            return (1);
-        }
-    }
-    return (0);
+        check_absolute_path(data);
+    return ;
 }
 
 t_data    *remove_quotes(char *cmd, t_data *data)
@@ -139,20 +129,21 @@ char    *path_from_env(char **env)
     return (NULL);
 }
 
-int     check_absolute_path(t_data *data)
+void     check_absolute_path(t_data *data)
 {
     if (access(data->tokens->cmd, F_OK) != 0)
     {
-        //error code == 126
-        //free code!
-        return (1);
+        write(2, "minishell: ", 11);
+        write(2, data->tokens->cmd, ft_strlen(data->tokens->cmd));
+        write(2, ": No such file or directory\n", 28);
+        exit(2);
     }
     if (access(data->tokens->cmd, X_OK) != 0)
     {
-        //error code == 126
-        //free code!
-        return (1);
+        write(2, "minishell: ", 11);
+        write(2, data->tokens->cmd, ft_strlen(data->tokens->cmd));
+        write(2, ": Command not found\n", 20);
+        exit(127);
     }
     data->tokens->path = ft_strdup(data->tokens->cmd);
-    return (0);
 }

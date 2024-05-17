@@ -62,7 +62,7 @@ int     malloc_fds(t_data *data)
     {
         if (pipe(data->childn->pipes[i]) == -1)
         {
-            input_error(data, F_PIPES, "Error: pipe creation failed");
+            input_error(data, F_PIPES, 32, "Error: pipe creation failed");
             return (1);
         }
         i++;
