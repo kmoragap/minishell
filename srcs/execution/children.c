@@ -52,10 +52,8 @@ void    child_routine(t_data *data, int child_id)
         exit (0);
     }
     cmd_arg = join_cmd_arg(data);
-    write(1, "ready for execve\n", 17);
     execve(data->tokens->path, cmd_arg, data->env);
     //error code ? / exit code?
-    write(1, "error in execve\n", 12);
     free(data->tokens->path);
     free_args(cmd_arg, NULL);
     exit (0);    

@@ -14,8 +14,12 @@
 
 void    dup_pipes(t_data *data, int child_id)
 {
+
     if (data->childn->cnt_childn == 1)
+    {
+        single_redir(data);
         return ;
+    }
     if(child_id == 0)
     {
         dup2(check_redir_out(data, child_id), STDOUT_FILENO);
@@ -33,6 +37,35 @@ void    dup_pipes(t_data *data, int child_id)
     }
 }
 
+void    single_redir(t_data *data)
+{
+    int     fd;
+
+    if (!data->tokens->next)
+        return ;
+    if (data->tokens->next->delim == REDIR_I)
+    {
+        fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT, S_IRWXU);
+        if (fd == -1)
+        {
+            input_error(data, F_PIPES, "Error: opening file failed");
+            return ;
+        }
+        dup2(fd, STDIN_FILENO);
+        return ;
+    }
+    if (data->tokens->next->delim == REDIR_A)
+        fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT | O_APPEND, S_IRWXU);
+    else if (data->tokens->next->delim == REDIR_O)
+        fd = open(data->tokens->next->cmd, O_RDONLY | O_TRUNC | O_CREAT | O_WRONLY, S_IRWXU);
+    if (fd == -1)
+    {
+        input_error(data, F_PIPES, "Error: opening file failed");
+        return ;
+    }
+    dup2(fd, STDOUT_FILENO);
+}
+
 void    check_redir_out_last(t_data *data)
 {
     int     fd;
@@ -40,7 +73,7 @@ void    check_redir_out_last(t_data *data)
     if (data->tokens->next && data->tokens->next->delim == REDIR_A)
         fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT | O_APPEND, S_IRWXU);
     else if (data->tokens->next && data->tokens->next->delim == REDIR_O)
-        fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT | O_WRONLY, S_IRWXU);
+        fd = open(data->tokens->next->cmd, O_RDONLY | O_TRUNC | O_CREAT | O_WRONLY, S_IRWXU);
     else
     {
         write(1, "no redirection1\n", 16);
@@ -78,6 +111,7 @@ int     check_redir_in(t_data *data, int child_id)
 {
     int     fd;
 
+    fd = child_id;
     if (data->tokens->next && data->tokens->next->delim == REDIR_I)
     {
         fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT, S_IRWXU);
@@ -89,16 +123,17 @@ int     check_redir_in(t_data *data, int child_id)
         return (fd);
     }
     write(1, "no redirection3\n", 16);
-    return (data->childn->pipes[child_id - 1][1]);
+    return (data->childn->pipes[child_id - 1][0]);
 }
 
 int     check_redir_out(t_data *data, int child_id)
 {
     int     fd;
 
+    fd = child_id;
     if (data->tokens->next && data->tokens->next->delim == REDIR_O)
     {
-        fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT | O_WRONLY, S_IRWXU);
+        fd = open(data->tokens->next->cmd, O_RDONLY | O_TRUNC | O_CREAT | O_WRONLY, S_IRWXU);
         if (fd == -1)
         {
             input_error(data, F_PIPES, "Error: opening file failed");
