@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/14 21:02:45 by creuther         ###   ########.fr       */
+/*   Updated: 2024/05/17 17:06:40 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,11 @@ int check_expand(t_token *move, char **env)
 
     if(move->args_num != 0)
     {
-       expand_args(move, env);
-       return (1);   
+        if(check_expand_args(move->args) == 1)
+        {
+            expand_args(move, env);
+            return (1);   
+        }
     }
     return (0);
 }

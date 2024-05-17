@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:34:26 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/10 16:29:48 by creuther         ###   ########.fr       */
+/*   Updated: 2024/05/17 17:24:40 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_itoa(int n)
 
 	len = f_len(n);
 	num = n;
-	s = (char *)malloc((sizeof(char) * len) + 1);
+	s = (char *)ft_calloc_norm(1, (sizeof(char) * len) + 1);
 	if (s == NULL)
 		return (NULL);
 	s[len] = '\0';
@@ -87,7 +87,7 @@ char	*ft_strdup(char *src)
 {
 	char	*dest;
 
-	dest = (char *)malloc(ft_strlen((char *)src) + 1);
+	dest = (char *)ft_calloc_norm(1, ft_strlen((char *)src) + 1);
 	if (!dest)
 		return (NULL);
 	dest = ft_strcpy((char *)src, dest);
@@ -293,3 +293,40 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
+int is_valid_expand_var(char *str, int c)
+{
+	int i;
+
+	i = 0;
+
+	while(str[i])
+	{
+		if(str[i] == c)
+			return 1;
+		i++;
+	}
+	return 0;
+}
+
+char *ft_strcat(char *dest, const char *src) 
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (dest[i] != '\0')
+        i++;
+
+    j = 0;
+    
+    while (src[j] != '\0')
+    {
+        dest[i] = src[j];
+        i++;
+        j++;
+    }
+
+    dest[i] = '\0';
+
+    return dest;
+}

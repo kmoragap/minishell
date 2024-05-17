@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/04/16 12:14:41 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:59:40 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,18 @@ t_data *init_data(char **envp)
     int i;
     int j;
 
-    re = calloc(sizeof(t_data), 1);
-    if (!re)
-        return (NULL);
+    re = NULL;
+    if(ft_calloc(re, F_INPUT, (void *)&re, sizeof(t_data)) == 1)
+        return NULL;
     re->env_len = 0;
     re->input = NULL;
     i = 0;
     while(envp[i])
         i++;
-    re->env = calloc(sizeof(char *), (i + 2));
-    if (!re->env)
+    if(ft_calloc(re, F_INPUT, (void *)&re->env, (sizeof(char *) * (i + 2))) == 1)
     {
         free(re);
-        return (NULL);
+        return NULL;
     }
     j = 0;
     while(j < i)
@@ -38,9 +37,7 @@ t_data *init_data(char **envp)
         re->env[j] = ft_strdup(envp[j]); // create a utils that contain this func
         j++;
     }
-    re->env[j] = ft_strdup(" "); // cadena vacia para el prompt 
-    re->env[j + 2] = NULL; // caracter nulo al final
-    re->env_len = i + 2;
+    re->env_len = i;
     re->err_code = ER_NO;
     re->free_code = NO_FREE;
     re->childn = ft_calloc_norm(1, sizeof(t_child));
@@ -53,7 +50,10 @@ void read_input(t_data **data)
     
     line = readline(PROMPT);
     if (!line)
-        (*data)->err_code = ER_MALLOC;
+    {
+        //free some data here like env and other stuffffff
+        exit(0);
+    }
     if(*line)
         add_history(line);
     (*data)->input = line;
@@ -66,6 +66,7 @@ int main(int ac, char **av, char **env)
     t_data *data;
 
     data = init_data(env);
+    init_signals();
     while(1)
     {
         read_input(&data);

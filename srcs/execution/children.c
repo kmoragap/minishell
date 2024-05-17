@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/14 20:57:46 by creuther         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:32:03 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void    child_routine(t_data *data, int child_id)
         //free(data->tokens->path);
         exit (0);
     }
-    write(1, "check_child_routine\n", 20);
     cmd_arg = join_cmd_arg(data);
     execve(data->tokens->path, cmd_arg, data->env);
     //error code ? / exit code?

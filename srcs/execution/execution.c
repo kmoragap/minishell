@@ -3,15 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:35:50 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/10 16:34:11 by creuther         ###   ########.fr       */
+/*   Updated: 2024/05/17 17:19:49 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void execute_builtin(t_data *data)
+{
+    int type;
+    type = check_builtins(data->tokens->cmd);
+    if(type == EXPORT)
+        execute_export_builtin(data);
+    if(type == ENV)
+        put_env(data);
+    if(type == PWD)
+        get_pwd();
+    if(type == UNSET)
+        ft_unset(data);
+    if(type == ECHO)
+        ft_echo(data);
+    if(type == CD)
+        ft_cd(data);
+    if(type == EXIT)
+        ft_exit(data);
+}
 
 t_data  *execute_token(t_data *data)
 {

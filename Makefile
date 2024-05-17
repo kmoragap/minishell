@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: creuther <creuther@student.42.fr>          +#+  +:+       +#+         #
+#    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/05/10 16:34:37 by creuther         ###   ########.fr        #
+#    Updated: 2024/05/17 17:35:33 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,25 @@ SRC = 	srcs/main.c \
 		srcs/execution/join_cmd_arg.c \
 		srcs/execution/parent_wait.c \
 		srcs/execution/piping.c \
+		srcs/expansion/expand_special_cases.c \
+		srcs/free/free.c \
+		srcs/signal/signal.c \
+		srcs/error/error.c \
 		srcs/utils/utils.c \
 		srcs/utils/ft_split.c \
-		srcs/free/free.c \
-		srcs/error/error.c
+		srcs/utils/utils2.c \
+		srcs/utils/strtok.c \
+		srcs/builtins/export.c \
+		srcs/builtins/builtins_utils.c \
+		srcs/builtins/env.c \
+		srcs/builtins/unset.c \
+		srcs/builtins/pwd.c \
+		srcs/builtins/exit.c \
+		srcs/builtins/echo.c \
+		srcs/builtins/cd.c \
 
-INC = includes/
+INC = includes/ 
+
 
 OBJ = $(SRC:.c=.o)
 CC = gcc
@@ -73,7 +86,6 @@ fclean:
 	@echo "$(GREEN) Object files cleaned.$(RESET)"
 	@echo "$(RED) Cleaning executable...$(RESET)"
 	@rm -f $(NAME)
-	@echo "$(GREEN) Executable cleaned.$(RESET)"	
-
+	@echo "$(GREEN) Executable cleaned.$(RESET)"
 
 re: fclean all

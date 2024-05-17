@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/10 16:32:23 by creuther         ###   ########.fr       */
+/*   Updated: 2024/05/17 17:29:02 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,14 +157,44 @@ void expand_args(t_token *token, char **env);
 char *expand_token(char *token, char **env, int exit_status);
 
 // expander_utils.c
+char *remove_outer_parenthesis(char *arg);
+char *remove_outer_quotes(char *arg);
 char *check_special_expand(char *special, int exit_status);
-int check_expand_quotes(const char *str);
 int check_expand_var(char *var);
 int is_valid_variable_char(char c);
 int check_expand_args(char **args);
 
 // builtins_utils.c
 int check_builtins(char *cmd);
+void execute_builtin(t_data *data);
+int check_builtins_type(char *cmd);
+char *ft_strtok(char *str, const char *delim);
+
+
+// export.c 
+void execute_export_builtin(t_data *data);
+int replace_var_env(t_data *data, char *arg);
+
+//env
+void put_env(t_data *data);
+
+//pwd
+void get_pwd(void);
+
+//exit
+void ft_exit(t_data *data);
+
+// cd.c
+void execute_cd(t_data *data, char *path, char *old_pwd);
+void ft_cd(t_data *data);
+void update_env_vars(t_data *data, char *old_pwd, char *new_pwd);
+
+//unset
+void ft_unset(t_data *data);
+void unset_env(t_data *data, int arg_num);
+
+// echo.c
+void ft_echo(t_data *data);
 
 //execution
 //execution.c
@@ -213,11 +243,19 @@ void    free_args(char **args, int *cnt);
 void    parent_wait(t_data *data);
 
 // utils
+int	ft_atoi(char *str);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
+char *ft_strcat(char *dest, const char *src);
+int is_valid_expand_var(char *str, int c);
+char	*ft_strchr_before_c(const char *s, int c);
+char	*ft_strchr_after_c(const char *s, int c);
+int	ft_strchr(const char *str, int c);
 char	*ft_itoa(int n);
 int	ft_isascii(int c);
 int	ft_isdigit(int c);
 int	ft_isalpha(int c);
 int	ft_isalnum(int c);
+int ft_strcmp(char *s1, char *s2);
 char	*ft_strdup(char *src);
 char	*ft_strcpy(char *src, char *dest);
 int	ft_strlen(const char *str);
@@ -225,7 +263,6 @@ void	*ft_calloc_norm(size_t n, size_t size);
 void	ft_bzero(void *str, size_t n);
 int		ft_calloc(t_data *data, t_free code, void **arr, size_t size);
 t_token	*move_to_first_token(t_token *token);
-int	ft_strchr(const char *str, int c);
 char	*ft_strrchr(const char *str, int c);
 char	*ft_strjoin(char *s1, char *s2);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
@@ -243,5 +280,10 @@ void    free_all(t_data *data);
 void    free_toks(t_data *data);
 void    free_pipes(int **pipes, t_data *data);
 void    reinit_data(t_data *data);
+
+// signals.c
+void init_signals(void);
+void handle_eof(t_data *data);
+
 
 #endif // MINISHELL_H

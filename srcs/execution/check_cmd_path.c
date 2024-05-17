@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd_path.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/10 17:26:42 by creuther         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:26:34 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 int     check_cmd_path(t_data *data)
 {
     data = remove_quotes(data->tokens->cmd, data);
-    printf("cmd = %s\n", data->tokens->cmd);    
-    // if (check_builtins(data->tokens->cmd) != 0)
-    // {
-    //     //execute_builtin(data->tokens->cmd, data->tokens->args, data->env);
-    //     return (1);
-    // }
+    printf("in check cmd path cmd = %s\n", data->tokens->cmd);    
+    if (check_builtins(data->tokens->cmd) == 0)
+    {
+        execute_builtin(data);
+        return (1);
+    }
     if (check_relative(data->tokens->cmd) == 0)
     {
         printf("relative cmd = %s\n", data->tokens->cmd);
