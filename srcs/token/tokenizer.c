@@ -44,6 +44,7 @@ void    create_tokens(char *input, t_token **tokens, t_data *data)
         get_args(&i, input, tokens, data);
         if (data->err_code != ER_NO)
             break ;
+        skip_whitespace(&i, input);
         id++;
         (data)->token_num = id;
         if (input[i])
