@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/17 22:01:19 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/18 00:21:33 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef enum e_free
 {
     NO_FREE,
     F_INPUT,
+    F_ENV,
     F_EMPTOK,
     F_TOKCMD,
     F_TOKS, 
@@ -242,6 +243,7 @@ void    free_args(char **args, int *cnt);
 void    parent_wait(t_data *data);
 
 // utils
+int ft_strnum(const char *str);
 int is_valid_number(char *str);
 int	ft_atoi(char *str);
 char	*ft_strncpy(char *dest, const char *src, size_t n);
@@ -278,6 +280,7 @@ void    malloc_error(t_data *data, t_free code);
 // free.c
 void    free_all(t_data *data);
 void    free_toks(t_data *data);
+void    free_env(t_data *data);
 void    free_pipes(int **pipes, t_data *data);
 void    reinit_data(t_data *data);
 

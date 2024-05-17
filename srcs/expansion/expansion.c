@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/17 22:01:25 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/18 00:13:09 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static char *resolve_token_value(char *token, char **env, int exit_status, int p
                 if (value != NULL)
                     return ft_strdup(value);
             }
-            else if(parenthesis == 1)
+            else if(parenthesis)
             {
                 value_length = ft_strlen(value);
                 new_value = ft_calloc_norm((value_length + 3), sizeof(char));
@@ -127,7 +127,7 @@ char *expand_token(char *token, char **env, int status)
     processed_tok = preprocess_token(token, status, &parenthesis);
     if (processed_tok == NULL)
         return NULL;
-    else if(is_valid_number(processed_tok))
+    else if(ft_strnum(processed_tok))
         return processed_tok;
 
     processed_tok++;

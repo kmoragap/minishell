@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/17 21:59:39 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 22:37:06 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void     check_cmd_path(t_data *data)
 {
     data = remove_quotes(data->tokens->cmd, data); 
-    if (check_builtins(data->tokens->cmd) == 0)
+    if (check_builtins(data->tokens->cmd) > -1)
     {
         execute_builtin(data);
         return ;
