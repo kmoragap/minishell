@@ -177,6 +177,7 @@ int     malloc_fds(t_data *data);
 
 //dup_pipes.c
 void    dup_pipes(t_data *data, int child_id);
+void    single_redir(t_data *data);
 void    check_redir_out_last(t_data *data);
 void    check_redir_in_first(t_data *data);
 int     check_redir_in(t_data *data, int child_id);
