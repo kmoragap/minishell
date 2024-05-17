@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:28:19 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/13 16:16:22 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/18 00:08:24 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int has_outer_quotes(char *arg)
         return 0; 
     if(arg[0] == '$' && arg[1] == '"' && arg[len - 1] == '"')
         return 2;
-    return ((arg[0] == '"' && arg[len - 1] == '"'));
+    return ((arg[0] == '"' && arg[len - 1] == '"') || (arg[0] == '\'' && arg[len - 1] ==  '\''));
 }
 
 static int has_outer_parenthesis(char *arg)

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/17 17:03:07 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/18 00:41:26 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,28 @@ void    free_toks(t_data *data)
     }
 }
 
+void free_env(t_data *data)
+{
+    int i;
+    
+    i = 0;
+    if (data) 
+    {
+        if (data->env) 
+        {
+            while (i < data->env_len)
+            {
+                if (data->env[i]) 
+                    free(data->env[i]);
+                i++;
+            }
+            free(data->env);
+        }
+    }
+    if(data->childn)
+        free(data->childn);
+    free(data);
+}
 void    free_pipes(int **pipes, t_data *data)
 {
     int     i;

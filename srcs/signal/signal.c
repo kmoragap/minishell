@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:20:49 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/16 20:52:31 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/18 01:10:50 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ static void handle_sigint(int sig)
 static void handle_sigquit(int sig)
 {
     (void)sig;
-    printf("estoy haciendo esta wea\n");
     rl_on_new_line();
-	rl_replace_line("", 0);
+    rl_replace_line("", 0);
     rl_redisplay();
 }
 
@@ -52,8 +51,6 @@ void init_signals(void)
 void handle_eof(t_data *data)
 {
     printf("exit\n");
-    free(data->input);
-    data->input = NULL;
-    free_all(data);
+    free_env(data);
     exit(0);
 }

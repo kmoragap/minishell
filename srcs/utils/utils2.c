@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:04:40 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/11 16:28:58 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 22:26:09 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,21 @@ int	ft_atoi(char *str)
 		str++;
 	}
 	return (sign * result);
+}
+int ft_strnum(const char *str) 
+{
+	int i;
+
+	i = 0;
+    if (str == NULL || *str == '\0')
+        return 0;
+
+    while (str[i]) 
+	{
+        if (!ft_isdigit(str[i]))
+            return 0;
+		i++;
+    }
+
+    return 1;
 }
