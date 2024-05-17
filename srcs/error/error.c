@@ -12,10 +12,11 @@
 
 #include "minishell.h"
 
-void    input_error(t_data *data, t_free code, char *txt)
+void    input_error(t_data *data, t_free code, int exit_code, char *txt)
 {
     data->err_code = ER_INPUT;
     data->free_code = code;
+    data->exit_code = exit_code;
     perror(txt);
 }
 
@@ -23,5 +24,6 @@ void    malloc_error(t_data *data, t_free code)
 {
     data->free_code = code;
     data->err_code = ER_MALLOC;
+    data->exit_code = 12;
     perror("Error: malloc failure");
 }

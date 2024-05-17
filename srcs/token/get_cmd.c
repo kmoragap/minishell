@@ -26,7 +26,7 @@ void    get_cmd(int *i, char *input, t_token **tokens, t_data *data)
         if (quote != 0)
         {
             if (text_in_quotes(quote, *i, &j, input) != 0)
-                input_error(data, F_EMPTOK, "Minishell: syntax error due to unclosed quote\n");
+                input_error(data, F_EMPTOK, 1, "Minishell: syntax error due to unclosed quote\n");
             j += 1;
         }
         if (delim_space(input[*i + j]) != 0)
@@ -56,7 +56,6 @@ int    delim_space(char c)
 
 int    text_in_quotes(int quote, int i, int *j, char *input)
 {
-    //*j += 1;
     while (input[i + *j])
     {
         if (quote == 1 && input[i + *j] == 39)

@@ -29,7 +29,7 @@ t_data    *create_children(t_data *data)
         }
         else if (data->childn->pids[child_id] == -1)
         {
-            input_error(data, 0, "Error: cannot fork a process\n");
+            input_error(data, 0, 10, "minishell: No child processes\n");
             exit (0);
         }
         child_id++;
@@ -46,17 +46,12 @@ void    child_routine(t_data *data, int child_id)
     get_token(data, child_id);
     dup_pipes(data, child_id);
     close_pipes(data);
-    if (check_cmd_path(data) == 1)
-    {
-        //free(data->tokens->path);
-        exit (0);
-    }
+    check_cmd_path(data);
     cmd_arg = join_cmd_arg(data);
     execve(data->tokens->path, cmd_arg, data->env);
-    //error code ? / exit code?
     free(data->tokens->path);
     free_args(cmd_arg, NULL);
-    exit (0);    
+    exit (1);    
 }
 
 void    get_token(t_data *data, int child_id)
