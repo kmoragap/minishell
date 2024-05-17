@@ -194,6 +194,8 @@ void    get_token(t_data *data, int child_id);
 
 //check_cmd_path.c
 int     check_cmd_path(t_data *data);
+t_data    *remove_quotes(char *cmd, t_data *data);
+void    loop_quotes(char *cmd, char **new, int *i, int *check);
 int     check_relative(char *cmd);
 int     find_path(t_data *data);
 char    *path_from_env(char **env);
@@ -216,7 +218,7 @@ int	ft_isascii(int c);
 int	ft_isdigit(int c);
 int	ft_isalpha(int c);
 int	ft_isalnum(int c);
-char	*ft_strdup(const char *src);
+char	*ft_strdup(char *src);
 char	*ft_strcpy(char *src, char *dest);
 int	ft_strlen(const char *str);
 void	*ft_calloc_norm(size_t n, size_t size);
@@ -225,10 +227,12 @@ int		ft_calloc(t_data *data, t_free code, void **arr, size_t size);
 t_token	*move_to_first_token(t_token *token);
 int	ft_strchr(const char *str, int c);
 char	*ft_strrchr(const char *str, int c);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 char	**ft_split(char const *s, char c);
+char	*ft_strnjoin(char *s1, char *s2, int len2);
+char	*ft_strndup(char *src, int len);
 
 // error.c
 void    input_error(t_data *data, t_free code, char *txt);

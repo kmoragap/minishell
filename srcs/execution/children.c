@@ -51,6 +51,7 @@ void    child_routine(t_data *data, int child_id)
         //free(data->tokens->path);
         exit (0);
     }
+    write(1, "check_child_routine\n", 20);
     cmd_arg = join_cmd_arg(data);
     execve(data->tokens->path, cmd_arg, data->env);
     //error code ? / exit code?

@@ -14,7 +14,8 @@
 
 int     check_cmd_path(t_data *data)
 {
-    
+    data = remove_quotes(data->tokens->cmd, data);
+    printf("cmd = %s\n", data->tokens->cmd);    
     // if (check_builtins(data->tokens->cmd) != 0)
     // {
     //     //execute_builtin(data->tokens->cmd, data->tokens->args, data->env);
@@ -22,16 +23,18 @@ int     check_cmd_path(t_data *data)
     // }
     if (check_relative(data->tokens->cmd) == 0)
     {
+        printf("relative cmd = %s\n", data->tokens->cmd);
         if (find_path(data) == 1)
         {
             printf("ist relative & hat keinen funktionierenden Path\n");
-            printf("%s", data->tokens->cmd);
+            printf("%s\n", data->tokens->cmd);
             input_error(data, 0, ": command not found\n");
             return (1);
         }
     }
     else
     {
+        printf("absolute cmd = %s\n", data->tokens->cmd);
         if (check_absolute_path(data) == 1)
         {
             printf("minishell: %s", data->tokens->cmd);
@@ -40,6 +43,46 @@ int     check_cmd_path(t_data *data)
         }
     }
     return (0);
+}
+
+t_data    *remove_quotes(char *cmd, t_data *data)
+{
+    int     i;
+    int     check;
+    char    *new;
+
+    i = 0;
+    check = 0;
+    while (cmd[i] && check == 0)
+    {
+        if (cmd[i] == 34 || cmd[i] == 39)
+            check = cmd[i];
+        i++;
+    }
+    if (check == 0)
+        return (data);
+    new = ft_strndup(cmd, i - 1);
+    while (cmd[i])
+    {
+        loop_quotes(cmd, &new, &i, &check);
+    }
+    free(data->tokens->cmd);
+    data->tokens->cmd = new;
+    return (data);
+}
+
+void    loop_quotes(char *cmd, char **new, int *i, int *check)
+{
+    int     j;
+
+    j = 0;
+    while (cmd[*i + j] != *check && cmd[*i + j])
+        j++;
+    *new = ft_strnjoin(*new, &cmd[*i], j);
+    *i = *i + j;
+    if (cmd[*i] && (cmd[*i] == 34 || cmd[*i] == 39))
+        *check = cmd[*i];
+    *i = *i + 1;
 }
 
 int     check_relative(char *cmd)

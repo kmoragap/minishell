@@ -83,13 +83,13 @@ void    get_args_num(char *input, int *i, int total_arg_len, t_token **tokens)
     int     zero;
 
     zero = 0;
-    quote = 0;
     j = *i;
     (*tokens)->args_num = 0;
     while (input[j] && (j - *i) < (total_arg_len))
     {
         while (input[j] && (j - *i) < (total_arg_len))
         {
+            quote = 0;
             skip_whitespace(&j, input);
             while (quote == 0 && delim_space(input[j]) == 0 && input[j])
                 check_quote(input[j], &quote, &j);
@@ -145,7 +145,10 @@ int     get_arg_len(char *input, int *i)
         while (quote == 0 && delim_space(input[skip + len]) == 0 && input[skip + len])
             check_quote(input[skip + len], &quote, &len);
         if (quote != 0)
+        {
             text_in_quotes(quote, skip, &len, input);
+            len++;
+        }
         if (delim_space(input[skip + len]) != 0)
             break;
     }
