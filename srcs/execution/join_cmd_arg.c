@@ -22,7 +22,6 @@ char    **join_cmd_arg(t_data *data)
     if (ft_calloc(data, 0, (void *)&args, (size + 2) * sizeof(char *)) == 1)
         return (NULL);
     args[0] = get_cmd_for_args(data);
-    printf("args = %s\n", args[0]);
     if (!args[0])
     {
         free(args);
@@ -62,7 +61,7 @@ char    *get_cmd_for_args(t_data *data)
     else
         pntr = data->tokens->cmd;
     len = ft_strlen(pntr);
-    if (ft_calloc(data, 0, (void *)&cmd, len + 1) != 0) //other free code!
+    if (ft_calloc(data, 0, (void *)&cmd, len + 1) != 0) //free!!
         return (NULL);
     cntr = 0;
     while (cntr < len && *pntr)
@@ -87,8 +86,7 @@ char    **cpy_token_args(t_data *data, char **args, int *args_cntr)
         if (!args[*args_cntr])
         {
             free_args(args, args_cntr);
-            //error / free_code;
-            return (NULL);
+            exit(12);
         }
         cntr++;
         *args_cntr += 1;
@@ -107,8 +105,7 @@ char    **cpy_next_token_args(t_data *data, char **args, int *args_cntr)
         if (!args[*args_cntr])
         {
             free_args(args, args_cntr);
-            //error / free_code;
-            return (NULL);
+            exit(12);
         }
         cntr++;
         *args_cntr += 1;

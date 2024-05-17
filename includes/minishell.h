@@ -223,13 +223,13 @@ void    child_routine(t_data *data, int child_id);
 void    get_token(t_data *data, int child_id);
 
 //check_cmd_path.c
-int     check_cmd_path(t_data *data);
+void     check_cmd_path(t_data *data);
 t_data    *remove_quotes(char *cmd, t_data *data);
 void    loop_quotes(char *cmd, char **new, int *i, int *check);
 int     check_relative(char *cmd);
 int     find_path(t_data *data);
 char    *path_from_env(char **env);
-int     check_absolute_path(t_data *data);
+void     check_absolute_path(t_data *data);
 
 //join_cmd_arg.c
 char    **join_cmd_arg(t_data *data);
@@ -272,7 +272,7 @@ char	*ft_strnjoin(char *s1, char *s2, int len2);
 char	*ft_strndup(char *src, int len);
 
 // error.c
-void    input_error(t_data *data, t_free code, char *txt);
+void    input_error(t_data *data, t_free code, int exit_code, char *txt);
 void    malloc_error(t_data *data, t_free code);
 
 // free.c

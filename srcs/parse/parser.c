@@ -41,7 +41,7 @@ int     check_empty_cmd(t_token *move, t_data *data)
 {
     if ((move)->cmd && (move)->cmd[0])
         return (0);
-    input_error(data, F_TOKS, "\n");
+    input_error(data, F_TOKS, 32, "\n");
     return (1);
 }
 
