@@ -22,6 +22,7 @@ char    **join_cmd_arg(t_data *data)
     if (ft_calloc(data, 0, (void *)&args, (size + 2) * sizeof(char *)) == 1)
         return (NULL);
     args[0] = get_cmd_for_args(data);
+    printf("args = %s\n", args[0]);
     if (!args[0])
     {
         free(args);
@@ -68,6 +69,7 @@ char    *get_cmd_for_args(t_data *data)
     {
         cmd[cntr] = *pntr;
         cntr++;
+        pntr++;
     }
     cmd[cntr] ='\0';
     return (cmd);

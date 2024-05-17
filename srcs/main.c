@@ -73,9 +73,9 @@ int main(int ac, char **av, char **env)
         if (data->err_code == ER_NO)
             data->tokens = tokenizer(data);
         if (data->err_code == ER_NO)
-            data = parser(data);
-        if (data->err_code == ER_NO)
             data = print(data);
+        if (data->err_code == ER_NO)
+            data = parser(data);
         if (data->err_code == ER_NO)
            data = execute_token(data);
         printf("---------------------------------\ninput done\n");

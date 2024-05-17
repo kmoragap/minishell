@@ -83,7 +83,7 @@ char	*ft_itoa(int n)
 	return (s);
 }
 
-char	*ft_strdup(const char *src)
+char	*ft_strdup(char *src)
 {
 	char	*dest;
 
@@ -91,6 +91,24 @@ char	*ft_strdup(const char *src)
 	if (!dest)
 		return (NULL);
 	dest = ft_strcpy((char *)src, dest);
+	return (dest);
+}
+
+char	*ft_strndup(char *src, int len)
+{
+	char	*dest;
+	int		i;
+
+	i = 0;
+	dest = (char *)malloc(len + 1);
+	if (!dest)
+		return (NULL);
+	while(i < len && src[i])
+    {
+        dest[i] = src[i];
+        i++;
+    }
+	dest[i] = '\0';
 	return (dest);
 }
 
@@ -199,7 +217,24 @@ char	*ft_strrchr(const char *str, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strnjoin(char *s1, char *s2, int len2)
+{
+	char	*new;
+	size_t	len;
+
+	len = ft_strlen((char *)s1) + len2;
+	new = (char *)malloc(len + 1);
+	if (new == NULL)
+		return (NULL);
+	ft_memcpy((void *)new, (const void *)s1, ft_strlen((char *)s1));
+	ft_memmove((void *)(new + ft_strlen((char *)s1)),
+		(const void *)s2, len2);
+	new[len] = '\0';
+	free(s1);
+	return (new);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new;
 	size_t	len;
