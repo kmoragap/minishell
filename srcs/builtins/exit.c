@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 12:15:14 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/11 20:38:23 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 22:01:05 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 */
 
-static int is_valid_number(char *str) 
+int is_valid_number(char *str) 
 {
     if (*str == '-' || *str == '+') 
         str++;
@@ -65,7 +65,7 @@ void ft_exit(t_data *data)
         } 
         else 
         {
-            printf("exit: %s: numeric argument required\n", args[1]);
+            printf("exit: %s: numeric argument required\n", args[0]);
             exit_status = 255;
         }
     }

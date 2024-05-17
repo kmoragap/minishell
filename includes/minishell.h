@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/17 17:29:02 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 22:01:19 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void    create_empty_args(t_token **tokens, t_data *data);
 
 // parser.c
 t_data  *parser(t_data *data);
-int check_expand(t_token *move, char **env);
+int check_expand(t_data *data);
 int     check_empty_cmd(t_token *move, t_data *data);
 int     check_fd(t_token *move);
 int     check_file(t_token *move);
@@ -152,8 +152,8 @@ int     check_file(t_token *move);
 t_data  *print(t_data *data);
 
 // expander.c
-void expand_cmd(t_token *token, char **env);
-void expand_args(t_token *token, char **env);
+void expand_cmd(t_token *token, char **env, int status);
+void expand_args(t_token *token, char **env, int status);
 char *expand_token(char *token, char **env, int exit_status);
 
 // expander_utils.c
@@ -167,7 +167,6 @@ int check_expand_args(char **args);
 // builtins_utils.c
 int check_builtins(char *cmd);
 void execute_builtin(t_data *data);
-int check_builtins_type(char *cmd);
 char *ft_strtok(char *str, const char *delim);
 
 
@@ -243,6 +242,7 @@ void    free_args(char **args, int *cnt);
 void    parent_wait(t_data *data);
 
 // utils
+int is_valid_number(char *str);
 int	ft_atoi(char *str);
 char	*ft_strncpy(char *dest, const char *src, size_t n);
 char *ft_strcat(char *dest, const char *src);

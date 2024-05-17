@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/17 18:01:13 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 22:01:25 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static char *resolve_token_value(char *token, char **env, int exit_status, int p
                 if (value != NULL)
                     return ft_strdup(value);
             }
-            else if(parenthesis)
+            else if(parenthesis == 1)
             {
                 value_length = ft_strlen(value);
                 new_value = ft_calloc_norm((value_length + 3), sizeof(char));
@@ -117,29 +117,31 @@ static char *resolve_token_value(char *token, char **env, int exit_status, int p
 }
 
 
-char *expand_token(char *token, char **env, int exit_status) 
+char *expand_token(char *token, char **env, int status) 
 {
     char *processed_tok;
     int parenthesis;
 
     parenthesis = 0;
 
-    processed_tok = preprocess_token(token, exit_status, &parenthesis);
+    processed_tok = preprocess_token(token, status, &parenthesis);
     if (processed_tok == NULL)
         return NULL;
+    else if(is_valid_number(processed_tok))
+        return processed_tok;
 
     processed_tok++;
-    return resolve_token_value(processed_tok, env, exit_status, parenthesis);
+    return resolve_token_value(processed_tok, env, status, parenthesis);
 }
 
-void expand_cmd(t_token *token, char **env) 
+void expand_cmd(t_token *token, char **env, int status) 
 {
     char *expanded_cmd;
     expanded_cmd = NULL;
 
     if (check_expand_var(token->cmd)) 
     {
-        expanded_cmd = expand_token(token->cmd, env, token->exit_status);
+        expanded_cmd = expand_token(token->cmd, env, status);
         if (expanded_cmd != NULL) 
         {
             free(token->cmd); 
@@ -148,7 +150,7 @@ void expand_cmd(t_token *token, char **env)
     }
 }
 
-void expand_args(t_token *token, char **env) 
+void expand_args(t_token *token, char **env, int status) 
 {
     char *expanded_arg;
     int i;
@@ -160,7 +162,7 @@ void expand_args(t_token *token, char **env)
     {
         if(check_expand_args(&token->args[i]) == 1)
         {
-            expanded_arg = expand_token(token->args[i], env, token->exit_status);
+            expanded_arg = expand_token(token->args[i], env, status);
             if (expanded_arg != NULL) 
             {
                 free(token->args[i]); 

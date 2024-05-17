@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/17 17:06:40 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 20:11:51 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_data  *parser(t_data *data)
     {
         if (check_empty_cmd(data->tokens, data) == 1)
             return (data);         
-        else if (check_expand(data->tokens, data->env) == 1)
+        else if (check_expand(data) == 1)
             (data->tokens)->type = EXPAND;
         else if (check_fd(data->tokens) == 1)
             (data->tokens)->type = FD;
@@ -45,19 +45,20 @@ int     check_empty_cmd(t_token *move, t_data *data)
     return (1);
 }
 
-int check_expand(t_token *move, char **env)
+int check_expand(t_data *data)
 {
-    if (check_expand_var(move->cmd))
+
+    if (check_expand_var(data->tokens->cmd))
     {
-        expand_cmd(move, env);
+        expand_cmd(data->tokens, data->env, data->exit_code);
         return (1);
     }
 
-    if(move->args_num != 0)
+    if(data->tokens->args_num != 0)
     {
-        if(check_expand_args(move->args) == 1)
+        if(check_expand_args(data->tokens->args) == 1)
         {
-            expand_args(move, env);
+            expand_args(data->tokens, data->env, data->exit_code);
             return (1);   
         }
     }
