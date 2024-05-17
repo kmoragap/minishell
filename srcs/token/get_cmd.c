@@ -18,9 +18,9 @@ void    get_cmd(int *i, char *input, t_token **tokens, t_data *data)
     int     quote; 
 
     j = 0;
-    quote = 0;
     while (input[*i + j])
     {
+        quote = 0;
         while (quote == 0 && delim_space(input[*i + j]) == 0 && input[*i + j])
             check_quote(input[*i + j], &quote, &j);
         if (quote != 0)
@@ -56,7 +56,7 @@ int    delim_space(char c)
 
 int    text_in_quotes(int quote, int i, int *j, char *input)
 {
-    *j += 1;
+    //*j += 1;
     while (input[i + *j])
     {
         if (quote == 1 && input[i + *j] == 39)
@@ -67,6 +67,8 @@ int    text_in_quotes(int quote, int i, int *j, char *input)
     }
     if (!input[i + *j])
         return (1);
+    if (input[i + *j] == input[i + *j - 1])
+        *j += 1;
     return (0);
 }
 

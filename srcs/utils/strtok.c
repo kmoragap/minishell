@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:41:49 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/08 14:29:25 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:22:49 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_strchr_before_c(const char *s, int c)
     return result;
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr_after_c(const char *s, int c)
 {
 	while (*s != '\0')
 	{

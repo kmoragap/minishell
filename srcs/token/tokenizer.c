@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/27 16:54:23 by kmoraga          ###   ########.fr       */
+/*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
+/*   Updated: 2024/05/17 17:21:26 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -45,6 +44,7 @@ void    create_tokens(char *input, t_token **tokens, t_data *data)
         get_args(&i, input, tokens, data);
         if (data->err_code != ER_NO)
             break ;
+        skip_whitespace(&i, input);
         id++;
         (data)->token_num = id;
         if (input[i])

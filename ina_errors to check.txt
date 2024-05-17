@@ -1,0 +1,169 @@
+
+>minishell$ ls | wc > o.txt |
+input: ls | wc > o.txt |
+
+: Success
+---------------------------------
+input done
+
+>minishell$ expr 1 +1 
+input: expr 1 +1 
+llegue aqui
+Error
+llegue aqui
+Error
+
+: Success
+---------------------------------
+input done
+
+
+
+>minishell$ ls | expr 1 + 1 
+input: ls | expr 1 + 1 
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+
+: Success
+---------------------------------
+input done
+
+
+>minishell$ ls | echo "hallo \n welt" > o.txt
+input: ls | echo "hallo \n welt" > o.txt
+llegue aqui
+Error
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+Token_ID: 1
+cmd: echo
+arg_num: 1
+arg: "hallo \n welt" > o.txt
+delim: 5
+type: 4
+---------------------------------
+no redirection4
+no redirection3
+no redirection1
+ready for execve
+"hallo \n welt" > o.txt
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ ls | echo "hallo \n welt" >o.txt
+input: ls | echo "hallo \n welt" >o.txt
+llegue aqui
+Error
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+Token_ID: 1
+cmd: echo
+arg_num: 1
+arg: "hallo \n welt" >o.txt
+delim: 5
+type: 4
+---------------------------------
+no redirection4
+no redirection3
+no redirection1
+ready for execve
+"hallo \n welt" >o.txt
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ ls | echo "hallo \n welt"   >o.txt
+input: ls | echo "hallo \n welt"   >o.txt
+llegue aqui
+Error
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+Token_ID: 1
+cmd: echo
+arg_num: 1
+arg: "hallo \n welt"   >o.txt
+delim: 5
+type: 4
+---------------------------------
+no redirection4
+no redirection3
+no redirection1
+ready for execve
+"hallo \n welt"   >o.txt
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ ls | echo "hallo \n welt">o.txt
+input: ls | echo "hallo \n welt">o.txt
+llegue aqui
+Error
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+Token_ID: 1
+cmd: echo
+arg_num: 1
+arg: "hallo \n welt">o.txt
+delim: 5
+type: 4
+---------------------------------
+no redirection4
+no redirection3
+no redirection1
+ready for execve
+"hallo \n welt">o.txt
+Exit-State = 0
+---------------------------------
+input done
+>minishell$ ls | echo hallo \n welt >o.txt
+input: ls | echo hallo \n welt >o.txt
+llegue aqui
+Error
+llegue aqui
+Error
+llegue aqui
+Error
+Token_ID: 0
+cmd: ls
+arg_num: 0
+delim: 0
+type: 1
+---------------------------------
+Token_ID: 1
+cmd: echo
+arg_num: 3
+arg: hallo
+arg: \n
+arg: welt
+delim: 5
+type: 4
+---------------------------------
+Token_ID: 2
+cmd: o.txt
+arg_num: 0
+delim: 7
+type: 2
+---------------------------------
+no redirection4
+no redirection3
+Exit-State = 0
+---------------------------------
+input done

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/11 15:08:10 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:06:40 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ t_data  *parser(t_data *data)
             break;
         data->tokens = (data->tokens)->next;
     }
-    while (data->tokens->prev)
-        data->tokens = data->tokens->prev;
+    data->tokens = move_to_first_token(data->tokens);
     return (data);
 }
 

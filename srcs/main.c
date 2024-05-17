@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/16 20:34:11 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:59:40 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ t_data *init_data(char **envp)
     re->env_len = i;
     re->err_code = ER_NO;
     re->free_code = NO_FREE;
-
-
+    re->childn = ft_calloc_norm(1, sizeof(t_child));
     return re;   
 }
 
@@ -75,12 +74,12 @@ int main(int ac, char **av, char **env)
         if (data->err_code == ER_NO)
             data->tokens = tokenizer(data);
         if (data->err_code == ER_NO)
-            data = parser(data);
-        if(data->err_code == ER_NO)
-            execute_token(data);
-        if (data->err_code == ER_NO)
             data = print(data);
-        printf("input done\n");
+        if (data->err_code == ER_NO)
+            data = parser(data);
+        if (data->err_code == ER_NO)
+           data = execute_token(data);
+        printf("---------------------------------\ninput done\n");
         free_all(data);
     }
 }

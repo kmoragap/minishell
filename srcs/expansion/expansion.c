@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/17 16:45:27 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 18:01:13 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static char *resolve_token_value(char *token, char **env, int exit_status, int p
     while (env[i] != NULL) 
     {
         var = ft_strchr_before_c(env[i], '=');
-        value = ft_strchr(env[i], '=');
+        value = ft_strchr_after_c(env[i], '=');
         if (ft_strcmp(var, token) == 0) 
         {
             if(value && value[0] == '$')

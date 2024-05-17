@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:35:50 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/11 16:23:50 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:19:49 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@ void execute_builtin(t_data *data)
         ft_exit(data);
 }
 
-void execute_token(t_data *data)
+t_data  *execute_token(t_data *data)
 {
-    //if is builtin
-    if(check_builtins(data->tokens->cmd) != -1)
-        execute_builtin(data);
+    data = piping(data);
+    if (data->err_code != ER_NO)
+      return (data);
+    data = create_children(data);
+    return (data);
 }
