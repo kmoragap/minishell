@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/11 17:22:51 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 16:40:17 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,6 @@
  * -Debe no funcionar cuando no hay export o eso es lo q creo (??????)
  * -No 
 */
-
-
-
-/**
- * cambiar por una lista que se va reemplazando por el arg,
- * No reinventar la rueda
-*/
-
-
 
 static void create_env_var(t_data *data, int arg_num)
 {

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/16 20:57:49 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/17 16:45:27 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static char *preprocess_token(char *token, int exit_status, int *parenthesis)
 }
 
 
-/*static char *add_parenthesis(char *value)
+/*
+static char *add_parenthesis(char *value)
 {
     char *new_value;
     int value_length;
@@ -144,8 +145,6 @@ void expand_cmd(t_token *token, char **env)
             free(token->cmd); 
             token->cmd = expanded_cmd; 
         }
-        else
-            printf("Error\n");
     }
 }
 
@@ -167,11 +166,7 @@ void expand_args(t_token *token, char **env)
                 free(token->args[i]); 
                 token->args[i] = expanded_arg;
             }
-            else
-                printf("Error acá\n"); 
         }
-        else
-            printf("Error aca\n");        
         i++;
     }    
 }
