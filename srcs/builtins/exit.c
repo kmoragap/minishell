@@ -59,18 +59,20 @@ void ft_exit(t_data *data)
             exit_status = ft_atoi(args[0]);
             if (args[1] != NULL) 
             {
-                printf("exit: too many arguments\n");
+                perror("exit: too many arguments\n");
                 return;
             }
         } 
         else 
         {
-            printf("exit: %s: numeric argument required\n", args[0]);
+            write(2, "exit: ", 6);
+            write(2, args[0], ft_strlen(args[0]));
+            perror(": numeric argument required\n");
             exit_status = 255;
         }
     }
     data->free_code = F_ENV;
     free_all(data);
-    printf("exit\n");
+    //printf("exit\n");
     exit(exit_status % 256);
 }
