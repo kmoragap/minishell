@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/18 01:15:28 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/18 11:58:50 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef enum e_error
 typedef enum e_free
 {
     NO_FREE,
+    NO_FREE_PIDS,
     F_INPUT,
     F_ENV,
     F_EMPTOK,
