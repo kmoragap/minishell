@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/18 11:58:50 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/18 14:03:29 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,6 +242,9 @@ char    **cpy_next_token_args(t_data *data, char **args, int *args_cntr);
 
 //parent_wait.c
 void    parent_wait(t_data *data);
+
+// shlvl.c
+void shlvl(t_data *data);
 
 // utils
 int ft_strnum(const char *str);

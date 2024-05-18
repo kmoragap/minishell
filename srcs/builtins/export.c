@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/18 11:55:51 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/18 13:30:49 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int replace_var_env(t_data *data, char *arg)
     char *ar;
 
     ar = ft_strchr_before_c(arg, 61);
-    if(!arg)
+    if(!ar)
         return 0;
 
     char *var;
@@ -99,7 +99,14 @@ void execute_export_builtin(t_data *data)
     while(i < data->tokens->args_num)
     {
         var = ft_strchr_before_c(args[i], '=');
-        if(var != NULL)
+      
+        if(!ft_isalnum(var[ft_strlen(var) - 1]))
+        {
+          //msg?
+          free(var);
+          break;
+        }
+        else if(var != NULL)
             if(replace_var_env(data, args[i]) == 0)
                 if(is_valid_expand_var(args[i], '=') == 1)
                     create_env_var(data, i);
