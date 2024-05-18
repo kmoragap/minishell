@@ -66,10 +66,10 @@ typedef enum e_free
     NO_FREE,
     NO_FREE_PIDS,
     F_INPUT,
-    F_ENV,
     F_EMPTOK,
     F_TOKCMD,
     F_TOKS, 
+    F_ENV,
     F_PIPES,
     F_PIDS, 
     F_EXITSTATE,
@@ -118,6 +118,7 @@ t_data *init_data(char **envp);
 
 // tokenizer.c
 t_token  *tokenizer(t_data *data);
+int    check_input(t_data *data);
 void    create_tokens(char *input, t_token **tokens, t_data *data);
 t_token **next_token(t_token **tokens, t_data *data);
 void    skip_whitespace(int *i, char *input);

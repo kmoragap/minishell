@@ -14,11 +14,33 @@
 
 t_token  *tokenizer(t_data *data)
 {
+    if (check_input(data) == 1)
+        return (NULL);
     if (ft_calloc(data, F_INPUT, (void *)&(data->tokens), sizeof(t_token)) == 1)
         return (data->tokens);
     create_tokens(data->input, &data->tokens, data);
     data->tokens = move_to_first_token(data->tokens);
     return (data->tokens);
+}
+
+int    check_input(t_data *data)
+{
+    int i;
+
+    i = 0;
+    while (data->input[i])
+    {
+        if (data->input[i] == '&' || data->input[i] == 92)
+        {
+            data->err_code = ER_INPUT;
+            data->free_code = F_INPUT;
+            write(2, "Minishell: syntax error due to invalid input\n", 46);
+            data->exit_code = 2;
+            return (1);
+        }
+        i++;
+    }
+    return (0);
 }
 
 void    create_tokens(char *input, t_token **tokens, t_data *data)
