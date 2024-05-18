@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/18 01:12:43 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/18 15:44:39 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int main(int ac, char **av, char **env)
     t_data *data;
 
     data = init_data(env);
+    shlvl(data);
     init_signals();
     while(1)
     {

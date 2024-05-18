@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/05/17 17:35:33 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/05/18 14:04:03 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC = 	srcs/main.c \
 		srcs/free/free.c \
 		srcs/signal/signal.c \
 		srcs/error/error.c \
+		srcs/utils/shlvl.c \
 		srcs/utils/utils.c \
 		srcs/utils/ft_split.c \
 		srcs/utils/utils2.c \
