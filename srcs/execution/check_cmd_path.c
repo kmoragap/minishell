@@ -99,9 +99,7 @@ int     find_path(t_data *data)
             data->tokens->path = ft_strdup(path[lop]);
         lop++;
     }
-    while (lop >= 0)
-        free(path[lop--]);
-    free(path);
+    free_args(path, 0);
     if (data->tokens->path && data->tokens->path[0])
         return (0);
     return (1);

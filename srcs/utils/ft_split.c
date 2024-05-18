@@ -56,7 +56,7 @@ char	**ft_malloc(char const *s, char c)
 	int		is;
 	int		j;
 
-	ss = malloc((ft_num((char *)s, c) + 1) * sizeof(char *));
+	ss = ft_calloc_norm((ft_num((char *)s, c) + 1), sizeof(char *));
 	if (ss == NULL)
 		return (NULL);
 	is = -1;
@@ -65,8 +65,7 @@ char	**ft_malloc(char const *s, char c)
 	{
 		if (s[is] != c)
 		{
-			ss[j] = malloc((ft_cnum((char *)s + is, c) + 1)
-					* sizeof(char));
+			ss[j] = ft_calloc_norm((ft_cnum((char *)s + is, c) + 1), sizeof(char));
 			if (ss[j++] == NULL)
 				return (NULL);
 			while (s[is] != c && s[is] != '\0')

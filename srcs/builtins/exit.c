@@ -69,7 +69,8 @@ void ft_exit(t_data *data)
             exit_status = 255;
         }
     }
-
+    data->free_code = F_ENV;
+    free_all(data);
     printf("exit\n");
     exit(exit_status % 256);
 }
