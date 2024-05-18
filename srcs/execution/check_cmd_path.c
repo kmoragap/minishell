@@ -78,6 +78,13 @@ int     check_relative(char *cmd)
     return (1);
 }
 
+
+void print_arr(char **arr){
+    int i = 0;
+    while (arr[i])
+        printf("%s\n", arr[i++]);
+}
+
 int     find_path(t_data *data)
 {
     char    **path;
@@ -93,6 +100,7 @@ int     find_path(t_data *data)
     while (path[lop])
     {
         tmp = ft_strjoin(path[lop],"/");
+        free(path[lop]);
         path[lop] = ft_strjoin(tmp, data->tokens->cmd);
         free(tmp);
         if (access(path[lop], F_OK) == 0 && access(path[lop], X_OK) == 0 && !data->tokens->path)
