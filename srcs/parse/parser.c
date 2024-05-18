@@ -47,13 +47,20 @@ int     check_empty_cmd(t_token *move, t_data *data)
 
 int check_expand(t_data *data)
 {
+    int     i;
 
+    i = 0;
+    data = remove_quotes(data->tokens->cmd, data);
     if (check_expand_var(data->tokens->cmd))
     {
         expand_cmd(data->tokens, data->env, data->exit_code);
         return (1);
     }
-
+    while (data->tokens->args[i])
+    {
+        data->tokens->args[i] = remove_quotes_args(data->tokens->args[i]);
+        i++;
+    }
     if(data->tokens->args_num != 0)
     {
         if(check_expand_args(data->tokens->args) == 1)

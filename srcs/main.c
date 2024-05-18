@@ -47,8 +47,17 @@ t_data *init_data(char **envp)
 void read_input(t_data **data)
 {
     char *line;
+    char *tmp;
     
-    line = readline(PROMPT);
+    if (isatty(fileno(stdin)))
+		line = readline(PROMPT);
+	else
+	{
+		tmp = get_next_line(fileno(stdin));
+		line = ft_strtrim(tmp, "\n");
+		free(tmp);
+	}
+    //line = readline(PROMPT);
     if (!line)
         handle_eof((*data));
     if(*line)

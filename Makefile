@@ -45,6 +45,9 @@ SRC = 	srcs/main.c \
 		srcs/builtins/exit.c \
 		srcs/builtins/echo.c \
 		srcs/builtins/cd.c \
+		srcs/utils/ft_strtrim.c \
+		srcs/utils/get_next_line/get_next_line_bonus.c \
+		srcs/utils/get_next_line/get_next_line_utils_bonus.c
 
 INC = includes/ 
 
