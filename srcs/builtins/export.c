@@ -105,6 +105,4 @@ void execute_export_builtin(t_data *data)
                     create_env_var(data, i);
         i++;
     }
-    free(args);
-    free(var);
 }
