@@ -14,13 +14,13 @@
 
 void     check_cmd_path(t_data *data)
 {
-    data = remove_quotes(data->tokens->cmd, data); 
     if (check_builtins(data->tokens->cmd) > -1)
     {
         execute_builtin(data);
         //free everything malloced in execute_builtin
         exit (0);
     }
+    data = remove_quotes(data->tokens->cmd, data); 
     if (check_relative(data->tokens->cmd) == 0)
     {
         if (find_path(data) == 1)
@@ -99,7 +99,7 @@ int     find_path(t_data *data)
             data->tokens->path = ft_strdup(path[lop]);
         lop++;
     }
-    free_args(path, 0);
+    free_args(path, &lop);
     if (data->tokens->path && data->tokens->path[0])
         return (0);
     return (1);

@@ -39,8 +39,6 @@ void    free_toks(t_data *data)
 {
     while (data->tokens)
     {
-        if (data->tokens->args_num == 0)
-            free(data->tokens->args[0]);
         while (data->tokens->args_num >= 0)
         {
             free(data->tokens->args[data->tokens->args_num]);
@@ -100,17 +98,19 @@ void    free_args(char **args, int *cnt)
     i = 0;
     if (args[0][0] == '\0')
         free(args[0]);
-    else if (!cnt && args && args[0])
+    else if (cnt == 0 && args && args[0])
     {
         while (args[i])
+            i++;
+        while (i >= 0)
         {
             free(args[i]);
-            i++;
+            i--;
         }
     }
     else
     {
-        while (*cnt > 0)
+        while (*cnt >= 0)
         {
             free(args[*cnt]);
             *cnt -= 1;
