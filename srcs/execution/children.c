@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/17 22:42:46 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/18 12:00:05 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_data    *create_children(t_data *data)
         if (check_builtins(data->tokens->cmd) > -1)
         {
             execute_builtin(data);
+            data->free_code = NO_FREE_PIDS;
             return (data);
         }
     }
