@@ -92,7 +92,7 @@ typedef struct s_child
 {
     int cnt_childn;
     pid_t *pids;
-    int *exit_state;
+    int exit_state;
     int **pipes;
 }               t_child;
 
@@ -221,6 +221,7 @@ void    dup_pipes(t_data *data, int child_id);
 t_data  *create_children(t_data *data);
 void    child_routine(t_data *data, int child_id);
 void    get_token(t_data *data, int child_id);
+void    error_in_child(t_data *data, int exit_code, char *cmd, char *error_message);
 
 //check_cmd_path.c
 void     check_cmd_path(t_data *data);
@@ -237,7 +238,6 @@ int     size_of_args(t_data *data);
 char    *get_cmd_for_args(t_data *data);
 char    **cpy_token_args(t_data *data, char **args, int *args_cntr);
 char    **cpy_next_token_args(t_data *data, char **args, int *args_cntr);
-void    free_args(char **args, int *cnt);
 
 //parent_wait.c
 void    parent_wait(t_data *data);
@@ -282,6 +282,7 @@ void    free_all(t_data *data);
 void    free_toks(t_data *data);
 void    free_env(t_data *data);
 void    free_pipes(int **pipes, t_data *data);
+void    free_args(char **args, int *cnt);
 void    reinit_data(t_data *data);
 
 // signals.c

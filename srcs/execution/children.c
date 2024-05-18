@@ -17,6 +17,14 @@ t_data    *create_children(t_data *data)
     int     child_id;
 
     child_id = 0;
+    if (data->childn->cnt_childn == 1)
+    {
+        if (check_builtins(data->tokens->cmd) > -1)
+        {
+            execute_builtin(data);
+            return (data);
+        }
+    }
     if (ft_calloc(data, F_INPUT, (void *)&data->childn->pids, sizeof(pid_t) * data->childn->cnt_childn + 1) == 1)
         return (data);
     while (child_id < (data->childn->cnt_childn) || child_id == 0)
@@ -61,6 +69,20 @@ void    get_token(t_data *data, int child_id)
         if (!data->tokens->next)
             return ;
         data->tokens = data->tokens->next;
-        child_id--;
+        if (data->tokens->delim == PIPE)
+            child_id--;
     }
+}
+
+void    error_in_child(t_data *data, int exit_code, char *cmd, char *error_message)
+{
+    if (data->tokens->path)
+        free(data->tokens->path);
+    
+    write(2, "minishell: ", 11);
+    write(2, cmd, ft_strlen(cmd));
+    write(2, ": ", 2);
+    write(2, error_message, ft_strlen(error_message));
+    write(2, "\n", 1);
+    exit (exit_code);
 }

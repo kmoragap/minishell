@@ -47,12 +47,7 @@ void    single_redir(t_data *data)
     {
         fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT, S_IRWXU);
         if (fd == -1)
-        {
-            write(2, "minishell: ", 11);
-            write(2, data->tokens->next->cmd, ft_strlen(data->tokens->next->cmd));
-            write(2, ": No such file or directory\n", 28);
-            exit(2);
-        }
+            error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
         dup2(fd, STDIN_FILENO);
         return ;
     }
@@ -61,12 +56,7 @@ void    single_redir(t_data *data)
     else if (data->tokens->next->delim == REDIR_O)
         fd = open(data->tokens->next->cmd, O_RDONLY | O_TRUNC | O_CREAT | O_WRONLY, S_IRWXU);
     if (fd == -1)
-    {
-        write(2, "minishell: ", 11);
-        write(2, data->tokens->next->cmd, ft_strlen(data->tokens->next->cmd));
-        write(2, ": Permission denied\n", 20);
-        exit(13) ;
-    }
+        error_in_child(data, 13, data->tokens->next->cmd, "Permission denied");
     dup2(fd, STDOUT_FILENO);
 }
 
@@ -81,12 +71,7 @@ void    check_redir_out_last(t_data *data)
     else
         return ;
     if (fd == -1)
-    {
-        write(2, "minishell: ", 11);
-        write(2, data->tokens->next->cmd, ft_strlen(data->tokens->next->cmd));
-        write(2, ": Permission denied\n", 20);
-        exit(13) ;
-    }
+        error_in_child(data, 13, data->tokens->next->cmd, "Permission denied");
     dup2(fd, STDOUT_FILENO);    
 }
 
@@ -99,12 +84,7 @@ void    check_redir_in_first(t_data *data)
     else
         return ;
     if (fd == -1)
-    {
-        write(2, "minishell: ", 11);
-        write(2, data->tokens->next->cmd, ft_strlen(data->tokens->next->cmd));
-        write(2, ": No such file or directory", 28);
-        exit(2);
-    }
+        error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
     dup2(fd, STDIN_FILENO);  
 }
 
@@ -117,12 +97,7 @@ int     check_redir_in(t_data *data, int child_id)
     {
         fd = open(data->tokens->next->cmd, O_RDONLY, S_IRWXU);
         if (fd == -1)
-        {
-            write(2, "minishell: ", 11);
-            write(2, data->tokens->next->cmd, ft_strlen(data->tokens->next->cmd));
-            write(2, ": No such file or directory", 28);
-            exit(28);
-        }
+            error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
         return (fd);
     }
     return (data->childn->pipes[child_id - 1][0]);
@@ -137,24 +112,14 @@ int     check_redir_out(t_data *data, int child_id)
     {
         fd = open(data->tokens->next->cmd, O_RDONLY | O_TRUNC | O_CREAT | O_WRONLY, S_IRWXU);
         if (fd == -1)
-        {
-            write(2, "minishell: ", 11);
-            write(2, data->tokens->next->cmd, ft_strlen(data->tokens->next->cmd));
-            write(2, ": Permission denied", 20);
-            exit(13);
-        }
+            error_in_child(data, 13, data->tokens->next->cmd, "Permission denied");
         return (fd);
     }
     else if (data->tokens->next && data->tokens->next->delim == REDIR_A)
     {
         fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
         if (fd == -1)
-        {
-            write(2, "minishell: ", 11);
-            write(2, data->tokens->next->cmd, ft_strlen(data->tokens->next->cmd));
-            write(2, ": Permission denied", 20);
-            exit(13);
-        }
+            error_in_child(data, 13, data->tokens->next->cmd, "Permission denied");
         return (fd);
     }
     return (data->childn->pipes[child_id][1]);
