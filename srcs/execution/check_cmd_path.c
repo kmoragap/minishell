@@ -18,17 +18,13 @@ void     check_cmd_path(t_data *data)
     if (check_builtins(data->tokens->cmd) > -1)
     {
         execute_builtin(data);
-        return ;
+        //free everything malloced in execute_builtin
+        exit (0);
     }
     if (check_relative(data->tokens->cmd) == 0)
     {
         if (find_path(data) == 1)
-        {
-            write(2, "minishell: ", 11);
-            write(2, data->tokens->cmd, ft_strlen(data->tokens->cmd));
-            write(2, ": command not found\n", 20);
-            exit (127);
-        }
+            error_in_child(data, 127, data->tokens->cmd, "command not found");
     }
     else
         check_absolute_path(data);
@@ -132,18 +128,8 @@ char    *path_from_env(char **env)
 void     check_absolute_path(t_data *data)
 {
     if (access(data->tokens->cmd, F_OK) != 0)
-    {
-        write(2, "minishell: ", 11);
-        write(2, data->tokens->cmd, ft_strlen(data->tokens->cmd));
-        write(2, ": No such file or directory\n", 28);
-        exit(2);
-    }
+        error_in_child(data, 2, data->tokens->cmd, "No such file or directory");
     if (access(data->tokens->cmd, X_OK) != 0)
-    {
-        write(2, "minishell: ", 11);
-        write(2, data->tokens->cmd, ft_strlen(data->tokens->cmd));
-        write(2, ": Command not found\n", 20);
-        exit(127);
-    }
+        error_in_child(data, 126, data->tokens->cmd, "Permission denied");
     data->tokens->path = ft_strdup(data->tokens->cmd);
 }

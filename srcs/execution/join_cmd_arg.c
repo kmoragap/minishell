@@ -112,27 +112,3 @@ char    **cpy_next_token_args(t_data *data, char **args, int *args_cntr)
     }
     return (args);
 }
-
-void    free_args(char **args, int *cnt)
-{
-    int     i;
-
-    i = 0;
-    if (!cnt)
-    {
-        while (args[i])
-        {
-            free(args[i]);
-            i++;
-        }
-    }
-    else
-    {
-        while (*cnt > 0)
-        {
-            free(args[*cnt]);
-            *cnt -= 1;
-        }
-    }
-    free(args);
-}
