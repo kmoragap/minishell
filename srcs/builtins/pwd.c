@@ -18,7 +18,10 @@ void get_pwd(void)
 
     pwd = getcwd(NULL, 0);
     if(!pwd)
-        printf("error\n");
+        perror("error\n");
     else
-        printf("%s\n", pwd);
+    {
+        write(1, pwd, ft_strlen(pwd));
+        write(1, "\n", 1);
+    }
 }

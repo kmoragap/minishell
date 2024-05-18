@@ -14,13 +14,26 @@
 
 void     check_cmd_path(t_data *data)
 {
+    // int     i;
+
+    // i = 0;
     if (check_builtins(data->tokens->cmd) > -1)
     {
         execute_builtin(data);
         //free everything malloced in execute_builtin
         exit (0);
     }
-    data = remove_quotes(data->tokens->cmd, data); 
+    // while (data->tokens->args[i])
+    // {
+    //     data->tokens->args[i] = remove_quotes_args(data->tokens->args[i]);
+    //     i++;
+    // }
+    //data = remove_quotes(data->tokens->cmd, data);
+    // if(data->tokens->args_num != 0)
+    // {
+    //     if(check_expand_args(data->tokens->args) == 1)
+    //         expand_args(data->tokens, data->env, data->exit_code);
+    // }
     if (check_relative(data->tokens->cmd) == 0)
     {
         if (find_path(data) == 1)
@@ -54,7 +67,33 @@ t_data    *remove_quotes(char *cmd, t_data *data)
     }
     free(data->tokens->cmd);
     data->tokens->cmd = new;
+    i = 0;
     return (data);
+}
+
+char    *remove_quotes_args(char *arg)
+{
+    int     i;
+    int     check;
+    char    *new;
+
+    i = 0;
+    check = 0;
+    while (arg[i] && check == 0)
+    {
+        if (arg[i] == 34 || arg[i] == 39)
+            check = arg[i];
+        i++;
+    }
+    if (check == 0)
+        return (arg);
+    new = ft_strndup(arg, i - 1);
+    while (arg[i])
+    {
+        loop_quotes(arg, &new, &i, &check);
+    }
+    free(arg);
+    return (new);
 }
 
 void    loop_quotes(char *cmd, char **new, int *i, int *check)
@@ -82,7 +121,11 @@ int     check_relative(char *cmd)
 void print_arr(char **arr){
     int i = 0;
     while (arr[i])
-        printf("%s\n", arr[i++]);
+    {
+        write(1, arr[i], ft_strlen(arr[i]));
+        write(1, "\n", 1);
+        i++;
+    }
 }
 
 int     find_path(t_data *data)

@@ -48,10 +48,10 @@ void ft_echo(t_data *data)
     while (i < curr_token->args_num)
     {
         processed_arg = remove_outer_quotes(curr_token->args[i]);
-        printf("%s", processed_arg);
+        write(1, processed_arg, ft_strlen(processed_arg));
         free(processed_arg);
         i++;
     }
     if (newline)
-        printf("\n");
+        write(1, "\n", 1);
 }

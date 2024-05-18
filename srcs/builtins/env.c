@@ -20,7 +20,7 @@ void put_env(t_data *data)
 
     while(i < data->env_len)
     {
-        printf("%s\n", data->env[i]);
+        write(1, data->env[i], ft_strlen(data->env[i]));
         i++;
     }
     

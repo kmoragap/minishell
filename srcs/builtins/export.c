@@ -38,7 +38,11 @@ static void create_env_var(t_data *data, int arg_num)
   if(!ft_isdigit(data->tokens->args[arg_num][0]))
     env[i] = ft_strdup(data->tokens->args[arg_num]);
   else
-    printf("export: %s: not a valid identifier\n", data->tokens->args[arg_num]);
+  {
+    write(2, "export: ", 8);
+    write(2, data->tokens->args[arg_num], ft_strlen(data->tokens->args[arg_num]));
+    perror(": not a valid identifier\n");
+  }
   if(env[i] == NULL)
     return ;
   data->env = env;

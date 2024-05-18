@@ -29,6 +29,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include "../srcs/utils/get_next_line/get_next_line_bonus.h"
 
 typedef enum e_builtin
 {
@@ -230,6 +231,7 @@ void    error_in_child(t_data *data, int exit_code, char *cmd, char *error_messa
 //check_cmd_path.c
 void     check_cmd_path(t_data *data);
 t_data    *remove_quotes(char *cmd, t_data *data);
+char    *remove_quotes_args(char *arg);
 void    loop_quotes(char *cmd, char **new, int *i, int *check);
 int     check_relative(char *cmd);
 int     find_path(t_data *data);
@@ -279,6 +281,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n);
 char	**ft_split(char const *s, char c);
 char	*ft_strnjoin(char *s1, char *s2, int len2);
 char	*ft_strndup(char *src, int len);
+char	*ft_strtrim(char const *s1, char const *set);
 
 // error.c
 void    input_error(t_data *data, t_free code, int exit_code, char *txt);
