@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/05/18 14:04:03 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/05/18 19:22:18 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC = 	srcs/main.c \
 		srcs/builtins/exit.c \
 		srcs/builtins/echo.c \
 		srcs/builtins/cd.c \
+		srcs/heredoc/heredoc.c
 		srcs/utils/ft_strtrim.c \
 		srcs/utils/get_next_line/get_next_line_bonus.c \
 		srcs/utils/get_next_line/get_next_line_utils_bonus.c

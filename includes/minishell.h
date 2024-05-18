@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/18 14:03:29 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/18 19:22:24 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #define MINISHELL_H
 
 #define PROMPT "\033[1;32m>minishell$\033[0m "
+
+#define BUFFER_SIZE 1000
 
 #include <readline/history.h>  //add_history
 #include <readline/readline.h> //readline
@@ -297,5 +299,8 @@ void    reinit_data(t_data *data);
 void init_signals(void);
 void handle_eof(t_data *data);
 
+// heredoc.c
+void handle_heredoc(t_token *token);
+void execute_command_with_heredoc(t_data *data);
 
 #endif // MINISHELL_H

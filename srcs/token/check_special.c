@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_special.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: creuther <creuther@student.42vienna.com>   +#+  +:+       +#+        */
+/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/04/05 17:36:02 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/18 17:36:33 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
