@@ -64,7 +64,6 @@ void handle_sigint_heredoc(int sig)
 void handle_heredoc(t_token *token)
 {
     char *line;
-    // char *temp;
     int fd;
     void (*prev_handler)(int);
 
@@ -79,10 +78,6 @@ void handle_heredoc(t_token *token)
         line = readline("> ");
         if (!line || g_heredoc_interrupted || ft_strcmp(line, token->next->cmd) == 0)
             break;
-        // temp = token->heredoc;
-        // token->heredoc = ft_strjoin(token->heredoc, line);
-        // free(temp);
-        // token->heredoc = ft_strjoin(token->heredoc, "\n");
         write(fd, line, ft_strlen(line));
         write(fd, "\n", 1);
         free(line);
@@ -96,12 +91,6 @@ void handle_heredoc(t_token *token)
     if (g_heredoc_interrupted)
     {
         unlink(".heredoc_tmp"); //remover el archivo temporal
-        // token->heredoc = NULL;
-        // free(temp);
         return ;
     }
-
-    //printf("content:\n");
-    //printf("%s\n", token->heredoc);
-//    unlink(".heredoc_tmp");
 }

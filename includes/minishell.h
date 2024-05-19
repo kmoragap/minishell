@@ -245,7 +245,6 @@ void     check_absolute_path(t_data *data);
 
 //join_cmd_arg.c
 char    **join_cmd_arg(t_data *data);
-// char    **heredoc_as_arg(t_data *data, char **args);
 int     size_of_args(t_data *data);
 char    *get_cmd_for_args(t_data *data);
 char    **cpy_token_args(t_data *data, char **args, int *args_cntr);

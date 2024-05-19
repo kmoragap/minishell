@@ -27,11 +27,6 @@ char    **join_cmd_arg(t_data *data)
         free(args);
         exit(12);
     }    
-    // if (data->tokens->args_num == 0 && data->tokens->next && data->tokens->next->delim == REDIR_H)
-    // {
-    //     args = heredoc_as_arg(data, args);
-    //     return (args);
-    // }
     args = cpy_token_args(data, args, &args_cntr);
     if (!args)
         exit(12);
@@ -42,52 +37,6 @@ char    **join_cmd_arg(t_data *data)
     args[size] = NULL;
     return (args);
 }
-
-// char    **heredoc_as_arg(t_data *data, char **args)
-// {
-//     int     i;
-//     char    **heredoc;
-//     char    **new;
-
-//     i = 0;
-//     heredoc = ft_split(data->tokens->heredoc, '\n');
-//     if (!heredoc)
-//     {
-//         free_args(args, 0);
-//         exit (12);
-//     }
-//     while (heredoc[i])
-//         i++;
-//     if (ft_calloc(data, 0, (void *)&new, i + 2) == 1)
-//     {
-//         free_args(args, 0);
-//         free_args(heredoc, 0);
-//         return (NULL);
-//     }
-//     new[0] = ft_strdup(args[0]);
-//     if (!new[0])
-//     {
-//         free_args(args, 0);
-//         free_args(heredoc, 0);
-//         free(new);
-//         return (NULL);
-//     }
-//     while (heredoc[i])
-//     {
-//         new[i + 1] = ft_strdup(heredoc[i]);
-//         if (!new[i + 1])
-//         {
-//             free_args(args, &i);
-//             free_args(heredoc, 0);
-//             free_args(new, 0);
-//             return (NULL);
-//         }
-//         i++;
-//     }
-//     free_args(args, 0);
-//     free_args(heredoc, 0);
-//     return (new);
-// }
 
 int     size_of_args(t_data *data)
 {
