@@ -25,6 +25,8 @@ void    free_all(t_data *data)
         free(data->tokens);
     if (data->free_code >= F_INPUT || data->free_code == NO_FREE)
         free(data->input);
+    // if (data->free_code >= F_PIPES || data->free_code == NO_FREE)
+    //     free_pipes(data->childn->pipes, data->childn->cnt_childn);
     if (data->childn->pids && (data->free_code >= F_PIDS || data->free_code == NO_FREE))
         free(data->childn->pids);
     if (data->free_code == F_ENV)
@@ -34,6 +36,7 @@ void    free_all(t_data *data)
     }
     reinit_data(data);
 }
+
 // finishhhhhhhhhh! --> free toks isn't done yet! and add a new initializer for the data 
 void    free_toks(t_data *data)
 {
@@ -46,6 +49,8 @@ void    free_toks(t_data *data)
         }
         free(data->tokens->args);
         free(data->tokens->cmd);
+        if (data->tokens->delim == REDIR_H)
+            unlink(".heredoc_tmp");
         if (!data->tokens->next)
             break ;
         data->tokens = data->tokens->next;
@@ -75,20 +80,6 @@ void free_env(t_data *data)
     if(data->childn)
         free(data->childn);
     free(data);
-}
-void    free_pipes(int **pipes, t_data *data)
-{
-    int     i;
-
-    i = 0;
-    if (data->childn->cnt_childn == 1)
-        return ;
-    while (pipes && pipes[i] && i <= data->childn->cnt_childn)
-    {
-        free(pipes[i]);
-        i++;
-    }
-    free(pipes);
 }
 
 void    free_args(char **args, int *cnt)

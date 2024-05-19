@@ -21,105 +21,165 @@ void    dup_pipes(t_data *data, int child_id)
     }
     if(child_id == 0)
     {
-        dup2(check_redir_out(data, child_id), STDOUT_FILENO);
+        check_redir_out(data, child_id);
         check_redir_in_first(data);
     }
     else if (child_id == (data->childn->cnt_childn - 1))
     {
-        dup2(check_redir_in(data, child_id), STDIN_FILENO);
+        check_redir_in(data, child_id);
         check_redir_out_last(data);
     }
     else 
     {
-        dup2(check_redir_out(data, child_id), STDOUT_FILENO);
-        dup2(check_redir_in(data, child_id), STDIN_FILENO);
+        check_redir_out(data, child_id);
+        check_redir_in(data, child_id);
     }
 }
 
 void    single_redir(t_data *data)
 {
-    int     fd;
+    int    i;
 
+    i = 0;
     if (!data->tokens->next)
         return ;
-    if (data->tokens->next->delim == REDIR_I)
+    while (data->tokens->next)
     {
-        fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT, S_IRWXU);
-        if (fd == -1)
-            error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
-        dup2(fd, STDIN_FILENO);
-        return ;
+        if (data->tokens->next->delim == REDIR_I || data->tokens->next->delim == REDIR_H)
+            dup2(redir_in(data), STDIN_FILENO);
+        if (data->tokens->next->delim == REDIR_O || data->tokens->next->delim == REDIR_A)
+            dup2(redir_out(data), STDOUT_FILENO);
+        if (data->tokens->next)
+        {
+            data->tokens = data->tokens->next;
+            i++;
+        }
     }
+    while (i > 0)
+    {
+        data->tokens = data->tokens->prev;
+        i--;
+    }
+}
+
+int     redir_in(t_data *data)
+{
+    int     fd;
+
+    fd = 0;
+    if (data->tokens->next->delim == REDIR_H)
+        fd = open(".heredoc_tmp", O_RDONLY | O_CREAT, S_IRWXU);
+    else if (data->tokens->next->delim == REDIR_I)
+        fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT, S_IRWXU);
+    if (fd == -1)
+        error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
+    return (fd);
+}
+
+int     redir_out(t_data *data)
+{
+    int     fd;
+
+    fd = 0;
     if (data->tokens->next->delim == REDIR_A)
         fd = open(data->tokens->next->cmd, O_RDONLY | O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
     else if (data->tokens->next->delim == REDIR_O)
         fd = open(data->tokens->next->cmd, O_RDONLY | O_TRUNC | O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
     if (fd == -1)
         error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
-    dup2(fd, STDOUT_FILENO);
+    return (fd);
 }
 
 void    check_redir_out_last(t_data *data)
 {
     int     fd;
 
-    if (data->tokens->next && data->tokens->next->delim == REDIR_A)
-        fd = open(data->tokens->next->cmd, O_RDONLY | O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-    else if (data->tokens->next && data->tokens->next->delim == REDIR_O)
-        fd = open(data->tokens->next->cmd, O_RDONLY | O_TRUNC | O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-    else
-        return ;
-    if (fd == -1)
-        error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
-    dup2(fd, STDOUT_FILENO);    
+    while (data->tokens->next && data->tokens->next->delim != PIPE)
+    {
+        if (data->tokens->next->delim == REDIR_O)
+            fd = open(data->tokens->next->cmd, O_RDONLY | O_TRUNC | O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+        else if (data->tokens->next->delim == REDIR_A)
+            fd = open(data->tokens->next->cmd, O_RDONLY | O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+        if (fd == -1)
+            error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
+        dup2(fd, STDOUT_FILENO);
+        if (data->tokens->next && data->tokens->next->delim != PIPE)
+            data->tokens = data->tokens->next;
+    }
 }
 
 void    check_redir_in_first(t_data *data)
 {
     int     fd;
+    int     i;
 
-    if (data->tokens->next && data->tokens->next->delim == REDIR_I)
-        fd = open(data->tokens->next->cmd, O_RDONLY, S_IRWXU);
-    else
-        return ;
-    if (fd == -1)
-        error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
-    dup2(fd, STDIN_FILENO);  
+    i = 0;
+    while (data->tokens->next && data->tokens->next->delim != PIPE)
+    {
+        if (data->tokens->next->delim == REDIR_I)
+            fd = open(data->tokens->next->cmd, O_RDONLY, S_IRWXU);
+        else if (data->tokens->next->delim == REDIR_H)
+            fd = open(".heredoc_tmp", O_RDONLY, S_IRWXU);
+        if (fd == -1)
+            error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
+        dup2(fd, STDIN_FILENO);
+        if (data->tokens->next && data->tokens->next->delim != PIPE)
+        {
+            data->tokens = data->tokens->next;
+            i++;
+        }
+    }
+    while (i > 0)
+    {
+        data->tokens = data->tokens->prev;
+        i--;
+    }
 }
 
-int     check_redir_in(t_data *data, int child_id)
+void     check_redir_in(t_data *data, int child_id)
 {
-    int     fd;
+    int     i;
 
-    fd = child_id;
-    if (data->tokens->next && data->tokens->next->delim == REDIR_I)
+    i = 0;
+    while (data->tokens->next && data->tokens->next->delim != PIPE)
     {
-        fd = open(data->tokens->next->cmd, O_RDONLY, S_IRWXU);
-        if (fd == -1)
-            error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
-        return (fd);
+        if (data->tokens->next->delim == REDIR_I || data->tokens->next->delim == REDIR_H)
+            dup2(redir_in(data), STDIN_FILENO);
+        else 
+            dup2(data->childn->pipes[child_id - 1][0], STDIN_FILENO);
+        if (data->tokens->next && data->tokens->next->delim != PIPE)
+        {
+            data->tokens = data->tokens->next;
+            i++;
+        }
     }
-    return (data->childn->pipes[child_id - 1][0]);
+    while (i > 0)
+    {
+        data->tokens = data->tokens->prev;
+        i--;
+    }
 }
 
-int     check_redir_out(t_data *data, int child_id)
+void     check_redir_out(t_data *data, int child_id)
 {
-    int     fd;
+    int     i;
 
-    fd = child_id;
-    if (data->tokens->next && data->tokens->next->delim == REDIR_O)
+    i = 0;
+    while (data->tokens->next && data->tokens->next->delim != PIPE)
     {
-        fd = open(data->tokens->next->cmd, O_RDONLY | O_TRUNC | O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-        if (fd == -1)
-            error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
-        return (fd);
+        if (data->tokens->next->delim == REDIR_O || data->tokens->next->delim == REDIR_A)
+            dup2(redir_out(data), STDOUT_FILENO);
+        else 
+            dup2(data->childn->pipes[child_id][1], STDOUT_FILENO);
+        if (data->tokens->next && data->tokens->next->delim != PIPE)
+        {
+            data->tokens = data->tokens->next;
+            i++;
+        }
     }
-    else if (data->tokens->next && data->tokens->next->delim == REDIR_A)
+    while (i > 0)
     {
-        fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT | O_WRONLY | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-        if (fd == -1)
-            error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
-        return (fd);
+        data->tokens = data->tokens->prev;
+        i--;
     }
-    return (data->childn->pipes[child_id][1]);
 }

@@ -84,10 +84,8 @@ typedef struct s_token
     int id;
     char *cmd;   // "ls"
     char **args; // -la
-    char *heredoc;
     int args_num;
     int exit_status;
-    char *heredoc;
     char    *path;
     t_type type;  // CMD or FILE or EXPAND
     t_type delim; // PIPE or REDIR_I/O/A/H
@@ -218,14 +216,16 @@ int     malloc_fds(t_data *data);
 //dup_pipes.c
 void    dup_pipes(t_data *data, int child_id);
 void    single_redir(t_data *data);
+int     redir_in(t_data *data);
+int     redir_out(t_data *data);
 void    check_redir_out_last(t_data *data);
 void    check_redir_in_first(t_data *data);
-int     check_redir_in(t_data *data, int child_id);
-int     check_redir_out(t_data *data, int child_id);
+void    check_redir_in(t_data *data, int child_id);
+void    check_redir_out(t_data *data, int child_id);
 
 //close_pipes.c
 void    close_pipes(t_data *data);
-void    dup_pipes(t_data *data, int child_id);
+void    free_pipes(int **pipes, t_data *data);
 
 //children.c
 t_data  *create_children(t_data *data);
@@ -245,6 +245,7 @@ void     check_absolute_path(t_data *data);
 
 //join_cmd_arg.c
 char    **join_cmd_arg(t_data *data);
+// char    **heredoc_as_arg(t_data *data, char **args);
 int     size_of_args(t_data *data);
 char    *get_cmd_for_args(t_data *data);
 char    **cpy_token_args(t_data *data, char **args, int *args_cntr);
@@ -297,7 +298,6 @@ void    malloc_error(t_data *data, t_free code);
 void    free_all(t_data *data);
 void    free_toks(t_data *data);
 void    free_env(t_data *data);
-void    free_pipes(int **pipes, t_data *data);
 void    free_args(char **args, int *cnt);
 void    reinit_data(t_data *data);
 
@@ -307,6 +307,7 @@ void handle_eof(t_data *data);
 void handle_sigint_heredoc(int sig);
 
 // heredoc.c
+t_data *heredoc(t_data *data);
 void handle_heredoc(t_token *token);
 
 #endif // MINISHELL_H

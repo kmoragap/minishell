@@ -29,3 +29,18 @@ void    close_pipes(t_data *data)
     }
     free_pipes(data->childn->pipes, data);
 }
+
+void    free_pipes(int **pipes, t_data *data)
+{
+    int     i;
+
+    i = 0;
+    if (data->childn->cnt_childn == 1)
+        return ;
+    while (pipes && pipes[i] && i <= data->childn->cnt_childn)
+    {
+        free(pipes[i]);
+        i++;
+    }
+    free(pipes);
+}
