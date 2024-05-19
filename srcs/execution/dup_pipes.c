@@ -52,11 +52,11 @@ void    single_redir(t_data *data)
         return ;
     }
     if (data->tokens->next->delim == REDIR_A)
-        fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT | O_APPEND, S_IRWXU);
+        fd = open(data->tokens->next->cmd, O_RDONLY | O_WRONLY | O_CREAT | O_APPEND, S_IRWXU);
     else if (data->tokens->next->delim == REDIR_O)
         fd = open(data->tokens->next->cmd, O_RDONLY | O_TRUNC | O_CREAT | O_WRONLY, S_IRWXU);
     if (fd == -1)
-        error_in_child(data, 13, data->tokens->next->cmd, "Permission denied");
+        error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
     dup2(fd, STDOUT_FILENO);
 }
 
@@ -65,13 +65,13 @@ void    check_redir_out_last(t_data *data)
     int     fd;
 
     if (data->tokens->next && data->tokens->next->delim == REDIR_A)
-        fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT | O_APPEND, S_IRWXU);
+        fd = open(data->tokens->next->cmd, O_RDONLY | O_WRONLY | O_CREAT | O_APPEND, S_IRWXU);
     else if (data->tokens->next && data->tokens->next->delim == REDIR_O)
         fd = open(data->tokens->next->cmd, O_RDONLY | O_TRUNC | O_CREAT | O_WRONLY, S_IRWXU);
     else
         return ;
     if (fd == -1)
-        error_in_child(data, 13, data->tokens->next->cmd, "Permission denied");
+        error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
     dup2(fd, STDOUT_FILENO);    
 }
 
@@ -112,14 +112,14 @@ int     check_redir_out(t_data *data, int child_id)
     {
         fd = open(data->tokens->next->cmd, O_RDONLY | O_TRUNC | O_CREAT | O_WRONLY, S_IRWXU);
         if (fd == -1)
-            error_in_child(data, 13, data->tokens->next->cmd, "Permission denied");
+            error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
         return (fd);
     }
     else if (data->tokens->next && data->tokens->next->delim == REDIR_A)
     {
         fd = open(data->tokens->next->cmd, O_RDONLY | O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
         if (fd == -1)
-            error_in_child(data, 13, data->tokens->next->cmd, "Permission denied");
+            error_in_child(data, 2, data->tokens->next->cmd, "No such file or directory");
         return (fd);
     }
     return (data->childn->pipes[child_id][1]);
