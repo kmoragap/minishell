@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:41:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/19 11:17:54 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 14:39:14 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
  * la función devuelve el manejador de señales anterior
  * Esto nos permite guardar el manejador previo y restaurarlo más tarde,
  * asegurando que nuestro cambio temporal no tenga efectos a largo plazo en el programa
+ * 
+ * guardar la linea en un char *line
+ *
  * */
 
 
