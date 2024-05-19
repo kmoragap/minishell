@@ -53,7 +53,7 @@ void init_signals(void)
 */
 void handle_eof(t_data *data)
 {
-    //printf("exit\n");
+    printf("exit\n");
     data->free_code = 100;
     free_all(data);
     exit(0);

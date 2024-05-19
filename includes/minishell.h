@@ -123,6 +123,8 @@ t_data *init_data(char **envp);
 // tokenizer.c
 t_token  *tokenizer(t_data *data);
 int    check_input(t_data *data);
+int     check_quotes(char *input);
+int     check_andslash(char *input);
 void    create_tokens(char *input, t_token **tokens, t_data *data);
 t_token **next_token(t_token **tokens, t_data *data);
 void    skip_whitespace(int *i, char *input);

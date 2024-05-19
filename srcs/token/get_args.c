@@ -80,9 +80,9 @@ void    get_args_num(char *input, int *i, int total_arg_len, t_token **tokens)
 {
     int     j;
     int     quote;
-    int     zero;
+    // int     zero;
 
-    zero = 0;
+    // zero = 0;
     j = *i;
     (*tokens)->args_num = 0;
     while (input[j] && (j - *i) < (total_arg_len))
@@ -94,7 +94,10 @@ void    get_args_num(char *input, int *i, int total_arg_len, t_token **tokens)
             while (quote == 0 && delim_space(input[j]) == 0 && input[j])
                 check_quote(input[j], &quote, &j);
             if (quote != 0)
-                text_in_quotes(quote, zero, &j, input);
+            {
+                text_in_quotes(quote, 0, &j, input);
+                j++;
+            }
             if (delim_space(input[j]) != 0)
             {
                 skip_whitespace(&j, input);
