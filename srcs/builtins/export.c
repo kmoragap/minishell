@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/18 13:30:49 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 14:40:29 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,73 @@ int replace_var_env(t_data *data, char *arg)
 }
 
 
+static void sort_env_case(t_data *data)
+{
+  int i;
+  char *temp;
+  int swapped;
+  char **env_cpy;
+
+  swapped = 1;
+  env_cpy = ft_calloc_norm(data->env_len + 1, sizeof(char *));
+  i = 0;
+
+  while(i < data->env_len)
+  {
+    env_cpy[i] = ft_strdup(data->env[i]);
+    i++;
+  }
+  
+  env_cpy[i] = NULL;
+  
+  while(swapped)
+  {
+      swapped = 0;
+      i = 0;
+      while(env_cpy[i+1])
+      {
+          if(ft_strcmp(env_cpy[i], env_cpy[i + 1]) > 0)
+          {
+              temp = env_cpy[i];
+              env_cpy[i] = env_cpy[i + 1];
+              env_cpy[i + 1] = temp;
+              swapped = 1;
+          }
+          i++;
+      }
+  }
+  i = 0;
+  while(env_cpy[i])
+  {
+      write(1, "declare -x ", 11);
+      write(1, env_cpy[i], ft_strlen(env_cpy[i]));
+      write(1, "\n", 1);
+      i++;
+  }
+
+  i = 0;
+
+  while (env_cpy[i])
+  {
+    free(env_cpy[i]);
+    i++;
+  }
+
+  free(env_cpy);
+  return ;
+}
 
 void execute_export_builtin(t_data *data)
 {
 
+  int i;
+  
     if(data->tokens->args_num == 0)
     {
-      put_env(data);
-      return ;
+        sort_env_case(data);
+        return ;
     }
-    int i;
+    
     char **args;
     char *var;
 
