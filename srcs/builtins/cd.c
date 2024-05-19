@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:48:53 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/18 16:07:58 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 12:58:51 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
  * cd ~ y otros casos con argumentos, en ese caso devolver error, pq sería lo más sencillo
 */
 
-// Se puede usar perror?????
 void ft_cd(t_data *data)
 {
     char *old_pwd;
@@ -46,7 +45,21 @@ void ft_cd(t_data *data)
         return;
     }
     if (data->tokens->args_num > 0)
-        path = data->tokens->args[0];
+    {
+
+        if(ft_strcmp(data->tokens->args[0], "~") == 0)
+            path = getenv("HOME");
+        else if(ft_strncmp(data->tokens->args[0], "~/", 2) == 0)
+            path = ft_strjoin(getenv("HOME"), data->tokens->args[0] + 1);
+        else if(ft_strcmp(data->tokens->args[0], "-") == 0)
+        {
+            path = getenv("OLDPWD");
+            write(1, path, ft_strlen(path));
+            write(1, "\n", 1);
+        }        
+        else
+            path = data->tokens->args[0];
+    }
     else
         path = getenv("HOME");
     

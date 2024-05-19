@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/19 10:34:32 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 12:48:39 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,6 +285,7 @@ char	**ft_split(char const *s, char c);
 char	*ft_strnjoin(char *s1, char *s2, int len2);
 char	*ft_strndup(char *src, int len);
 char	*ft_strtrim(char const *s1, char const *set);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
 // error.c
 void    input_error(t_data *data, t_free code, int exit_code, char *txt);
@@ -302,8 +303,8 @@ void    reinit_data(t_data *data);
 void init_signals(void);
 void handle_eof(t_data *data);
 void handle_sigint_heredoc(int sig);
+
 // heredoc.c
 void handle_heredoc(t_token *token);
-void execute_command_with_heredoc(t_data *data);
 
 #endif // MINISHELL_H
