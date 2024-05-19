@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/18 19:22:24 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 10:34:32 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "../srcs/utils/get_next_line/get_next_line_bonus.h"
+
 
 typedef enum e_builtin
 {
@@ -298,7 +299,7 @@ void    reinit_data(t_data *data);
 // signals.c
 void init_signals(void);
 void handle_eof(t_data *data);
-
+void handle_sigint_heredoc(int sig);
 // heredoc.c
 void handle_heredoc(t_token *token);
 void execute_command_with_heredoc(t_data *data);
