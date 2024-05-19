@@ -37,6 +37,7 @@ t_data  *execute_token(t_data *data)
     data = piping(data);
     if (data->err_code != ER_NO)
       return (data);
+    data = heredoc(data);
     data = create_children(data);
     return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:41:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/19 20:27:10 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/20 01:14:36 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,22 @@
  * guardar la linea en un char *line
  * close(STDIN_FILENO) interrumpe la lectura, causando que readline falle y el bucle termine.
  * */
+t_data *heredoc(t_data *data)
+{
+    int i;
 
+    i = 1;
+    while (i < data->token_num && data->tokens && data->tokens->next)
+    {
+        if (data->tokens->next && data->tokens->next->delim == REDIR_H)
+            handle_heredoc(data->tokens);
+        if (!data->tokens->next)
+            break;
+        data->tokens = data->tokens->next;
+    }
+    data->tokens = move_to_first_token(data->tokens);
+    return (data);
+}
 
 static int g_heredoc_interrupted = 0;
 
@@ -49,27 +64,20 @@ void handle_sigint_heredoc(int sig)
 void handle_heredoc(t_token *token)
 {
     char *line;
-    char *temp;
     int fd;
     void (*prev_handler)(int);
 
-    token->heredoc = ft_strdup("");
     prev_handler = signal(SIGINT, handle_sigint_heredoc);
     printf("hola\n");
     fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd < 0)
         return ;
-
     g_heredoc_interrupted = 0;
     while (!g_heredoc_interrupted)
     {
         line = readline("> ");
         if (!line || g_heredoc_interrupted || ft_strcmp(line, token->next->cmd) == 0)
             break;
-        temp = token->heredoc;
-        token->heredoc = ft_strjoin(token->heredoc, line);
-        free(temp);
-        token->heredoc = ft_strjoin(token->heredoc, "\n");
         write(fd, line, ft_strlen(line));
         write(fd, "\n", 1);
         free(line);
@@ -83,10 +91,6 @@ void handle_heredoc(t_token *token)
     if (g_heredoc_interrupted)
     {
         unlink(".heredoc_tmp"); //remover el archivo temporal
-        token->heredoc = NULL;
-        free(temp);
         return ;
     }
-
-    unlink(".heredoc_tmp");
 }
