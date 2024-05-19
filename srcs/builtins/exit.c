@@ -41,8 +41,6 @@ int is_valid_number(char *str)
     return 0;
 }
 
-//	- If no argument are provided, it should take the previous exit code
-
 void ft_exit(t_data *data)
 {
     char **args;
@@ -50,9 +48,7 @@ void ft_exit(t_data *data)
 
     exit_status = 0;
     args = data->tokens->args;
-
-
-    if (args[0] != NULL) 
+    if (args[0][0] != '\0') 
     {
         if (is_valid_number(args[0]) == 0) 
         {
@@ -65,14 +61,14 @@ void ft_exit(t_data *data)
         } 
         else 
         {
-            write(2, "exit: ", 6);
+            write(2, "minishell: exit: ", 17);
             write(2, args[0], ft_strlen(args[0]));
-            perror(": numeric argument required\n");
-            exit_status = 255;
+            write(2, ": numeric argument required\n", 28);
+            exit(255);
         }
     }
     data->free_code = F_ENV;
     free_all(data);
-    //printf("exit\n");
+    printf("exit\n");
     exit(exit_status % 256);
 }

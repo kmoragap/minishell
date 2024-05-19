@@ -37,7 +37,8 @@ void shlvl(t_data *data)
     
     ft_strcat(new_shlvl, "SHLVL=");
     ft_strcat(new_shlvl, level);
-    printf("%s\n", new_shlvl);
+    //write(1, new_shlvl, ft_strlen(new_shlvl));
+    //write(1, "\n", 1);
 
     if(replace_var_env(data, new_shlvl) == 0)
         perror("Error updating SHLVL");
