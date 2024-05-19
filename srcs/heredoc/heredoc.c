@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:41:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/19 11:17:54 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 16:35:34 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
  * la función devuelve el manejador de señales anterior
  * Esto nos permite guardar el manejador previo y restaurarlo más tarde,
  * asegurando que nuestro cambio temporal no tenga efectos a largo plazo en el programa
+ * 
+ * guardar la linea en un char *line
+ * close(STDIN_FILENO) interrumpe la lectura, causando que readline falle y el bucle termine.
  * */
 
 
@@ -46,9 +49,11 @@ void handle_sigint_heredoc(int sig)
 void handle_heredoc(t_token *token)
 {
     char *line;
+    char *temp;
     int fd;
     void (*prev_handler)(int);
 
+    token->heredoc = ft_strdup("");
     prev_handler = signal(SIGINT, handle_sigint_heredoc);
     printf("hola\n");
     fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -60,6 +65,10 @@ void handle_heredoc(t_token *token)
         line = readline("> ");
         if (!line || g_heredoc_interrupted || ft_strcmp(line, token->next->cmd) == 0)
             break;
+        temp = token->heredoc;
+        token->heredoc = ft_strjoin(token->heredoc, line);
+        free(temp);
+        token->heredoc = ft_strjoin(token->heredoc, "\n");
         write(fd, line, ft_strlen(line));
         write(fd, "\n", 1);
         free(line);
@@ -73,7 +82,12 @@ void handle_heredoc(t_token *token)
     if (g_heredoc_interrupted)
     {
         unlink(".heredoc_tmp"); //remover el archivo temporal
-        return;
+        token->heredoc = NULL;
+        free(temp);
+        return ;
     }
+
+    //printf("content:\n");
+    //printf("%s\n", token->heredoc);
     unlink(".heredoc_tmp");
 }

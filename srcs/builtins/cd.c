@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:48:53 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/19 12:58:51 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 13:24:39 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ void execute_cd(t_data *data, char *path, char *old_pwd)
 
     if (chdir(path) != 0) 
     {
-        perror("Directory does not exist or cannot be accessed");
+        input_error(data, 0, 6, "minishell: No such file or directory\n");
         return;
     }
     new_pwd = getcwd(NULL, 0);
     if (!new_pwd) 
     {
-        perror("Failed to get new directory");
+        input_error(data, 0, 6, "Failed to get new directory\n");
         return;
     }
     update_env_vars(data, old_pwd, new_pwd);
@@ -101,7 +101,7 @@ void update_env_vars(t_data *data, char *old_pwd, char *new_pwd)
 
     if (old == NULL || new == NULL) 
     {
-        perror("Failed to allocate memory for environment variables");
+        perror("Failed to allocate memory for environment variables\n");
         free(old);
         free(new);
         return;

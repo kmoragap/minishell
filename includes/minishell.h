@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/19 12:48:39 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 16:07:23 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_token
     char *heredoc;
     int args_num;
     int exit_status;
+    char *heredoc;
     char    *path;
     t_type type;  // CMD or FILE or EXPAND
     t_type delim; // PIPE or REDIR_I/O/A/H
