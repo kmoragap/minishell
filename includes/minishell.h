@@ -84,6 +84,7 @@ typedef struct s_token
     int id;
     char *cmd;   // "ls"
     char **args; // -la
+    char *heredoc;
     int args_num;
     int exit_status;
     char    *path;

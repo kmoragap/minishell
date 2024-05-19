@@ -56,7 +56,7 @@ int check_expand(t_data *data)
         expand_cmd(data->tokens, data->env, data->exit_code);
         return (1);
     }
-    while (data->tokens->args[i])
+    while (data->tokens->args_num != 0 && data->tokens->args[i])
     {
         data->tokens->args[i] = remove_quotes_args(data->tokens->args[i]);
         i++;

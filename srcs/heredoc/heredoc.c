@@ -53,8 +53,7 @@ void handle_heredoc(t_token *token)
     printf("hola\n");
     fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd < 0)
-        return;
-
+        return ;
     g_heredoc_interrupted = 0;
     while (!g_heredoc_interrupted)
     {
