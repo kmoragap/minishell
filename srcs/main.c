@@ -80,8 +80,8 @@ int main(int ac, char **av, char **env)
         data->free_code = NO_FREE;
         if (data->err_code == ER_NO)
             data->tokens = tokenizer(data);
-        if (data->err_code == ER_NO)
-            data = print(data);
+        //if (data->err_code == ER_NO)
+        //    data = print(data);
         if (data->err_code == ER_NO)
             data = parser(data);
         if (data->err_code == ER_NO)
