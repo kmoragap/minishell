@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:34:26 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/17 17:24:40 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 12:48:08 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,4 +329,22 @@ char *ft_strcat(char *dest, const char *src)
     dest[i] = '\0';
 
     return dest;
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while ((s1[i] || s2[i]) && (i < n))
+	{
+		if (s1[i] != s2[i])
+		{
+			return (((unsigned char)s1[i] - (unsigned char)s2[i]));
+		}
+		i++;
+	}
+	if (i != n)
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return (0);
 }
