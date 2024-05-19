@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:41:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/19 10:37:40 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 11:17:54 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,13 @@
  * Cerrar y reabrir el archivo en modo de lectura.
  * 0644 permisos individuales de lectura y escritura para el propietario y solo lectura para los demás.
  * Remove the temporary file if interrupted
-*/
+ * esto se utiliza para almacenar el manejador de 
+ * señales previamente configurado para que pueda ser restaurado después de modificar el manejador para el heredoc.
+ * la función devuelve el manejador de señales anterior
+ * Esto nos permite guardar el manejador previo y restaurarlo más tarde,
+ * asegurando que nuestro cambio temporal no tenga efectos a largo plazo en el programa
+ * */
 
-
-/*
-void execute_command_with_heredoc(t_data *data)
-{
-    int fd = open(".heredoc_tmp", O_RDONLY);
-    if (fd < 0) return;
-
-    dup2(fd, STDIN_FILENO);
-    close(fd);
-    execve(data->tokens->cmd, data->tokens->args, data->env);
-}
-*/
 
 static int g_heredoc_interrupted = 0;
 
@@ -66,7 +59,7 @@ void handle_heredoc(t_token *token)
     while (!g_heredoc_interrupted)
     {
         line = readline("> ");
-        if (!line || g_heredoc_interrupted || ft_strcmp(line, token->cmd) == 0)
+        if (!line || g_heredoc_interrupted || ft_strcmp(line, token->next->cmd) == 0)
             break;
         write(fd, line, ft_strlen(line));
         write(fd, "\n", 1);
@@ -83,4 +76,5 @@ void handle_heredoc(t_token *token)
         unlink(".heredoc_tmp"); //remover el archivo temporal
         return;
     }
+    unlink(".heredoc_tmp");
 }

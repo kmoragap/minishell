@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/18 11:59:49 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 11:08:54 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void    free_all(t_data *data)
         free(data->tokens);
     if (data->free_code >= F_INPUT || data->free_code == NO_FREE)
         free(data->input);
-    if (data->free_code != NO_FREE_PIDS && (data->free_code >= F_PIDS || data->free_code == NO_FREE))
+    if (data->childn->pids && (data->free_code >= F_PIDS || data->free_code == NO_FREE))
         free(data->childn->pids);
     if (data->free_code == F_ENV)
     {
