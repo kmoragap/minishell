@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/18 19:31:32 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 11:12:05 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,15 @@ t_data    *create_children(t_data *data)
     int     child_id;
 
     child_id = 0;
+
     if (data->childn->cnt_childn == 1)
     {
+        if(data->tokens->next && data->tokens->next->delim == REDIR_H)
+        {
+            handle_heredoc(data->tokens);
+            data->free_code = NO_FREE_PIDS;
+            return (data);
+        }
         if (check_builtins(data->tokens->cmd) > -1)
         {
             execute_builtin(data);

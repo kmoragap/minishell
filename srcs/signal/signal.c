@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:20:49 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/18 01:10:50 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 10:34:57 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
  * ctrl+\ SIGQUIT:  No hace nada
  * 
 **/
+
+
+
 
 static void handle_sigint(int sig)
 {
