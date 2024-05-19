@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/19 16:07:23 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/20 01:09:22 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ int     check_file(t_token *move);
 t_data  *print(t_data *data);
 
 // expander.c
+int has_outer_quotes(char *arg);
 void expand_cmd(t_token *token, char **env, int status);
 void expand_args(t_token *token, char **env, int status);
 char *expand_token(char *token, char **env, int exit_status);

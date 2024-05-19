@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:41:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/19 16:35:34 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/19 20:27:10 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,5 @@ void handle_heredoc(t_token *token)
         return ;
     }
 
-    //printf("content:\n");
-    //printf("%s\n", token->heredoc);
     unlink(".heredoc_tmp");
 }

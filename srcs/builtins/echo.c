@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:07:09 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/18 12:45:29 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/20 00:19:24 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void ft_echo(t_data *data)
     {
         processed_arg = remove_outer_quotes(curr_token->args[i]);
         write(1, processed_arg, ft_strlen(processed_arg));
+        if (i + 1 < curr_token->args_num)
+            write(1, " ", 1);
         free(processed_arg);
         i++;
     }
