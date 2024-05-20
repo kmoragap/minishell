@@ -15,7 +15,7 @@
 static char *concatenate_exit_string(const char *exit_status_str, const char *rest_of_special)
 {
     size_t total_size;
-    char *result;
+    char                     *result;
 
     total_size = ft_strlen(exit_status_str) + ft_strlen(rest_of_special) + 1;
     result = ft_calloc_norm(total_size, sizeof(char));
@@ -23,7 +23,7 @@ static char *concatenate_exit_string(const char *exit_status_str, const char *re
     {
         free((void *)exit_status_str);
         return NULL;
-    }
+      }
 
     ft_strcat(result, exit_status_str);
     ft_strcat(result, rest_of_special);

@@ -5,53 +5,77 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/19 14:34:26 by kmoraga           #+#    #+#             */
+/*   Created: 2024/04/19 14:34:26 by creuther          #+#    #+#             */
 /*   Updated: 2024/05/19 16:28:02 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_isascii(int c)
+void	*ft_calloc_norm(size_t n, size_t size)
 {
-	return ((c >= 0 && c <= 127));
+	size_t	i;
+	void	*arr;
+
+	i = n * size;
+	arr = (void *)malloc(i);
+	if (arr == NULL)
+		return (NULL);
+	ft_bzero(arr, i);
+	return (arr);
 }
 
-int	ft_isdigit(int c)
+void	ft_bzero(void *str, size_t n)
 {
-	return ((c >= 48 && c <= 57));
-}
+	unsigned char	*c;
+	size_t			i;
 
-int	ft_isalpha(int c)
-{
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-		return (1);
-	else
-		return (0);
-}
-
-int	ft_isalnum(int c)
-{
-	if (ft_isalpha(c) || ft_isdigit(c))
-		return (1);
-	else
-		return (0);
-}
-
-static int	f_len(int n)
-{
-	int	len;
-
-	len = 0;
-	if (n <= 0)
+	c = str;
+	i = 0;
+	while (i < n)
 	{
-		len++;
-		n = -n;
+		*c = '\0';
+		i++;
+		c++;
 	}
-	while (n)
+}
+
+t_token	*move_to_first_token(t_token *token)
+{
+	while (token->prev)
+		token = token->prev;
+	return (token);
+}
+
+int	ft_strchr(const char *str, int c)
+{
+	while (c > 127)
+		c = c - 128;
+	while (*str)
 	{
-		n /= 10;
-		len++;
+		if (c == *str)
+			return (0);
+		str++;
 	}
-	return (len);
+	if (c == '\0')
+		return (1);
+	return (1);
+}
+
+char	*ft_strrchr(const char *str, int c)
+{
+	int i;
+
+	while (c > 127)
+		c = c - 128;
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	while (i >= 0)
+	{
+		if (str[i] == c)
+			return ((char *)&str[i]);
+		i--;
+	}
+	return (NULL);
 }

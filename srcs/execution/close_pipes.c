@@ -12,35 +12,36 @@
 
 #include "minishell.h"
 
-void    close_pipes(t_data *data)
+void	close_pipes(t_data *data)
 {
-    int     i;
+	int	i;
 
-    i = 0;
-    if (data->childn->cnt_childn == 1)
-        return ;
-    while (i < data->childn->cnt_childn && data->childn->pipes && data->childn->pipes[i])
-    {
-        if (data->childn->pipes[i][0] != STDIN_FILENO)
-            close(data->childn->pipes[i][0]);
-        if (data->childn->pipes[i][1] != STDOUT_FILENO)
-            close(data->childn->pipes[i][1]);
-        i++;
-    }
-    free_pipes(data->childn->pipes, data);
+	i = 0;
+	if (data->childn->cnt_childn == 1)
+		return ;
+	while (i < data->childn->cnt_childn && data->childn->pipes
+		&& data->childn->pipes[i])
+	{
+		if (data->childn->pipes[i][0] != STDIN_FILENO)
+			close(data->childn->pipes[i][0]);
+		if (data->childn->pipes[i][1] != STDOUT_FILENO)
+			close(data->childn->pipes[i][1]);
+		i++;
+	}
+	free_pipes(data->childn->pipes, data);
 }
 
-void    free_pipes(int **pipes, t_data *data)
+void	free_pipes(int **pipes, t_data *data)
 {
-    int     i;
+	int	i;
 
-    i = 0;
-    if (data->childn->cnt_childn == 1)
-        return ;
-    while (pipes && pipes[i] && i <= data->childn->cnt_childn)
-    {
-        free(pipes[i]);
-        i++;
-    }
-    free(pipes);
+	i = 0;
+	if (data->childn->cnt_childn == 1)
+		return ;
+	while (pipes && pipes[i] && i <= data->childn->cnt_childn)
+	{
+		free(pipes[i]);
+		i++;
+	}
+	free(pipes);
 }

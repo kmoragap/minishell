@@ -12,48 +12,49 @@
 
 #include "minishell.h"
 
-
-static int is_n_option(char *arg)
+static int	is_n_option(char *arg)
 {
-    int i;
+	int	i;
 
-    if (arg[0] != '-')
-        return (0);
-    i = 1;
-    while (arg[i])
-    {
-        if (arg[i] != 'n')
-            return (0);
-        i++;
-    }
-    return (1);
+	if (arg[0] != '-')
+		return (0);
+	i = 1;
+	if (!arg[i])
+		return (0);
+	while (arg[i])
+	{
+		if (arg[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-void ft_echo(t_data *data)
+void	ft_echo(t_data *data)
 {
-    t_token *curr_token;
-    int newline;
-    int i;
-    char *processed_arg;
+	t_token *curr_token;
+	int newline;
+	int i;
+	char *processed_arg;
 
-    curr_token = data->tokens;
-    newline = 1;
-    i = 0;
-    while (curr_token->args_num > 0 && is_n_option(curr_token->args[i]))
-    {
-        newline = 0;
-        i++;
-    }
-    
-    while (i < curr_token->args_num)
-    {
-        processed_arg = remove_outer_quotes(curr_token->args[i]);
-        write(1, processed_arg, ft_strlen(processed_arg));
-        if (i + 1 < curr_token->args_num)
-            write(1, " ", 1);
-        free(processed_arg);
-        i++;
-    }
-    if (newline)
-        write(1, "\n", 1);
+	curr_token = data->tokens;
+	newline = 1;
+	i = 0;
+	while (curr_token->args_num > 0 && is_n_option(curr_token->args[i]))
+	{
+		newline = 0;
+		i++;
+	}
+
+	while (i < curr_token->args_num)
+	{
+		processed_arg = remove_outer_quotes(curr_token->args[i]);
+		write(STDOUT_FILENO, processed_arg, ft_strlen(processed_arg));
+		if (i + 1 < curr_token->args_num)
+			write(STDOUT_FILENO, " ", 1);
+		free(processed_arg);
+		i++;
+	}
+	if (newline)
+		write(STDOUT_FILENO, "\n", 1);
 }
