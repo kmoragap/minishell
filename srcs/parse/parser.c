@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/19 14:40:57 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/20 11:22:40 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,6 @@ int check_expand(t_data *data)
         expand_cmd(data->tokens, data->env, data->exit_code);
         return (1);
     }
-    while (data->tokens->args_num != 0 && data->tokens->args[i])
-    {
-        data->tokens->args[i] = remove_quotes_args(data->tokens->args[i]);
-        i++;
-    }
     if(data->tokens->args_num != 0)
     {
         if(check_expand_args(data->tokens->args) == 1)
@@ -68,6 +63,11 @@ int check_expand(t_data *data)
             expand_args(data->tokens, data->env, data->exit_code);
             return (1);   
         }
+    }
+    while (data->tokens->args_num != 0 && data->tokens->args[i])
+    {
+        data->tokens->args[i] = remove_quotes_args(data->tokens->args[i]);
+        i++;
     }
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:50:34 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/18 15:45:49 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/20 11:35:46 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void shlvl(t_data *data)
     //write(1, "\n", 1);
 
     if(replace_var_env(data, new_shlvl) == 0)
-        perror("Error updating SHLVL");
+        write(2, "Error updating SHLVL", 21);
 
     free(level);
     free(new_shlvl);

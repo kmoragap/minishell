@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:34:11 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/19 13:27:25 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/20 11:34:29 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void get_pwd(void)
 
     pwd = getcwd(NULL, 0);
     if(!pwd)
-        perror("error\n");
+        write(2, "pwd: No such file or directory\n", 30);
     else
     {
         write(1, pwd, ft_strlen(pwd));
