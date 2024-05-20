@@ -13,6 +13,7 @@
 NAME = minishell
 SRC = 	srcs/main.c \
 		srcs/token/tokenizer.c \
+		srcs/token/check_input.c \
 		srcs/token/check_special.c \
 		srcs/token/get_cmd.c \
 		srcs/token/get_args.c \
@@ -47,11 +48,10 @@ SRC = 	srcs/main.c \
 		srcs/builtins/cd.c \
 		srcs/heredoc/heredoc.c \
 		srcs/utils/ft_strtrim.c \
-		srcs/utils/get_next_line/get_next_line_bonus.c \
-		srcs/utils/get_next_line/get_next_line_utils_bonus.c
+		srcs/utils/get_next_line/get_next_line.c \
+		srcs/utils/get_next_line/get_next_line_utils.c
 
 INC = includes/ 
-
 
 OBJ = $(SRC:.c=.o)
 CC = gcc

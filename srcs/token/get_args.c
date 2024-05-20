@@ -80,9 +80,7 @@ void    get_args_num(char *input, int *i, int total_arg_len, t_token **tokens)
 {
     int     j;
     int     quote;
-    // int     zero;
 
-    // zero = 0;
     j = *i;
     (*tokens)->args_num = 0;
     while (input[j] && (j - *i) < (total_arg_len))

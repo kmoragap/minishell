@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static size_t	ft_check(char const *s1, char const *set)
+/* static size_t	ft_check(char const *s1, char const *set)
 {
 	if ((!s1 && !set) || !s1 || *s1 == '\0')
 		return (0);
@@ -64,9 +64,9 @@ static size_t	ft_end(char const *s1, char const *set, size_t is1start)
 			break ;
 	}
 	return (is1end);
-}
+} */
 
-char	*ft_strtrim(char const *s1, char const *set)
+/* char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*new;
 	size_t	is1start;
@@ -89,4 +89,64 @@ char	*ft_strtrim(char const *s1, char const *set)
 		(const void *)(s1 + is1start), is1end - is1start + 1);
 	new[is1end - is1start + 1] = '\0';
 	return (new);
+} */
+
+static int	isinset(char const c, char const *set)
+{
+	size_t	i;
+
+	i = 0;
+	while (set[i])
+	{
+		if (set[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static char	*ft_Kstrncpy(char *dest, const char *src, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (src[i] && i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	char	*res;
+	size_t	first;
+	size_t	last;
+
+	if (!s1)
+		return (0);
+	first = 0;
+	while (s1[first] && isinset(s1[first], set))
+		first++;
+	if (!s1[first])
+	{
+		res = malloc(1);
+		res[0] = '\0';
+		return (res);
+	}
+	last = ft_strlen(s1) - 1;
+	while (s1[last] && isinset(s1[last], set))
+		last--;
+	res = malloc((last - first + 2) * sizeof(char));
+	if (!res)
+		return (0);
+	ft_Kstrncpy(res, &s1[first], (last - first + 1));
+	res[last - first + 1] = '\0';
+	return (res);
 }

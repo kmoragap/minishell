@@ -17,7 +17,7 @@ t_data    *create_children(t_data *data)
     int     child_id;
 
     child_id = 0;
-    if (data->childn->cnt_childn == 1)
+    if (data->childn->cnt_childn == 1 && !data->tokens->next)
     {
         if (check_builtins(data->tokens->cmd) > -1)
         {

@@ -29,7 +29,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "../srcs/utils/get_next_line/get_next_line_bonus.h"
+#include "../srcs/utils/get_next_line/get_next_line.h"
 
 
 typedef enum e_builtin
@@ -122,14 +122,17 @@ t_data *init_data(char **envp);
 
 // tokenizer.c
 t_token  *tokenizer(t_data *data);
-int    check_input(t_data *data);
-int     check_quotes(char *input);
-int     check_andslash(char *input);
 void    create_tokens(char *input, t_token **tokens, t_data *data);
 t_token **next_token(t_token **tokens, t_data *data);
 void    skip_whitespace(int *i, char *input);
 
+// check_input.c
+int    check_input(t_data *data);
+int     check_quotes(char *input);
+int     check_andslash(char *input);
+
 // check_special.c
+void    space_special(int *i, char *input, t_token **token, t_data *data);
 void    check_special(int *i, char *input, t_token **tokens, t_data *data);
 void    add_delim(int *i, char *input,t_token **tokens);
 int     check_whitespaces(char *input, int *i);

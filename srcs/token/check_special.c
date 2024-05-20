@@ -12,6 +12,16 @@
 
 #include "minishell.h"
 
+void    space_special(int *i, char *input, t_token **token, t_data *data)
+{
+    skip_whitespace(i, input);
+    check_special(i, input, token, data);
+    if (data->err_code != ER_NO)
+        return ;
+    skip_whitespace(i, input);
+    return ;
+}
+
 void    check_special(int *i, char *input, t_token **tokens, t_data *data)
 {
     (*tokens)->delim = 0;
