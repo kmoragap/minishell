@@ -48,6 +48,7 @@ void read_input(t_data **data)
 {
     char *line;
     char *tmp;
+
     
     if (isatty(fileno(stdin)))
 		line = readline(PROMPT);
