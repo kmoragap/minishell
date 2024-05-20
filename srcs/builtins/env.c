@@ -12,23 +12,23 @@
 
 #include "minishell.h"
 
-void put_env(t_data *data)
+void	put_env(t_data *data)
 {
-    int i;
+	int i;
 
-    i = 0;
-    if(data->tokens->args_num > 0)
-    {
-        write(2, "env: too many arguments\n", 24);
-        return;
-    }
-    else
-    {
-        while(data->env[i])
-        {
-            write(2, data->env[i], ft_strlen(data->env[i]));
-            write(2, "\n", 1);
-            i++;
-        }
-    }
+	i = 0;
+	if (data->tokens->args_num > 0)
+	{
+		write(2, "env: too many arguments\n", 24);
+		return ;
+	}
+	else
+	{
+		while (data->env[i])
+		{
+			write(2, data->env[i], ft_strlen(data->env[i]));
+			write(2, "\n", 1);
+			i++;
+		}
+	}
 }

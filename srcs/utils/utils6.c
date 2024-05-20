@@ -5,53 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/19 14:34:26 by kmoraga           #+#    #+#             */
+/*   Created: 2024/04/19 14:34:26 by creuther          #+#    #+#             */
 /*   Updated: 2024/05/19 16:28:02 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_isascii(int c)
+char	*ft_itoa(int n)
 {
-	return ((c >= 0 && c <= 127));
-}
+	int		len;
+	int		num;
+	char	*s;
 
-int	ft_isdigit(int c)
-{
-	return ((c >= 48 && c <= 57));
-}
-
-int	ft_isalpha(int c)
-{
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-		return (1);
-	else
-		return (0);
-}
-
-int	ft_isalnum(int c)
-{
-	if (ft_isalpha(c) || ft_isdigit(c))
-		return (1);
-	else
-		return (0);
-}
-
-static int	f_len(int n)
-{
-	int	len;
-
-	len = 0;
-	if (n <= 0)
+	len = f_len(n);
+	num = n;
+	s = (char *)ft_calloc_norm(1, (sizeof(char) * len) + 1);
+	if (s == NULL)
+		return (NULL);
+	s[len] = '\0';
+	if (num == 0)
+		s[0] = '0';
+	if (num < 0)
 	{
-		len++;
-		n = -n;
+		s[0] = '-';
+		num = -num;
 	}
-	while (n)
+	while (num)
 	{
-		n /= 10;
-		len++;
+		s[--len] = num % 10 + '0';
+		num /= 10;
 	}
-	return (len);
+	return (s);
 }

@@ -17,11 +17,13 @@ SRC = 	srcs/main.c \
 		srcs/token/check_special.c \
 		srcs/token/get_cmd.c \
 		srcs/token/get_args.c \
+		srcs/token/input_args.c \
 		srcs/parse/parser.c \
 		srcs/print_data/print.c \
 		srcs/expansion/expansion.c \
 		srcs/expansion/expansion_utils.c \
 		srcs/execution/check_cmd_path.c \
+		srcs/execution/check_cmd_path2.c \
 		srcs/execution/children.c \
 		srcs/execution/dup_pipes.c \
 		srcs/execution/close_pipes.c \
@@ -35,8 +37,12 @@ SRC = 	srcs/main.c \
 		srcs/error/error.c \
 		srcs/utils/shlvl.c \
 		srcs/utils/utils.c \
-		srcs/utils/ft_split.c \
 		srcs/utils/utils2.c \
+		srcs/utils/utils3.c \
+		srcs/utils/utils4.c \
+		srcs/utils/utils5.c \
+		srcs/utils/utils6.c \
+		srcs/utils/ft_split.c \
 		srcs/utils/strtok.c \
 		srcs/builtins/export.c \
 		srcs/builtins/builtins_utils.c \
@@ -75,6 +81,7 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN) Compilation completed.$(RESET)"
 	@echo "$(BLUE)"
 	@echo "$(BLUE) Minishell is ready to use $(RESET)"
+
 
 $(OBJ): %.o: %.c
 	@echo "$(YELLOW) Compiling object files $@...$(RESET)"

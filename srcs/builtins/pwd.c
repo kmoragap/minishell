@@ -12,17 +12,17 @@
 
 #include "minishell.h"
 
-void get_pwd(void)
+void	get_pwd(void)
 {
-    char *pwd;
+	char *pwd;
 
-    pwd = getcwd(NULL, 0);
-    if(!pwd)
-        write(2, "pwd: No such file or directory\n", 30);
-    else
-    {
-        write(1, pwd, ft_strlen(pwd));
-        write(1, "\n", 1);
-        free(pwd);
-    }
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		write(2, "pwd: No such file or directory\n", 30);
+	else
+	{
+		write(STDOUT_FILENO, pwd, ft_strlen(pwd));
+		write(STDOUT_FILENO, "\n", 1);
+		free(pwd);
+	}
 }

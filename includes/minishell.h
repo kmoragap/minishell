@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
 /*   Updated: 2024/05/20 11:20:08 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -15,6 +15,7 @@
 #define MINISHELL_H
 
 #define PROMPT "\033[1;32m>minishell$\033[0m "
+//#define PROMPT "minishell "
 
 #define BUFFER_SIZE 1000
 
@@ -148,6 +149,7 @@ int input_cmd(char *input, int *i, int j, t_token **tokens);
 void    get_args(int *i, char *input, t_token **tokens, t_data *data);
 int     get_total_arg_len(char *input, int i);
 void    get_args_num(char *input, int *i, int total_arg_len, t_token **tokens);
+void    arg_num_loop(char *input, int *j);
 int     malloc_args(char *input, int *i, t_token **tokens);
 int     get_arg_len(char *input, int *i);
 void    input_arg(char *input, int *i, int len, t_token **tokens, int arg);
@@ -233,6 +235,7 @@ void    free_pipes(int **pipes, t_data *data);
 
 //children.c
 t_data  *create_children(t_data *data);
+void    child_creation(t_data *data);
 void    child_routine(t_data *data, int child_id);
 void    get_token(t_data *data, int child_id);
 void    error_in_child(t_data *data, int exit_code, char *cmd, char *error_message);
@@ -312,5 +315,6 @@ void handle_sigint_heredoc(int sig);
 // heredoc.c
 t_data *heredoc(t_data *data);
 void handle_heredoc(t_token *token);
+int     has_quotes(char *cmd);
 
 #endif // MINISHELL_H

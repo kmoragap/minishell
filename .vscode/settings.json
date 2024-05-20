@@ -12,5 +12,8 @@
         "string_view": "c",
         "initializer_list": "c",
         "ranges": "c"
+    },
+    "[c]": {
+        "editor.defaultFormatter": "keyhr.42-c-format"
     }
 }

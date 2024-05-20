@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
 /*   Updated: 2024/05/14 21:02:00 by creuther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -34,7 +34,7 @@ t_data  *print(t_data *data)
         }
         printf("delim: %d\n", data->tokens->delim);
         printf("type: %d\n", data->tokens->type);
-        write(1, "---------------------------------\n", 34);
+        write(STDOUT_FILENO, "---------------------------------\n", 34);
         if (data->tokens->id == ((data)->token_num - 1))
             break;
         data->tokens = data->tokens->next;

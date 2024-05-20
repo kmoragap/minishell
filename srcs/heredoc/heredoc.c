@@ -57,7 +57,7 @@ void handle_sigint_heredoc(int sig)
 {
     (void)sig;
     g_heredoc_interrupted = 1;
-    write(1, "\n", 1);
+    write(STDOUT_FILENO, "\n", 1);
     close(STDIN_FILENO);
 }
 
@@ -68,7 +68,7 @@ void handle_heredoc(t_token *token)
     void (*prev_handler)(int);
 
     prev_handler = signal(SIGINT, handle_sigint_heredoc);
-    printf("hola\n");
+    //printf("hola\n");
     fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd < 0)
         return ;
@@ -78,6 +78,8 @@ void handle_heredoc(t_token *token)
         line = readline("> ");
         if (!line || g_heredoc_interrupted || ft_strcmp(line, token->next->cmd) == 0)
             break;
+        //if (has_quotes(token->next->cmd) == 1)
+            //line = expand
         write(fd, line, ft_strlen(line));
         write(fd, "\n", 1);
         free(line);
@@ -94,3 +96,18 @@ void handle_heredoc(t_token *token)
         return ;
     }
 }
+
+int     has_quotes(char *cmd)
+{
+   int  i;
+
+   i = 0;
+   while (cmd[i])
+   {
+       if (cmd[i] == 34 || cmd[i] == 39)
+           return (1);
+       i++;
+   }
+   return (0);
+}
+

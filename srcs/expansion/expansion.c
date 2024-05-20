@@ -43,13 +43,9 @@ static char *preprocess_token(char *token, int exit_status)
     char *processed_tok;
     char *value;
 
-
     processed_tok = remove_outer_quotes(token);
-
     if (processed_tok == NULL) 
         return NULL;
-
-
     /*processed_tok = remove_outer_parenthesis(processed_tok);
     if (processed_tok == NULL)
        return NULL;
@@ -57,7 +53,6 @@ static char *preprocess_token(char *token, int exit_status)
     value = check_special_expand(token, exit_status);
     if (value != NULL)
         return value;
-
     return processed_tok;
 }
 
@@ -239,7 +234,7 @@ void expand_args(t_token *token, char **env, int status)
 
     expanded_arg = NULL;
     i = 0;
-    printf("before parser arg: %s\n", token->args[i]);
+    //printf("before parser arg: %s\n", token->args[i]);
     while (token->args[i] != NULL)
     {
         if (token->args_num == 1)

@@ -12,32 +12,33 @@
 
 #include "minishell.h"
 
-void execute_builtin(t_data *data)
+t_data	*execute_token(t_data *data)
 {
-    int type;
-    type = check_builtins(data->tokens->cmd);
-    if(type == EXPORT)
-        execute_export_builtin(data);
-    if(type == ENV)
-        put_env(data);
-    if(type == PWD)
-        get_pwd();
-    if(type == UNSET)
-        ft_unset(data);
-    if(type == ECHO)
-        ft_echo(data);
-    if(type == CD)
-        ft_cd(data);
-    if(type == EXIT)
-        ft_exit(data);
+	data = piping(data);
+	if (data->err_code != ER_NO)
+		return (data);
+	data = heredoc(data);
+	data = create_children(data);
+	return (data);
 }
 
-t_data  *execute_token(t_data *data)
+void	execute_builtin(t_data *data)
 {
-    data = piping(data);
-    if (data->err_code != ER_NO)
-      return (data);
-    data = heredoc(data);
-    data = create_children(data);
-    return (data);
+	int	type;
+
+	type = check_builtins(data->tokens->cmd);
+	if (type == EXPORT)
+		execute_export_builtin(data);
+	if (type == ENV)
+		put_env(data);
+	if (type == PWD)
+		get_pwd();
+	if (type == UNSET)
+		ft_unset(data);
+	if (type == ECHO)
+		ft_echo(data);
+	if (type == CD)
+		ft_cd(data);
+	if (type == EXIT)
+		ft_exit(data);
 }
