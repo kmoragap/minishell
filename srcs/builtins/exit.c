@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 12:15:14 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/17 22:01:05 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/20 11:33:51 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void ft_exit(t_data *data)
             exit_status = ft_atoi(args[0]);
             if (args[1] != NULL) 
             {
-                perror("exit: too many arguments\n");
+                write(2, "exit: too many arguments\n", 26);
                 return;
             }
         } 

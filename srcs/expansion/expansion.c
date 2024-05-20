@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/20 01:08:40 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/20 12:12:25 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@
  * Y SI esto está entre parentesis, activar una varáible que reconstruya el string en este caso con la variable expandida
  * -> (/home/kris/)
 */
+
+/* static int has_outer_simple_quotes(char *arg) 
+{
+    size_t len;
+    
+    len = ft_strlen(arg);
+    if (len < 2)
+        return 0; 
+    if(arg[0] == '$' && arg[1] == '"' && arg[len - 1] == '"')
+        return 2;
+    return ((arg[0] == '\'' && arg[len - 1] == '\''));
+} */
 
 static char *preprocess_token(char *token, int exit_status) 
 {
@@ -78,7 +90,7 @@ static char *resolve_token_value(char *token, char **env, int exit_status)
         }
         i++;
     }
-    return ft_strdup(" ");
+    return ft_strdup("");
 }
 
 
@@ -129,7 +141,8 @@ void expand_cmd(t_token *token, char **env, int status)
  * 123 a 126"
  * 
 */
- static char valid_delim_expand(char c) {
+static char valid_delim_expand(char c) 
+ {
     if ((c >= 32 && c <= 33) || c == 35 || (c >= 36 && c <= 47) || (c >= 58 && c <= 64) ||
         (c >= 91 && c <= 96) || (c >= 123 && c <= 126)) 
         return c;
@@ -183,9 +196,24 @@ static char *check_expand_quotes(char *arg, char **env, int status)
             if (arg[end] != '\0') 
             {
                 delim[0] = arg[end];
-                delim[1] = '\0';// No avanzar el start aún
+                delim[1] = '\0';
                 if (delim[0] == '$') 
-                    start = end;
+                {
+                    if (arg[end + 1] == '?') 
+                    {
+                        var_name = ft_strndup(&arg[end], 2);
+                        temp = expand_variable(var_name, env, status);
+                        new_result = ft_strjoin(result, temp);
+                        free(result);
+                        free(temp);
+                        result = new_result;
+                        free(var_name);
+                        end++;
+                        start = end + 1;
+                    }
+                    else
+                        start = end;
+                } 
                 else 
                 {
                     new_result = ft_strjoin(result, delim);
@@ -195,13 +223,14 @@ static char *check_expand_quotes(char *arg, char **env, int status)
                 }
             }
             else
+            {
                 start = end + 1;
+            }
         }
         end++;
     }
     return result;
 }
-
 
 void expand_args(t_token *token, char **env, int status) 
 {
