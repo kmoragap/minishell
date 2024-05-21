@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:38:32 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/06 18:04:32 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/21 19:07:44 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	unset_env(t_data *data, int arg_num)
 			free(data->env[j]);
 		j++;
 	}
+
 	free(data->env);
 	data->env = env;
 	data->env_len = i;

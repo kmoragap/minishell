@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/20 12:12:25 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/21 21:30:09 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static char *resolve_token_value(char *token, char **env, int exit_status)
     var = NULL;
     value = NULL;
 
-    while (env[i] != NULL) 
+    while (env[i] != NULL)   
     {
         var = ft_strchr_before_c(env[i], '=');
         value = ft_strchr_after_c(env[i], '=');
@@ -155,7 +155,7 @@ static char *expand_variable(char *var, char **env, int status)
         return ft_strdup(var);
 }
 
-static char *check_expand_quotes(char *arg, char **env, int status) 
+char *check_expand_quotes(char *arg, char **env, int status) 
 {
     char *result;
     char *temp;
@@ -218,9 +218,7 @@ static char *check_expand_quotes(char *arg, char **env, int status)
                 }
             }
             else
-            {
                 start = end + 1;
-            }
         }
         end++;
     }
