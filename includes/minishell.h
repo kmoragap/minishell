@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/20 11:20:08 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/21 18:37:01 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_token
     char **args; // -la
     int args_num;
     int exit_status;
+    int quotes;
     char    *path;
     t_type type;  // CMD or FILE or EXPAND
     t_type delim; // PIPE or REDIR_I/O/A/H
@@ -170,6 +171,7 @@ int has_outer_quotes(char *arg);
 void expand_cmd(t_token *token, char **env, int status);
 void expand_args(t_token *token, char **env, int status);
 char *expand_token(char *token, char **env, int exit_status);
+char *check_expand_quotes(char *arg, char **env, int status);
 
 // expander_utils.c
 char *remove_outer_parenthesis(char *arg);
@@ -264,6 +266,7 @@ void    parent_wait(t_data *data);
 void shlvl(t_data *data);
 
 // utils
+int	f_len(int n);
 int ft_strnum(const char *str);
 int is_valid_number(char *str);
 int	ft_atoi(char *str);
@@ -314,7 +317,7 @@ void handle_sigint_heredoc(int sig);
 
 // heredoc.c
 t_data *heredoc(t_data *data);
-void handle_heredoc(t_token *token);
+void handle_heredoc(t_token *token, char **env, int status);
 int     has_quotes(char *cmd);
 
 #endif // MINISHELL_H

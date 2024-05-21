@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/20 11:22:40 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/21 18:53:11 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int check_expand(t_data *data)
     int     i;
 
     i = 0;
+    if(data->tokens->delim == REDIR_H && has_quotes(data->tokens->cmd) == 1)
+        data->tokens->quotes = 1;
     data = remove_quotes(data->tokens->cmd, data);
     if (check_expand_var(data->tokens->cmd))
     {

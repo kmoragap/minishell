@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:07:09 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/20 11:06:32 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/21 20:53:26 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static int	is_n_option(char *arg)
 {
 	int	i;
-
+	
+	if (!arg)
+		return (0);
 	if (arg[0] != '-')
 		return (0);
 	i = 1;
-	if (!arg[i])
-		return (0);
 	while (arg[i])
 	{
 		if (arg[i] != 'n')
@@ -40,7 +40,7 @@ void	ft_echo(t_data *data)
 	curr_token = data->tokens;
 	newline = 1;
 	i = 0;
-	while (curr_token->args_num > 0 && is_n_option(curr_token->args[i]))
+	while (curr_token->args_num > 0 && is_n_option(curr_token->args[i]) && curr_token->args[i] != NULL)
 	{
 		newline = 0;
 		i++;

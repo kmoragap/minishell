@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/20 00:46:47 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/21 17:39:49 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_data	*init_data(char **envp)
 	while (j < i)
 	{
 		re->env[j] = ft_strdup(envp[j]);
-			// create a utils that contain this func
 		j++;
 	}
 	re->env_len = i;

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:41:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/20 11:08:13 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/21 19:04:32 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
  * guardar la linea en un char *line
  * close(STDIN_FILENO) interrumpe la lectura, causando que readline falle y el bucle termine.
  * */
+
 t_data *heredoc(t_data *data)
 {
     int i;
@@ -42,7 +43,7 @@ t_data *heredoc(t_data *data)
     while (i < data->token_num && data->tokens && data->tokens->next)
     {
         if (data->tokens->next && data->tokens->next->delim == REDIR_H)
-            handle_heredoc(data->tokens);
+            handle_heredoc(data->tokens, data->env, data->exit_code);
         if (!data->tokens->next)
             break;
         data->tokens = data->tokens->next;
@@ -61,7 +62,7 @@ void handle_sigint_heredoc(int sig)
     close(STDIN_FILENO);
 }
 
-void handle_heredoc(t_token *token)
+void handle_heredoc(t_token *token, char **env, int status)
 {
     char *line;
     int fd;
@@ -78,8 +79,8 @@ void handle_heredoc(t_token *token)
         line = readline("> ");
         if (!line || g_heredoc_interrupted || ft_strcmp(line, token->next->cmd) == 0)
             break;
-        //if (has_quotes(token->next->cmd) == 1)
-            //line = expand
+        if(token->next->quotes == 0)
+            line = check_expand_quotes(line, env, status);
         write(fd, line, ft_strlen(line));
         write(fd, "\n", 1);
         free(line);

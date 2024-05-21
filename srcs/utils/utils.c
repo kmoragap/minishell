@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:34:26 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/19 16:28:02 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/21 15:28:14 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	ft_isalnum(int c)
 	else
 		return (0);
 }
-
-static int	f_len(int n)
+int	f_len(int n)
 {
 	int	len;
 

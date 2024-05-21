@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:41:49 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/17 17:22:49 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/21 21:32:29 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,17 @@ char	*ft_strchr_before_c(const char *s, int c)
 	int		i;
 
 	i = 0;
+	
+	if(s == NULL || c == '\0')
+		return ft_strdup("");
+
 	while (s[i] != '\0')
 	{
 		if (s[i] == c)
 			break ;
 		i++;
 	}
+
 	result = (char *)ft_calloc_norm(1, i + 1);
 	if (result == NULL)
 		return (NULL);
