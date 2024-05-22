@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:19:13 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/20 11:34:13 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:24:45 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	put_env(t_data *data)
 	{
 		while (data->env[i])
 		{
-			write(2, data->env[i], ft_strlen(data->env[i]));
-			write(2, "\n", 1);
+			write(1, data->env[i], ft_strlen(data->env[i]));
+			write(1, "\n", 1);
 			i++;
 		}
 	}

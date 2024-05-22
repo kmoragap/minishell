@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:38:32 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/21 19:07:44 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:31:33 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	unset_env(t_data *data, int arg_num)
 	var = NULL;
 	arg = ft_strchr_before_c(data->tokens->args[arg_num], '=');
 	if (ft_calloc(data, F_TOKCMD, (void **)&env, sizeof(char *)
-			* data->env_len))
+			* (data->env_len + 2)))
 		return ;
 	while (j < data->env_len)
 	{

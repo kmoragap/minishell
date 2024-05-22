@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/19 11:08:54 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/22 17:09:38 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	free_all(t_data *data)
 //add a new initializer for the data
 void	free_toks(t_data *data)
 {
+	if(!data || !data->tokens)
+		return ;
 	while (data->tokens)
 	{
 		while (data->tokens->args_num >= 0)
