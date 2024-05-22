@@ -35,10 +35,11 @@ void	shlvl(t_data *data)
 	}
 	ft_strcat(new_shlvl, "SHLVL=");
 	ft_strcat(new_shlvl, level);
-	// write(1, new_shlvl, ft_strlen(new_shlvl));
-	// write(1, "\n", 1);
 	if (replace_var_env(data, new_shlvl) == 0)
 		write(2, "Error updating SHLVL", 21);
 	free(level);
 	free(new_shlvl);
 }
+
+	// write(1, new_shlvl, ft_strlen(new_shlvl));
+	// write(1, "\n", 1);

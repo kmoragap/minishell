@@ -73,7 +73,7 @@ int	check_andslash(char *input)
 		i++;
 	}
 	if (input[ft_strlen(input) - 1] == '<' || input[ft_strlen(input)
-		- 1] == '>')
+			- 1] == '>')
 		return (1);
 	if (input[0] == '<' || input[0] == '>')
 		return (1);

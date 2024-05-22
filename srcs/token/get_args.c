@@ -70,7 +70,7 @@ int	get_total_arg_len(char *input, int i)
 				len++;
 		}
 		if (input[i + len] == '|' || input[i + len] == '<' || input[i
-			+ len] == '>')
+				+ len] == '>')
 			break ;
 		len++;
 	}

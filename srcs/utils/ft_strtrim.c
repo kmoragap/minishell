@@ -26,7 +26,7 @@ static int	isinset(char const c, char const *set)
 	return (0);
 }
 
-static char	*ft_Kstrncpy(char *dest, const char *src, size_t n)
+static char	*ft_strncpyx(char *dest, const char *src, size_t n)
 {
 	size_t	i;
 
@@ -67,7 +67,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	res = malloc((last - first + 2) * sizeof(char));
 	if (!res)
 		return (0);
-	ft_Kstrncpy(res, &s1[first], (last - first + 1));
+	ft_strncpyx(res, &s1[first], (last - first + 1));
 	res[last - first + 1] = '\0';
 	return (res);
 }

@@ -64,7 +64,7 @@ int	ft_strchr(const char *str, int c)
 
 char	*ft_strrchr(const char *str, int c)
 {
-	int i;
+	int		i;
 
 	while (c > 127)
 		c = c - 128;

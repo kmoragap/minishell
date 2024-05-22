@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/22 15:44:36 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/22 17:09:38 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,12 @@ void	free_all(t_data *data)
 	reinit_data(data);
 }
 
-// finishhhhhhhhhh! --> free toks isn't done yet! and add a new initializer for the data
+// finishhhhhhhhhh! --> free toks isn't done yet! and 
+//add a new initializer for the data
 void	free_toks(t_data *data)
 {
+	if(!data || !data->tokens)
+		return ;
 	while (data->tokens)
 	{
 		while (data->tokens->args_num >= 0)
@@ -77,7 +80,6 @@ void	free_env(t_data *data)
 		}
 	}
 	if (data->childn)
-
 		free(data->childn);
 	free(data);
 }

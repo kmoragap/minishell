@@ -61,15 +61,18 @@ void	ft_exit(t_data *data)
 			}
 		}
 		else
-		{
-			write(2, "minishell: exit: ", 17);
-			write(2, args[0], ft_strlen(args[0]));
-			write(2, ": numeric argument required\n", 28);
-			exit(255);
-		}
+			ft_exit_255(args[0]);
 	}
 	data->free_code = F_ENV;
 	free_all(data);
 	// printf("exit\n");
 	exit(exit_status % 256);
+}
+
+void	ft_exit_255(char *args)
+{
+	write(2, "minishell: exit: ", 17);
+	write(2, args, ft_strlen(args));
+	write(2, ": numeric argument required\n", 28);
+	exit(255);
 }

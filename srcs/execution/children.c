@@ -59,6 +59,8 @@ void	child_routine(t_data *data, int child_id)
 	get_token(data, child_id);
 	dup_pipes(data, child_id);
 	close_pipes(data);
+	data->tokens = move_to_first_token(data->tokens);
+	get_token(data, child_id);
 	check_cmd_path(data);
 	cmd_arg = join_cmd_arg(data);
 	execve(data->tokens->path, cmd_arg, data->env);

@@ -59,6 +59,15 @@ int	malloc_fds(t_data *data)
 			return (1);
 		i++;
 	}
+	if (fill_fds(data) == 1)
+		return (1);
+	return (0);
+}
+
+int	fill_fds(t_data *data)
+{
+	int	i;
+
 	i = 0;
 	while (i < (data->childn->cnt_childn - 1))
 	{

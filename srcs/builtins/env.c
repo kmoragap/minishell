@@ -14,7 +14,7 @@
 
 void	put_env(t_data *data)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	if (data->tokens->args_num > 0)

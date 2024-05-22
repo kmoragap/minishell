@@ -66,7 +66,7 @@ int	malloc_args(char *input, int *i, t_token **tokens)
 			free((*tokens)->args);
 			return (1);
 		}
-		input_arg(input, i, len, tokens, arg);
+		input_arg(input, i, tokens, arg);
 		arg++;
 	}
 	(*tokens)->args[(*tokens)->args_num] = NULL;
@@ -86,7 +86,7 @@ int	get_arg_len(char *input, int *i)
 	{
 		skip_whitespace(&skip, input);
 		while (quote == 0 && delim_space(input[skip + len]) == 0 && input[skip
-			+ len])
+				+ len])
 			check_quote(input[skip + len], &quote, &len);
 		if (quote != 0)
 		{
@@ -99,10 +99,12 @@ int	get_arg_len(char *input, int *i)
 	return (len);
 }
 
-void	input_arg(char *input, int *i, int len, t_token **tokens, int arg)
+void	input_arg(char *input, int *i, t_token **tokens, int arg)
 {
 	int	n;
+	int	len;
 
+	len = get_arg_len(input, i);
 	n = 0;
 	while (input[*i] && (input[*i] == ' ' || input[*i] == '\n'
 			|| input[*i] == '\t' || input[*i] == '\v' || input[*i] == '\f'

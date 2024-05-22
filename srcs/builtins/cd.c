@@ -32,7 +32,8 @@
  * Se podría usar getcwd para actualizar el valor de la variable PWD en el env,
 	y también para guardar el old_pwd en otra variable para así actualizar el PWD
 
-	* Estas dos variables deben ir actualizando las respectivas variables del env para que cuando alguien...
+	* Estas dos variables deben ir actualizando las respectivas variables
+	del env para que cuando alguien...
  * cd ~ y otros casos con argumentos, en ese caso devolver error,
 	pq sería lo más sencillo
  */
@@ -42,6 +43,7 @@ void	ft_cd(t_data *data)
 	char	*old_pwd;
 	char	*path;
 
+	path = NULL;
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 	{
@@ -49,24 +51,28 @@ void	ft_cd(t_data *data)
 		return ;
 	}
 	if (data->tokens->args_num > 0)
-	{
-		if (ft_strcmp(data->tokens->args[0], "~") == 0)
-			path = getenv("HOME");
-		else if (ft_strncmp(data->tokens->args[0], "~/", 2) == 0)
-			path = ft_strjoin(getenv("HOME"), data->tokens->args[0] + 1);
-		else if (ft_strcmp(data->tokens->args[0], "-") == 0)
-		{
-			path = getenv("OLDPWD");
-			write(STDOUT_FILENO, path, ft_strlen(path));
-			write(STDOUT_FILENO, "\n", 1);
-		}
-		else
-			path = data->tokens->args[0];
-	}
+		path = get_env(data, path);
 	else
 		path = getenv("HOME");
 	execute_cd(data, path, old_pwd);
 	free(old_pwd);
+}
+
+char	*get_env(t_data *data, char *path)
+{
+	if (ft_strcmp(data->tokens->args[0], "~") == 0)
+		return (getenv("HOME"));
+	else if (ft_strncmp(data->tokens->args[0], "~/", 2) == 0)
+		return (ft_strjoin(getenv("HOME"), data->tokens->args[0] + 1));
+	else if (ft_strcmp(data->tokens->args[0], "-") == 0)
+	{
+		path = getenv("OLDPWD");
+		write(STDOUT_FILENO, path, ft_strlen(path));
+		write(STDOUT_FILENO, "\n", 1);
+		return (path);
+	}
+	else
+		return (data->tokens->args[0]);
 }
 
 void	execute_cd(t_data *data, char *path, char *old_pwd)
@@ -90,35 +96,29 @@ void	execute_cd(t_data *data, char *path, char *old_pwd)
 
 void	update_env_vars(t_data *data, char *old_pwd, char *new_pwd)
 {
-	char *old;
-	char *new;
-	size_t old_len;
-	size_t new_len;
+	char	*old;
+	char	*new;
+	size_t	old_len;
+	size_t	new_len;
 
 	old_len = ft_strlen("OLDPWD=") + ft_strlen(old_pwd) + 1;
 	new_len = ft_strlen("PWD=") + ft_strlen(new_pwd) + 1;
-
 	old = ft_calloc_norm(old_len, sizeof(char));
 	new = ft_calloc_norm(new_len, sizeof(char));
-
 	if (old == NULL || new == NULL)
 	{
 		perror("Failed to allocate memory for environment variables\n");
 		free(old);
-		free(new);
-		return ;
+		return (free(new));
 	}
-
 	ft_strcat(old, "OLDPWD=");
 	ft_strcat(old, old_pwd);
 	ft_strcat(new, "PWD=");
 	ft_strcat(new, new_pwd);
-
 	if (replace_var_env(data, old) == 0)
 		perror("Error updating OLDPWD");
 	if (replace_var_env(data, new) == 0)
 		perror("Error updating PWD");
-
 	free(old);
 	free(new);
 }
