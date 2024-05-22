@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:41:49 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/21 21:32:29 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/22 15:08:17 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strchr_before_c(const char *s, int c)
 	i = 0;
 	
 	if(s == NULL || c == '\0')
-		return ft_strdup("");
+		return NULL;
 
 	while (s[i] != '\0')
 	{

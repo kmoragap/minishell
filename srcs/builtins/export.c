@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/20 11:35:19 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/22 15:48:35 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,32 @@ static void	create_env_var(t_data *data, int arg_num)
 int	replace_var_env(t_data *data, char *arg)
 {
 	char	*ar;
-	char	*var;
-	char	**env_cpy;
-	int		i;
-
 	ar = ft_strchr_before_c(arg, 61);
 	if (!ar)
-		return (0);
-	var = NULL;
-	env_cpy = NULL;
-	i = 0;
-	env_cpy = data->env;
-	while (env_cpy[i] != NULL)
 	{
-		var = ft_strchr_before_c(env_cpy[i], '=');
+		free(ar);
+		ar = NULL;
+		return (0);
+	}
+	char	*var;
+	int		i;
+
+	var = NULL;
+	i = 0;
+	while (data->env[i] != NULL)
+	{
+		var = ft_strchr_before_c(data->env[i], '=');
 		if (var != NULL && ft_strcmp(var, ar) == 0)
 		{
 			free(data->env[i]);
 			data->env[i] = ft_strdup(arg);
 			free(var);
+			free(ar);
 			return (1);
 		}
 		i++;
 		free(var);
+		var = NULL;
 	}
 	return (0);
 }
@@ -140,16 +143,14 @@ void	execute_export_builtin(t_data *data)
 		return ;
 	}
 
-	char **args;
 	char *var;
 
 	var = NULL;
-	args = data->tokens->args;
 	i = 0;
 
-	while (i < data->tokens->args_num)
+	while (i < data->tokens->args_num && data->tokens->args[i] != NULL)
 	{
-		var = ft_strchr_before_c(args[i], '=');
+		var = ft_strchr_before_c(data->tokens->args[i], '=');
 
 		if (!ft_isalnum(var[ft_strlen(var) - 1]))
 		{
@@ -158,11 +159,13 @@ void	execute_export_builtin(t_data *data)
 			break ;
 		}
 		else if (var != NULL)
-			if (replace_var_env(data, args[i]) == 0)
+			if (replace_var_env(data, data->tokens->args[i]) == 0)
 			{
-				if (is_valid_expand_var(args[i], '=') == 1)
+				if (is_valid_expand_var(data->tokens->args[i], '=') == 1)
 					create_env_var(data, i);
 			}
+		free(var);
 		i++;
 	}
+
 }

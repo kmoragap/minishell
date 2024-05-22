@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/21 17:39:49 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/22 15:40:37 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ t_data	*init_data(char **envp)
 	re->err_code = ER_NO;
 	re->free_code = 100;
 	re->childn = ft_calloc_norm(1, sizeof(t_child));
+	if(re->childn == NULL)
+	{
+		free(re);
+		return (NULL);
+	}
 	return (re);
 }
 

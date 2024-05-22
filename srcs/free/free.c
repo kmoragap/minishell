@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/19 11:08:54 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/22 15:44:36 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	free_env(t_data *data)
 		}
 	}
 	if (data->childn)
+
 		free(data->childn);
 	free(data);
 }

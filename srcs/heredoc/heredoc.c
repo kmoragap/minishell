@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:41:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/21 19:04:32 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:45:21 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void handle_heredoc(t_token *token, char **env, int status)
         write(fd, line, ft_strlen(line));
         write(fd, "\n", 1);
         free(line);
+        line = NULL;
     }
     if (line)
         free(line);
