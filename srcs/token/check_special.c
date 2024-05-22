@@ -67,7 +67,7 @@ int	check_whitespaces(char *input, int *i)
 	while (input[*i + j] && input[*i + j] != input[*i])
 	{
 		if (input[*i + j] != ' ' && input[*i + j] != '\t' && input[*i
-			+ j] != '\n' && input[*i + j] != '\v' && input[*i + j] != '\f'
+				+ j] != '\n' && input[*i + j] != '\v' && input[*i + j] != '\f'
 			&& input[*i + j] != '\r')
 			return (0);
 		j++;

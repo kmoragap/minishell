@@ -12,11 +12,27 @@
 
 #include "minishell.h"
 
+t_data	*in_data(t_data *re, int num, char **envp)
+{
+	int	j;
+
+	j = 0;
+	while (j < num)
+	{
+		re->env[j] = ft_strdup(envp[j]);
+		j++;
+	}
+	re->env_len = num;
+	re->err_code = ER_NO;
+	re->free_code = 100;
+	re->childn = ft_calloc_norm(1, sizeof(t_child));
+	return (re);
+}
+
 t_data	*init_data(char **envp)
 {
 	t_data	*re;
 	int		i;
-	int		j;
 
 	re = NULL;
 	if (ft_calloc(re, F_INPUT, (void *)&re, sizeof(t_data)) == 1)
@@ -32,16 +48,7 @@ t_data	*init_data(char **envp)
 		free(re);
 		return (NULL);
 	}
-	j = 0;
-	while (j < i)
-	{
-		re->env[j] = ft_strdup(envp[j]);
-		j++;
-	}
-	re->env_len = i;
-	re->err_code = ER_NO;
-	re->free_code = 100;
-	re->childn = ft_calloc_norm(1, sizeof(t_child));
+	in_data(re, i, envp);
 	return (re);
 }
 
@@ -81,8 +88,6 @@ int	main(int ac, char **av, char **env)
 		data->free_code = NO_FREE;
 		if (data->err_code == ER_NO)
 			data->tokens = tokenizer(data);
-		// if (data->err_code == ER_NO)
-		//    data = print(data);
 		if (data->err_code == ER_NO)
 			data = parser(data);
 		if (data->err_code == ER_NO)

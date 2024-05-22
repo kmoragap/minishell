@@ -12,49 +12,6 @@
 
 #include "minishell.h"
 
-char	*ft_strncpy(char *dest, const char *src, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n && src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	while (i < n)
-	{
-		dest[i] = '\0';
-		i++;
-	}
-	return (dest);
-}
-
-char	*ft_strchr_before_c(const char *s, int c)
-{
-	char	*result;
-	int		i;
-
-	i = 0;
-	
-	if(s == NULL || c == '\0')
-		return ft_strdup("");
-
-	while (s[i] != '\0')
-	{
-		if (s[i] == c)
-			break ;
-		i++;
-	}
-
-	result = (char *)ft_calloc_norm(1, i + 1);
-	if (result == NULL)
-		return (NULL);
-	ft_strncpy(result, s, i);
-	result[i] = '\0';
-	return (result);
-}
-
 char	*ft_strchr_after_c(const char *s, int c)
 {
 	while (*s != '\0')
@@ -103,16 +60,12 @@ static char	*ft_strpbrk(const char *s1, const char *s2)
 
 char	*ft_strtok(char *str, const char *delim)
 {
-	static char *last_token;
-	char *token;
+	static char	*last_token;
+	char		*token;
 
 	last_token = NULL;
-	if (str == NULL)
-	{
-		str = last_token;
-		if (str == NULL)
-			return (NULL);
-	}
+	if (str == NULL && last_token == NULL)
+		return (NULL);
 	str += ft_strspn(str, delim);
 	if (*str == '\0')
 	{

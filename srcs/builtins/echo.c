@@ -15,7 +15,7 @@
 static int	is_n_option(char *arg)
 {
 	int	i;
-	
+
 	if (!arg)
 		return (0);
 	if (arg[0] != '-')
@@ -32,20 +32,20 @@ static int	is_n_option(char *arg)
 
 void	ft_echo(t_data *data)
 {
-	t_token *curr_token;
-	int newline;
-	int i;
-	char *processed_arg;
+	t_token		*curr_token;
+	int			newline;
+	int			i;
+	char		*processed_arg;
 
 	curr_token = data->tokens;
 	newline = 1;
 	i = 0;
-	while (curr_token->args_num > 0 && is_n_option(curr_token->args[i]) && curr_token->args[i] != NULL)
+	while (curr_token->args_num > 0 && is_n_option(curr_token->args[i])
+		&& curr_token->args[i] != NULL)
 	{
 		newline = 0;
 		i++;
 	}
-
 	while (i < curr_token->args_num)
 	{
 		processed_arg = remove_outer_quotes(curr_token->args[i]);

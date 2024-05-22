@@ -37,6 +37,7 @@ int	ft_isalnum(int c)
 	else
 		return (0);
 }
+
 int	f_len(int n)
 {
 	int	len;

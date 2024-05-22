@@ -26,6 +26,7 @@ SRC = 	srcs/main.c \
 		srcs/execution/check_cmd_path2.c \
 		srcs/execution/children.c \
 		srcs/execution/dup_pipes.c \
+		srcs/execution/dup_pipes2.c \
 		srcs/execution/close_pipes.c \
 		srcs/execution/execution.c \
 		srcs/execution/join_cmd_arg.c \
@@ -44,6 +45,7 @@ SRC = 	srcs/main.c \
 		srcs/utils/utils6.c \
 		srcs/utils/ft_split.c \
 		srcs/utils/strtok.c \
+		srcs/utils/strtok2.c \
 		srcs/builtins/export.c \
 		srcs/builtins/builtins_utils.c \
 		srcs/builtins/env.c \
