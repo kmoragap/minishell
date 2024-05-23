@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/22 16:32:18 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:53:07 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	replace_var_env(t_data *data, char *arg)
 		free(var);
 		var = NULL;
 	}
+	free(ar);
 	return (0);
 }
 
@@ -151,7 +152,6 @@ void	execute_export_builtin(t_data *data)
 	while (i < data->tokens->args_num && data->tokens->args[i] != NULL)
 	{
 		var = ft_strchr_before_c(data->tokens->args[i], '=');
-
 		if (!ft_isalnum(var[ft_strlen(var) - 1]))
 		{
 			input_error(data, 0, 6, "export: not a valid identifier\n");

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/22 17:08:40 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/23 17:18:01 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_data	*init_data(char **envp)
 	int		i;
 
 	re = NULL;
-	if (ft_calloc(re, F_INPUT, (void *)&re, sizeof(t_data)) == 1)
+	if (ft_calloc(NULL, F_INPUT, (void *)&re, sizeof(t_data)) == 1)
 		return (NULL);
 	re->env_len = 0;
 	re->input = NULL;
