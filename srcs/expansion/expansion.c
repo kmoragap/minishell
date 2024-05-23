@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/21 21:30:09 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/23 20:38:36 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,8 @@
 
 static char *preprocess_token(char *token, int exit_status) 
 {
-    char *processed_tok;
     char *value;
 
-    processed_tok = remove_outer_quotes(token);
-    if (processed_tok == NULL) 
-        return NULL;
     /*processed_tok = remove_outer_parenthesis(processed_tok);
     if (processed_tok == NULL)
        return NULL;
@@ -53,7 +49,9 @@ static char *preprocess_token(char *token, int exit_status)
     value = check_special_expand(token, exit_status);
     if (value != NULL)
         return value;
-    return processed_tok;
+
+    value = token;
+    return value;
 }
 
 
@@ -81,8 +79,10 @@ static char *resolve_token_value(char *token, char **env, int exit_status)
                 if (value != NULL)
                     return ft_strdup(value);
             }
+            free(var);
             return ft_strdup(value);
         }
+        free(var);
         i++;
     }
     return ft_strdup("");
@@ -185,8 +185,8 @@ char *check_expand_quotes(char *arg, char **env, int status)
                 new_result = ft_strjoin(result, temp);
                 free(result);
                 free(temp);
-                result = new_result;
                 free(var_name);
+                result = new_result;
             }
             if (arg[end] != '\0') 
             {
