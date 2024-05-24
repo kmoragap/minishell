@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/22 15:55:08 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/24 20:57:58 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ int	check_empty_cmd(t_token *move, t_data *data)
 
 int	check_expand(t_data *data)
 {
-	int	i;
-
-	i = 0;
 	if (data->tokens->delim == REDIR_H && has_quotes(data->tokens->cmd) == 1)
 		data->tokens->quotes = 1;
 	data = remove_quotes(data->tokens->cmd, data);
@@ -62,14 +59,11 @@ int	check_expand(t_data *data)
 		if (check_expand_args(data->tokens->args) == 1)
 		{
 			expand_args(data->tokens, data->env, data->exit_code);
+			remove_quotes_from_args(data);
 			return (1);
 		}
 	}
-	while (data->tokens->args_num != 0 && data->tokens->args[i])
-	{
-		data->tokens->args[i] = remove_quotes_args(data->tokens->args[i]);
-		i++;
-	}
+	remove_quotes_from_args(data);
 	return (0);
 }
 
