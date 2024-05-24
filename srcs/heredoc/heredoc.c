@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:41:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/22 15:54:26 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/24 20:57:54 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,6 @@ void	read_in_here(t_token *token, char **env, int status, int fd)
 		free(line);
 	close(fd);
 }
-
-// restaur el signal previo
-// remover el archivo temporal
 
 int	has_quotes(char *cmd)
 {

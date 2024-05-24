@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/05/20 00:47:42 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/05/24 20:37:38 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ SRC = 	srcs/main.c \
 		srcs/print_data/print.c \
 		srcs/expansion/expansion.c \
 		srcs/expansion/expansion_utils.c \
+		srcs/expansion/expand_special_cases.c \
+		srcs/expansion/expander.c \
 		srcs/execution/check_cmd_path.c \
 		srcs/execution/check_cmd_path2.c \
 		srcs/execution/children.c \
@@ -32,7 +34,6 @@ SRC = 	srcs/main.c \
 		srcs/execution/join_cmd_arg.c \
 		srcs/execution/parent_wait.c \
 		srcs/execution/piping.c \
-		srcs/expansion/expand_special_cases.c \
 		srcs/free/free.c \
 		srcs/signal/signal.c \
 		srcs/error/error.c \
@@ -90,7 +91,7 @@ $(OBJ): %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@echo "$(RED) Cleaning object files...(RESET)"
+	@echo "$(RED) Cleaning object files...$(RESET)"
 	@rm -f $(OBJ) $(B_OJBS)
 	@echo "$(GREEN) Object files cleaned.$(RESET)"
 
