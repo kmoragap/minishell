@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/19 16:06:48 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/25 14:21:07 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_data	*create_children(t_data *data)
 			* data->childn->cnt_childn + 1) == 1)
 		return (data);
 	child_creation(data);
-	close_pipes(data);
+	close_pipes(data, -1);
 	parent_wait(data);
 	return (data);
 }
@@ -58,7 +58,7 @@ void	child_routine(t_data *data, int child_id)
 
 	get_token(data, child_id);
 	dup_pipes(data, child_id);
-	close_pipes(data);
+	close_pipes(data, child_id);
 	data->tokens = move_to_first_token(data->tokens);
 	get_token(data, child_id);
 	check_cmd_path(data);

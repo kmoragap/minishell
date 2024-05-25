@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/25 12:59:09 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/25 14:20:40 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ void				check_redir_in(t_data *data, int child_id);
 void				check_redir_out(t_data *data, int child_id);
 
 // close_pipes.c
-void				close_pipes(t_data *data);
+void	close_pipes(t_data *data, int child_id);
 void				free_pipes(int **pipes, t_data *data);
 
 // children.c
