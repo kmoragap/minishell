@@ -25,6 +25,7 @@ static void	expand_and_process(char **result, char *arg, int start, int end,
 		new_result = ft_strjoin(*result, var_name);
 		free(*result);
 		free(var_name);
+		free(*result);
 	}
 	else
 	{
