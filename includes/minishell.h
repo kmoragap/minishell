@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/24 17:58:38 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/25 12:59:09 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ typedef enum e_error
 typedef enum e_free
 {
 	NO_FREE,
-	NO_FREE_PIDS,
 	F_INPUT,
 	F_EMPTOK,
 	F_TOKCMD,
 	F_TOKS,
 	F_ENV,
 	F_PIPES,
+	NO_FREE_PIDS,
 	F_PIDS,
 	F_EXITSTATE
 }					t_free;
@@ -179,7 +179,8 @@ char				*expand_token(char *token, char **env, int exit_status);
 char				*check_expand_quotes(char *arg, char **env, int status);
 
 // expander_utils.c
-void remove_quotes_from_args(t_data *data);
+int 				check_expand_sq(char *arg, char c);
+void 				remove_quotes_from_args(t_data *data);
 char				*remove_outer_parenthesis(char *arg);
 char				*remove_outer_quotes(char *arg);
 char				*check_special_expand(char *special, int exit_status);

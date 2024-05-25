@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/24 20:57:44 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/25 13:05:53 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ char	valid_delim_expand(char c)
 char	*expand_variable(char *var, char **env, int status)
 {
 	char	*expanded;
-
 	expanded = expand_token(var, env, status);
 	if (expanded)
 		return (expanded);
 	else
 		return (ft_strdup(var));
 }
+
 
 void	expand_args(t_token *token, char **env, int status)
 {
@@ -99,7 +99,7 @@ void	expand_args(t_token *token, char **env, int status)
 	while (token->args[i] != NULL)
 	{
 		if (token->args_num == 1)
-		{
+		{	
 			expanded_arg = check_expand_quotes(token->args[i], env, status);
 			if (expanded_arg != NULL)
 			{

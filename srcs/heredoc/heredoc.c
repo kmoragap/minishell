@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:41:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/24 20:57:54 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/25 12:36:12 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
  * close(STDIN_FILENO) interrumpe la lectura,
 	causando que readline falle y el bucle termine.
  * */
+
+// verifica tambien ctrl c
 
 t_data	*heredoc(t_data *data)
 {
