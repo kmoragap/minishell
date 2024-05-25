@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/22 17:09:38 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/25 14:37:10 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	free_toks(t_data *data)
 {
 	if(!data || !data->tokens)
 		return ;
+	data->tokens = move_to_first_token(data->tokens);
 	while (data->tokens)
 	{
 		while (data->tokens->args_num >= 0)
