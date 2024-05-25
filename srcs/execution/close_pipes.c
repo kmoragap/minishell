@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   children.c                                         :+:      :+:    :+:   */
+/*   close_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/10 17:27:35 by creuther         ###   ########.fr       */
+/*   Updated: 2024/05/25 14:21:51 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	close_pipes(t_data *data)
+void	close_pipes(t_data *data, int child_id)
 {
 	int	i;
 
 	i = 0;
 	if (data->childn->cnt_childn == 1)
 		return ;
-	while (i < data->childn->cnt_childn && data->childn->pipes
-		&& data->childn->pipes[i])
-	{
-		if (data->childn->pipes[i][0] != STDIN_FILENO)
-			close(data->childn->pipes[i][0]);
-		if (data->childn->pipes[i][1] != STDOUT_FILENO)
-			close(data->childn->pipes[i][1]);
-		i++;
-	}
+
+    while (i < data->childn->cnt_childn && data->childn->pipes
+        && data->childn->pipes[i])
+    {
+        if (i == child_id - 1)
+            close (data->childn->pipes[i][0]);
+        if (i == child_id)
+            close (data->childn->pipes[i][1]);
+        else
+        {
+            close(data->childn->pipes[i][0]);
+            close(data->childn->pipes[i][1]);
+        }
+        i++;
+    }
 	free_pipes(data->childn->pipes, data);
 }
 

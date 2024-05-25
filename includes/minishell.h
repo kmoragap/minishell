@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/24 17:58:38 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/25 14:20:40 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,8 @@ char				*expand_token(char *token, char **env, int exit_status);
 char				*check_expand_quotes(char *arg, char **env, int status);
 
 // expander_utils.c
-void remove_quotes_from_args(t_data *data);
+int 				check_expand_sq(char *arg, char c);
+void 				remove_quotes_from_args(t_data *data);
 char				*remove_outer_parenthesis(char *arg);
 char				*remove_outer_quotes(char *arg);
 char				*check_special_expand(char *special, int exit_status);
@@ -240,7 +241,7 @@ void				check_redir_in(t_data *data, int child_id);
 void				check_redir_out(t_data *data, int child_id);
 
 // close_pipes.c
-void				close_pipes(t_data *data);
+void	close_pipes(t_data *data, int child_id);
 void				free_pipes(int **pipes, t_data *data);
 
 // children.c
