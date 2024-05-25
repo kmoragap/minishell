@@ -18,8 +18,6 @@ void	get_cmd(int *i, char *input, t_token **tokens, t_data *data)
 	int	quote;
 
 	j = 0;
-	if(!input[*i])
-		return ;
 	while (input[*i + j])
 	{
 		quote = 0;

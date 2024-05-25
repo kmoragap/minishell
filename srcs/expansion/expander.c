@@ -24,6 +24,7 @@ static void	expand_and_process(char **result, char *arg, int start, int end,
 		var_name = ft_strndup(&arg[start], end - start);
 		new_result = ft_strjoin(*result, var_name);
 		free(var_name);
+		free(*result);
 	}
 	else
 	{
