@@ -36,11 +36,11 @@ void	free_all(t_data *data)
 	reinit_data(data);
 }
 
-// finishhhhhhhhhh! --> free toks isn't done yet! and 
-//add a new initializer for the data
+// finishhhhhhhhhh! --> free toks isn't done yet! and
+// add a new initializer for the data
 void	free_toks(t_data *data)
 {
-	if(!data || !data->tokens)
+	if (!data || !data->tokens)
 		return ;
 	data->tokens = move_to_first_token(data->tokens);
 	while (data->tokens)

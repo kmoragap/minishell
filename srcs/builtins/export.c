@@ -21,84 +21,76 @@
  * -No
  */
 
-static void	create_env_var(t_data *data, int arg_num)
+int	write_error(char *str1, char *str2, char *str3, int exit_code)
 {
-    char	**env;
-    int		i;
+	write(2, str1, ft_strlen(str1));
+	write(2, str2, ft_strlen(str2));
+	write(2, str3, ft_strlen(str3));
+	return (exit_code);
+}
 
-    if (ft_calloc(data, F_TOKCMD, (void **)&env, sizeof(char *) * (data->env_len + 2)))
-        return ;
-    i = 0;
-    while (i < data->env_len)
-    {
-        env[i] = data->env[i];
-        i++;
-    }
-    if (!ft_isdigit(data->tokens->args[arg_num][0]))
-        env[i] = ft_strdup(data->tokens->args[arg_num]);
-    else
-    {
-        write(2, "export: ", 8);
-        write(2, data->tokens->args[arg_num], ft_strlen(data->tokens->args[arg_num]));
-        perror(": not a valid identifier\n");
-    }
-    if (env[i] == NULL)
-    {
-        free(env);
-        return ;
-    }
-    free(data->env);
-    data->env = env;
-    data->env_len = i + 1;
+void	create_env_var(t_data *data, int arg_num)
+{
+	char	**env;
+	int		i;
+
+	if (ft_calloc(data, F_TOKCMD, (void **)&env, sizeof(char *) * (data->env_len
+				+ 2)))
+		return ;
+	i = 0;
+	while (i < data->env_len)
+	{
+		env[i] = data->env[i];
+		i++;
+	}
+	if (!ft_isdigit(data->tokens->args[arg_num][0]))
+		env[i] = ft_strdup(data->tokens->args[arg_num]);
+	else
+		data->exit_code = write_error("export: ", data->tokens->args[arg_num],
+				": not a valid identifier\n", 1);
+	if (env[i] == NULL)
+		return (free(env));
+	free(data->env);
+	data->env = env;
+	data->env_len = i + 1;
 }
 
 int	replace_var_env(t_data *data, char *arg)
 {
-    char	*ar;
-    char	*var;
-    int		i;
-
-    ar = ft_strchr_before_c(arg, 61);
-    if (!ar)
-    {
-        return (0);
-    }
-    i = 0;
-    while (data->env[i] != NULL)
-    {
-        var = ft_strchr_before_c(data->env[i], '=');
-        if (var != NULL && ft_strcmp(var, ar) == 0)
-        {
-            free(data->env[i]);
-            data->env[i] = ft_strdup(arg);
-            free(var);
-            free(ar);
-            return (1);
-        }
-        free(var);
-        i++;
-    }
-    free(ar);
-    return (0);
-}
-
-
-static void	sort_env_case(t_data *data)
-{
+	char	*ar;
+	char	*var;
 	int		i;
-	char	*temp;
-	int		swapped;
-	char	**env_cpy;
 
-	swapped = 1;
-	env_cpy = ft_calloc_norm(data->env_len + 1, sizeof(char *));
+	ar = ft_strchr_before_c(arg, 61);
+	if (!ar)
+		return (0);
 	i = 0;
-	while (i < data->env_len)
+	while (data->env[i] != NULL)
 	{
-		env_cpy[i] = ft_strdup(data->env[i]);
+		var = ft_strchr_before_c(data->env[i], '=');
+		if (var != NULL && ft_strcmp(var, ar) == 0)
+		{
+			free(data->env[i]);
+			data->env[i] = ft_strdup(arg);
+			free(var);
+			free(ar);
+			return (1);
+		}
+		free(var);
 		i++;
 	}
-	env_cpy[i] = NULL;
+	free(ar);
+	return (0);
+}
+
+char	**cpy_envi(char **env_cpy)
+{
+	int		i;
+	int		swapped;
+	char	*temp;
+
+	i = 0;
+	swapped = 1;
 	while (swapped)
 	{
 		swapped = 0;
@@ -115,58 +107,12 @@ static void	sort_env_case(t_data *data)
 			i++;
 		}
 	}
-	i = 0;
-	while (env_cpy[i])
-	{
-		write(STDOUT_FILENO, "declare -x ", 11);
-		write(STDOUT_FILENO, env_cpy[i], ft_strlen(env_cpy[i]));
-		write(STDOUT_FILENO, "\n", 1);
-		i++;
-	}
-	i = 0;
-	while (env_cpy[i])
-	{
-		free(env_cpy[i]);
-		i++;
-	}
-	free(env_cpy);
-	return ;
+	return (env_cpy);
 }
 
-void	execute_export_builtin(t_data *data)
+void	write_env(char *str)
 {
-	int i;
-
-	if (data->tokens->args_num == 0)
-	{
-		sort_env_case(data);
-		return ;
-	}
-
-	char *var;
-
-	var = NULL;
-	i = 0;
-
-	while (i < data->tokens->args_num && data->tokens->args[i] != NULL)
-	{
-		var = ft_strchr_before_c(data->tokens->args[i], '=');
-		if (!ft_isalnum(var[ft_strlen(var) - 1]))
-		{
-			input_error(data, 0, 6, "export: not a valid identifier\n");
-			free(var);
-			break ;
-		}
-		else if (var != NULL)
-		{
-			if (replace_var_env(data, data->tokens->args[i]) == 0)
-			{
-				if (is_valid_expand_var(data->tokens->args[i], '=') == 1)
-					create_env_var(data, i);
-			}
-			free(var);
-		}
-		i++;
-	}
-
+	write(STDOUT_FILENO, "declare -x ", 11);
+	write(STDOUT_FILENO, str, ft_strlen(str));
+	write(STDOUT_FILENO, "\n", 1);
 }
