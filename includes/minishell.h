@@ -67,13 +67,13 @@ typedef enum e_error
 typedef enum e_free
 {
 	NO_FREE,
-	NO_FREE_PIDS,
 	F_INPUT,
 	F_EMPTOK,
 	F_TOKCMD,
 	F_TOKS,
 	F_ENV,
 	F_PIPES,
+	NO_FREE_PIDS,
 	F_PIDS,
 	F_EXITSTATE
 }					t_free;

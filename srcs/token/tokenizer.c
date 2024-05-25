@@ -69,6 +69,8 @@ t_token	**next_token(t_token **tokens, t_data *data)
 
 void	skip_whitespace(int *i, char *input)
 {
+	if (!input[*i])
+		return ;
 	while (input[*i] && (input[*i] == ' ' || input[*i] == '\n'
 			|| input[*i] == '\t' || input[*i] == '\v' || input[*i] == '\f'
 			|| input[*i] == '\r'))
