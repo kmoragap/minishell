@@ -39,6 +39,8 @@ void	get_cmd(int *i, char *input, t_token **tokens, t_data *data)
 
 void	check_quote(char c, int *quote, int *j)
 {
+	if (!c)
+		return ;
 	if (c == 39)
 		*quote = 1;
 	else if (c == 34)
@@ -48,6 +50,8 @@ void	check_quote(char c, int *quote, int *j)
 
 int	delim_space(char c)
 {
+	if (!c)
+		return (1);
 	if (c == '|' || c == '<' || c == '>')
 		return (1);
 	if (c == ' ' || c == '\n' || c == '\t' || c == '\v' || c == '\f'

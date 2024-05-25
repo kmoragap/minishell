@@ -93,7 +93,7 @@ int	get_arg_len(char *input, int *i)
 			text_in_quotes(quote, skip, &len, input);
 			len++;
 		}
-		if (delim_space(input[skip + len]) != 0)
+		if (!input[skip + len] || delim_space(input[skip + len]) != 0)
 			break ;
 	}
 	return (len);
