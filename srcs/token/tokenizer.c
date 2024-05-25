@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/25 14:38:04 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/25 14:42:45 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ void	create_tokens(char *input, t_token **tokens, t_data *data)
 		(*tokens)->id = id;
 		(*tokens)->exit_status = NOTHING;
 		space_special(&i, input, tokens, data);
-		if (data->err_code != ER_NO || !input[i])
+		if (data->err_code != ER_NO)
 			break ;
 		get_cmd(&i, input, tokens, data);
-		if (data->err_code != ER_NO || !input[i])
+		if (data->err_code != ER_NO)
 			break ;
 		skip_whitespace(&i, input);
 		get_args(&i, input, tokens, data);
-		if (data->err_code != ER_NO || !input[i])
+		if (data->err_code != ER_NO)
 			break ;
 		skip_whitespace(&i, input);
 		(data)->token_num = ++id;

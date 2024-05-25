@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/25 14:37:39 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/25 14:45:02 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	get_cmd(int *i, char *input, t_token **tokens, t_data *data)
 	int	quote;
 
 	j = 0;
-	if(!input[*i])
-		return ;
+
 	while (input[*i + j])
 	{
 		quote = 0;

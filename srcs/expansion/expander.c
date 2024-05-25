@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:55:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/25 14:14:04 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/25 15:12:30 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	expand_and_process(char **result, char *arg, int start, int end,
 	{
 		var_name = ft_strndup(&arg[start], end - start);
 		new_result = ft_strjoin(*result, var_name);
+		free(*result);
 		free(var_name);
 	}
 	else
