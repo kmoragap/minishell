@@ -39,6 +39,7 @@ void	dup_pipes(t_data *data, int child_id)
 void	single_redir(t_data *data)
 {
 	int	i;
+	int	fd;
 
 	i = 0;
 	if (!data->tokens->next)
@@ -47,10 +48,18 @@ void	single_redir(t_data *data)
 	{
 		if (data->tokens->next->delim == REDIR_I
 			|| data->tokens->next->delim == REDIR_H)
-			dup2(redir_in(data), STDIN_FILENO);
+		{
+			fd = redir_in(data);
+			dup2(fd, STDIN_FILENO);
+			close(fd);
+		}
 		if (data->tokens->next->delim == REDIR_O
 			|| data->tokens->next->delim == REDIR_A)
-			dup2(redir_out(data), STDOUT_FILENO);
+		{
+			fd = redir_out(data);
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
+		}
 		if (data->tokens->next)
 		{
 			data->tokens = data->tokens->next;
@@ -67,6 +76,7 @@ void	single_redir(t_data *data)
 void	check_redir_out_last(t_data *data)
 {
 	int	i;
+	int	fd;
 
 	i = 0;
 	while (data->tokens->next && data->tokens->next->delim != PIPE)
@@ -74,7 +84,9 @@ void	check_redir_out_last(t_data *data)
 		if (data->tokens->next->delim == REDIR_O
 			|| data->tokens->next->delim == REDIR_A)
 		{
-			dup2(redir_out(data), STDOUT_FILENO);
+			fd = redir_out(data);
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
 			i++;
 		}
 		if (data->tokens->next && data->tokens->next->delim != PIPE)
@@ -90,6 +102,7 @@ void	check_redir_out_last(t_data *data)
 void	check_redir_in_first(t_data *data)
 {
 	int	i;
+	int	fd;
 
 	i = 0;
 	while (data->tokens->next && data->tokens->next->delim != PIPE)
@@ -97,7 +110,9 @@ void	check_redir_in_first(t_data *data)
 		if (data->tokens->next->delim == REDIR_I
 			|| data->tokens->next->delim == REDIR_H)
 		{
-			dup2(redir_in(data), STDIN_FILENO);
+			fd = redir_in(data);
+			dup2(fd, STDIN_FILENO);
+			close(fd);
 			i++;
 		}
 		if (data->tokens->next && data->tokens->next->delim != PIPE)
@@ -114,6 +129,7 @@ void	check_redir_in(t_data *data, int child_id)
 {
 	int	i;
 	int	check;
+	int	fd;
 
 	check = 0;
 	i = 0;
@@ -122,7 +138,9 @@ void	check_redir_in(t_data *data, int child_id)
 		if (data->tokens->next->delim == REDIR_I
 			|| data->tokens->next->delim == REDIR_H)
 		{
-			dup2(redir_in(data), STDIN_FILENO);
+			fd = redir_in(data);
+			dup2(fd, STDIN_FILENO);
+			close(fd);
 			check++;
 		}
 		if (data->tokens->next && data->tokens->next->delim != PIPE)

@@ -27,6 +27,8 @@ void	execute_builtin(t_data *data)
 	int	type;
 
 	type = check_builtins(data->tokens->cmd);
+	if (type != ECHO || ft_strcmp(data->tokens->args[0], "$?") != 0)
+		data->exit_code = 0;
 	if (type == EXPORT)
 		execute_export_builtin(data);
 	if (type == ENV)

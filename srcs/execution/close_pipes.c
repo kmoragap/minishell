@@ -16,24 +16,32 @@ void	close_pipes(t_data *data, int child_id)
 {
 	int	i;
 
+	i = child_id;
 	i = 0;
 	if (data->childn->cnt_childn == 1)
 		return ;
-
-    while (i < data->childn->cnt_childn && data->childn->pipes
-        && data->childn->pipes[i])
-    {
-        if (i == child_id - 1)
-            close (data->childn->pipes[i][0]);
-        if (i == child_id)
-            close (data->childn->pipes[i][1]);
-        else
-        {
-            close(data->childn->pipes[i][0]);
-            close(data->childn->pipes[i][1]);
-        }
-        i++;
-    }
+	while (i < data->childn->cnt_childn && data->childn->pipes
+		&& data->childn->pipes[i])
+	{
+		// if (i == child_id - 1)
+		// {
+		// 	if (data->tokens->delim == REDIR_O || data->tokens->delim == REDIR_A)
+		// 		close(data->childn->pipes[i][1]);
+		// 	close(data->childn->pipes[i][0]);
+		// }
+		// if (i == child_id)
+		// {
+		// 	if (data->tokens->next->delim == REDIR_I || data->tokens->next->delim == REDIR_H)
+		// 		close(data->childn->pipes[i][0]);
+		// 	close(data->childn->pipes[i][1]);
+		// }
+		// else
+		{
+			close(data->childn->pipes[i][0]);
+			close(data->childn->pipes[i][1]);
+		}
+		i++;
+	}
 	free_pipes(data->childn->pipes, data);
 }
 

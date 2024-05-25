@@ -19,7 +19,7 @@ static void	expand_and_process(char **result, char *arg, int start, int end,
 	char	*temp;
 	char	*new_result;
 
-	if(arg[start - 1] == 39 || arg[start - 1] !=  '$')
+	if (arg[start - 1] == 39 || arg[start - 1] != '$')
 	{
 		var_name = ft_strndup(&arg[start], end - start);
 		new_result = ft_strjoin(*result, var_name);

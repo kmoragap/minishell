@@ -90,7 +90,8 @@ int	get_arg_len(char *input, int *i)
 			check_quote(input[skip + len], &quote, &len);
 		if (quote != 0)
 		{
-			text_in_quotes(quote, skip, &len, input);
+			if (text_in_quotes(quote, skip, &len, input) == 1)
+				break ;
 			len++;
 		}
 		if (!input[skip + len] || delim_space(input[skip + len]) != 0)
@@ -110,7 +111,7 @@ void	input_arg(char *input, int *i, t_token **tokens, int arg)
 			|| input[*i] == '\t' || input[*i] == '\v' || input[*i] == '\f'
 			|| input[*i] == '\r'))
 		*i += 1;
-	while (n < len)
+	while (n < len && input[*i])
 	{
 		(*tokens)->args[arg][n] = input[*i];
 		n++;
