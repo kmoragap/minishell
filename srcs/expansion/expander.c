@@ -32,10 +32,9 @@ static void	handle_question_dolar(char **result)
 	char	*new_result;
 
 	temp = ft_itoa(g_sigint);
-
 	new_result = ft_strjoin(*result, temp);
 	free(*result);
-	if(temp)
+	if (temp)
 		free(temp);
 	*result = new_result;
 }
@@ -75,7 +74,7 @@ static char	*remove_single_quotes(char *arg)
 char	*expand_work(char *arg, char **env)
 {
 	char	*result;
-	
+
 	if (arg[0] == '\'')
 		result = remove_single_quotes(arg);
 	else if (arg[0] == '"')

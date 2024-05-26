@@ -24,6 +24,7 @@ SRC = 	srcs/main.c \
 		srcs/expansion/expand_special_cases.c \
 		srcs/expansion/expander.c \
 		srcs/expansion/expander_work.c \
+		srcs/expansion/expander_work2.c \
 		srcs/expansion/handle_doubles_quotes.c \
 		srcs/execution/check_cmd_path.c \
 		srcs/execution/check_cmd_path2.c \

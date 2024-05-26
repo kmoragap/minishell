@@ -105,15 +105,15 @@ typedef struct s_child
 
 typedef struct s_data
 {
-	char	*input;
-	char	**env;
-	int		env_len;
-	t_error	err_code;
-	t_free	free_code;
-	int		exit_code;
-	t_token	*tokens;
-	t_child	*childn;
-	int		token_num;
+	char			*input;
+	char			**env;
+	int				env_len;
+	t_error			err_code;
+	t_free			free_code;
+	int				exit_code;
+	t_token			*tokens;
+	t_child			*childn;
+	int				token_num;
 }					t_data;
 
 // main.c
@@ -180,6 +180,12 @@ char				valid_delim_expand(char c);
 void				expand_cmd(t_token *token, char **env);
 void				expand_args(t_token *token, char **env);
 char				*expand_token(char *token, char **env);
+char				*get_fragment(char *arg, int *i);
+char				*expand_and_join(char **fragments, int frag_count,
+						char **env);
+char				*extract_variable(char *arg, int *i);
+char				*extract_regular(char *arg, int *i);
+char				*extract_quoted(char *arg, int *i, char quote);
 
 // expander_utils.c
 void				remove_quotes_from_args(t_data *data);

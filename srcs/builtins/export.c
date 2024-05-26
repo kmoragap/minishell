@@ -37,16 +37,13 @@ void	create_env_var(t_data *data, int arg_num)
 	if (ft_calloc(data, F_TOKCMD, (void **)&env, sizeof(char *) * (data->env_len
 				+ 2)))
 		return ;
-	i = 0;
-	while (i < data->env_len)
-	{
+	i = -1;
+	while (++i < data->env_len)
 		env[i] = data->env[i];
-		i++;
-	}
 	if (!ft_isdigit(data->tokens->args[arg_num][0]))
 	{
 		env[i] = ft_strdup(data->tokens->args[arg_num]);
-		if(!env[i])
+		if (!env[i])
 			return (free(env));
 	}
 	else
@@ -68,22 +65,21 @@ int	replace_var_env(t_data *data, char *arg)
 	ar = ft_strchr_before_c(arg, 61);
 	if (!ar)
 		return (0);
-	i = 0;
-	while (data->env[i] != NULL)
+	i = -1;
+	while (data->env[++i] != NULL)
 	{
 		var = ft_strchr_before_c(data->env[i], '=');
 		if (var != NULL && ft_strcmp(var, ar) == 0)
 		{
 			free(data->env[i]);
 			data->env[i] = ft_strdup(arg);
-			if(!data->env[i])
+			if (!data->env[i])
 				return (0);
 			free(var);
 			free(ar);
 			return (1);
 		}
 		free(var);
-		i++;
 	}
 	free(ar);
 	return (0);
