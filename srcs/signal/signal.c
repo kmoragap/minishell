@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:20:49 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 20:39:15 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 22:59:48 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static void	handle_sigint(int sig)
 
 static void	handle_sigquit(int sig)
 {
-	(void)sig;
-	rl_replace_line("", 0);
-	rl_redisplay();
-	rl_on_new_line();
+	if (sig == SIGQUIT)
+	{
+		rl_on_new_line();
+	}
 }
 
 void	init_signals(void)
