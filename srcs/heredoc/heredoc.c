@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:41:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/25 12:36:12 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 01:54:29 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	handle_sigint_heredoc(int sig)
 {
 	(void)sig;
 	g_heredoc_interrupted = 1;
-	write(STDOUT_FILENO, "\n", 1);
-	close(STDIN_FILENO);
+	write(1, "\n", 1);
+	write(1, "> ", 2);
 }
 
 void	handle_heredoc(t_token *token, char **env, int status)
@@ -105,7 +105,7 @@ void	read_in_here(t_token *token, char **env, int status, int fd)
 				token->next->cmd) == 0)
 			break ;
 		if (token->next->quotes == 0)
-			line = check_expand_quotes(line, env, status);
+			line = expander_fun(line, env, status);
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 		free(line);

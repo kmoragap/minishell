@@ -6,13 +6,13 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:28:19 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/24 20:56:47 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 01:42:22 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	has_outer_quotes(char *arg)
+/* int	has_outer_quotes(char *arg)
 {
 	size_t	len;
 
@@ -23,9 +23,9 @@ int	has_outer_quotes(char *arg)
 		return (2);
 	return ((arg[0] == '"' && arg[len - 1] == '"') || (arg[0] == '\'' && arg[len
 			- 1] == '\''));
-}
+} */
 
-char	*remove_outer_quotes(char *arg)
+/* char	*remove_outer_quotes(char *arg)
 {
 	char	*new_arg;
 	size_t	len;
@@ -54,7 +54,7 @@ char	*remove_outer_quotes(char *arg)
 		return (new_arg);
 	}
 	return (ft_strdup(arg));
-}
+} */
 
 void	remove_quotes_from_args(t_data *data)
 {
