@@ -14,6 +14,8 @@
 
 void	space_special(int *i, char *input, t_token **token, t_data *data)
 {
+	if (!input[0])
+		return ;
 	skip_whitespace(i, input);
 	check_special(i, input, token, data);
 	if (data->err_code != ER_NO)
