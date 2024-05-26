@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:04:40 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/17 22:26:09 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 18:43:30 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_strcmp(char *s1, char *s2)
 	int	i;
 
 	i = 0;
+	if (!s1 || !s2)
+		return(-1);
 	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 		i++;
 	return (s1[i] - s2[i]);
@@ -26,7 +28,9 @@ int	ft_atoi(char *str)
 {
 	int	result;
 	int	sign;
-
+	
+	if(!str)
+		return (0);
 	result = 0;
 	sign = 1;
 	while (*str == ' ' || (*str >= 9 && *str <= 13))

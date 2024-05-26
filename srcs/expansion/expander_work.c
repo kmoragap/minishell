@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:42:12 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 16:51:41 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 18:39:06 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static char	*extract_quoted(char *arg, int *i, char quote)
 	start = *i;
 	end = find_end(arg, start, quote);
 	temp = ft_strndup(&arg[start], end - start + 1);
+	if(!temp)
+		return (arg);
 	*i = end + 1;
 	return (temp);
 }
@@ -34,6 +36,8 @@ static char	*extract_regular(char *arg, int *i)
 	while (arg[*i] && arg[*i] != '"' && arg[*i] != '\'' && arg[*i] != '$')
 		(*i)++;
 	temp = ft_strndup(&arg[start], *i - start);
+	if(!temp)
+		return (arg);
 	return (temp);
 }
 
@@ -53,6 +57,8 @@ static char	*extract_variable(char *arg, int *i)
 			(*i)++;
 	}
 	temp = ft_strndup(&arg[start], *i - start);
+	if(!temp)
+		return (arg);
 	return (temp);
 }
 
@@ -69,7 +75,8 @@ static char	*expand_and_join(char **fragments, int frag_count, char **env)
 	{
 		expanded = expand_work(fragments[j], env);
 		new_result = ft_strjoin(result, expanded);
-		free(result);
+		if (result)
+			free(result);
 		free(expanded);
 		free(fragments[j]);
 		result = new_result;
@@ -88,6 +95,8 @@ char	*expander_fun(char *arg, char **env)
 
 	len = ft_strlen(arg);
 	fragments = ft_calloc_norm(len, sizeof(char *));
+	if (!fragments)
+		return (NULL);
 	frag_index = 0;
 	i = 0;
 	while (arg[i])
@@ -100,6 +109,11 @@ char	*expander_fun(char *arg, char **env)
 			fragments[frag_index++] = extract_variable(arg, &i);
 		else
 			fragments[frag_index++] = extract_regular(arg, &i);
+		if (!fragments[frag_index - 1])
+		{
+			free(fragments);
+			return (NULL);
+		}
 	}
 	result = expand_and_join(fragments, frag_index, env);
 	free(fragments);

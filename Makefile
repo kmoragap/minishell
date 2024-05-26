@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/05/26 17:38:18 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/05/26 17:44:03 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,8 +66,8 @@ SRC = 	srcs/main.c \
 INC = includes/ 
 
 OBJ = $(SRC:.c=.o)
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -I $(INC)
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -g -I $(INC)
 LDFLAGS = -lreadline
 
 #Colores

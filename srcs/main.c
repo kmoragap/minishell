@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 17:16:57 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 18:09:55 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ t_data	*in_data(t_data *re, int num, char **envp)
 	re->err_code = ER_NO;
 	re->free_code = 100;
 	re->childn = ft_calloc_norm(1, sizeof(t_child));
+	if (!re->childn)
+	{
+		free(re);
+		return (NULL);
+	}
 	return (re);
 }
 
@@ -49,7 +54,9 @@ t_data	*init_data(char **envp)
 		free(re);
 		return (NULL);
 	}
-	in_data(re, i, envp);
+	re = in_data(re, i, envp);
+	if (!re)
+		return (NULL);
 	return (re);
 }
 
@@ -81,6 +88,8 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	data = init_data(env);
+	if (!data)
+		return (1);
 	shlvl(data);
 	init_signals(data);
 	while (1)

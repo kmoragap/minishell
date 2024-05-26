@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/23 20:05:48 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 18:27:37 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ void	create_env_var(t_data *data, int arg_num)
 		i++;
 	}
 	if (!ft_isdigit(data->tokens->args[arg_num][0]))
+	{
 		env[i] = ft_strdup(data->tokens->args[arg_num]);
+		if(!env[i])
+			return (free(env));
+	}
 	else
 		data->exit_code = write_error("export: ", data->tokens->args[arg_num],
 				": not a valid identifier\n", 1);
@@ -72,6 +76,8 @@ int	replace_var_env(t_data *data, char *arg)
 		{
 			free(data->env[i]);
 			data->env[i] = ft_strdup(arg);
+			if(!data->env[i])
+				return (0);
 			free(var);
 			free(ar);
 			return (1);

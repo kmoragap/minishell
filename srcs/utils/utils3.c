@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:34:26 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/24 20:33:41 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 18:19:49 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strnjoin(char *s1, char *s2, int len2)
 	char	*new;
 	size_t	len;
 
+	if (!s1 || !s2)
+		return (NULL);
 	len = ft_strlen((char *)s1) + len2;
 	new = (char *)malloc(len + 1);
 	if (new == NULL)
@@ -33,6 +35,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*new;
 	size_t	len;
 
+	if (!s1 || !s2)
+		return (NULL);
 	len = ft_strlen((char *)s1) + ft_strlen((char *)s2);
 	new = (char *)malloc(len + 1);
 	if (new == NULL)

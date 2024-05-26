@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:55:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 16:52:40 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 18:42:32 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	handle_dollar_question(char **result, int *end)
 	temp = ft_itoa(g_sigint);
 	new_result = ft_strjoin(*result, temp);
 	free(*result);
-	free(temp);
+	if (temp)
+		free(temp);
 	*end += 2;
 	*result = new_result;
 }
@@ -31,9 +32,11 @@ static void	handle_question_dolar(char **result)
 	char	*new_result;
 
 	temp = ft_itoa(g_sigint);
+
 	new_result = ft_strjoin(*result, temp);
 	free(*result);
-	free(temp);
+	if(temp)
+		free(temp);
 	*result = new_result;
 }
 
@@ -72,15 +75,11 @@ static char	*remove_single_quotes(char *arg)
 char	*expand_work(char *arg, char **env)
 {
 	char	*result;
-
+	
 	if (arg[0] == '\'')
-	{
 		result = remove_single_quotes(arg);
-	}
 	else if (arg[0] == '"')
-	{
 		result = handle_double_quotes(arg, env);
-	}
 	else if (arg[0] == '$' && arg[1] == '?')
 	{
 		result = ft_strdup("");

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 17:03:41 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 18:29:17 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ void	sort_env_case(t_data *data)
 	char	**env_cpy;
 
 	env_cpy = ft_calloc_norm(data->env_len + 1, sizeof(char *));
+	if (!env_cpy)
+		return ;
 	i = 0;
 	while (i < data->env_len)
 	{
 		env_cpy[i] = ft_strdup(data->env[i]);
+		if(!env_cpy[i])
+			return(free(env_cpy));
 		i++;
 	}
 	env_cpy[i] = NULL;

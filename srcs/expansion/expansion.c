@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 17:15:54 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 17:55:12 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static char	*resolve_token_value(char *token, char **env)
 	i = -1;
 	var = NULL;
 	value = NULL;
+	if (!token)
+		return (NULL);
 	while (env[++i] != NULL)
 	{
 		var = ft_strchr_before_c(env[i], '=');
@@ -57,6 +59,8 @@ static void	expand_single_arg(char **arg, char **env)
 	char	*expanded_arg;
 
 	expanded_arg = expander_fun(*arg, env);
+	if (!expanded_arg)
+		return ;
 	if (expanded_arg != NULL)
 	{
 		free(*arg);

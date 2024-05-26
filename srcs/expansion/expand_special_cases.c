@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:28:19 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 17:16:08 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 18:36:33 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	remove_quotes_from_args(t_data *data)
 	while (data->tokens->args_num != 0 && data->tokens->args[i])
 	{
 		data->tokens->args[i] = remove_quotes_args(data->tokens->args[i]);
+		if (!data->tokens->args[i])
+			return ;
 		i++;
 	}
 }
