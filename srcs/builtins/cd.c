@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:48:53 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/19 13:24:39 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 03:06:10 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void	ft_cd(t_data *data)
 {
 	char	*old_pwd;
 	char	*path;
+	char	*new_path;
 
+	new_path = NULL;
 	path = NULL;
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
@@ -54,7 +56,11 @@ void	ft_cd(t_data *data)
 		path = get_env(data, path);
 	else
 		path = getenv("HOME");
+	if (ft_strncmp(data->tokens->args[0], "~/", 2) == 0)
+		new_path = path;
 	execute_cd(data, path, old_pwd);
+	if (new_path)
+		free(new_path);
 	free(old_pwd);
 }
 
