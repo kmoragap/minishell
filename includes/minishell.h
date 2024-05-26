@@ -168,9 +168,6 @@ int					check_empty_cmd(t_token *move, t_data *data);
 int					check_fd(t_token *move);
 int					check_file(t_token *move);
 
-// print.c
-t_data				*print(t_data *data);
-
 // expander.c
 char				*expand_work(char *arg, char **env);
 int					find_end(char *arg, int i, char quote);

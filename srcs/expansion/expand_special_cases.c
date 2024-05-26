@@ -21,7 +21,7 @@ void	remove_quotes_from_args(t_data *data)
 	{
 		data->tokens->args[i] = remove_quotes_args(data->tokens->args[i]);
 		if (!data->tokens->args[i])
-			return ;
+			error_in_child(data, 1, "Error", "malloc failure");
 		i++;
 	}
 }

@@ -18,14 +18,16 @@ void	check_redir_out(t_data *data, int child_id)
 	int	fd;
 
 	i = 0;
-	dup2(data->childn->pipes[child_id][1], STDOUT_FILENO);
+	if (dup2(data->childn->pipes[child_id][1], STDOUT_FILENO) == -1)
+		error_in_child(data, 1, "dup2", "dup2 failed");
 	while (data->tokens->next && data->tokens->next->delim != PIPE)
 	{
 		if (data->tokens->next->delim == REDIR_O
 			|| data->tokens->next->delim == REDIR_A)
 		{
 			fd = redir_out(data);
-			dup2(fd, STDOUT_FILENO);
+			if (dup2(fd, STDOUT_FILENO) == -1)
+				error_in_child(data, 1, "dup2", "dup2 failed");
 			close(fd);
 		}
 		if (data->tokens->next && data->tokens->next->delim != PIPE)

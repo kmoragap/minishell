@@ -72,6 +72,8 @@ char	*remove_quotes_args(char *arg)
 	if (check == 0)
 		return (arg);
 	new = ft_strndup(arg, i - 1);
+	if (!new)
+		return (NULL);
 	while (arg[i])
 		loop_quotes(arg, &new, &i, &check);
 	if (!new)
@@ -88,6 +90,8 @@ void	loop_quotes(char *cmd, char **new, int *i, int *check)
 	while (cmd[*i + j] != *check && cmd[*i + j])
 		j++;
 	*new = ft_strnjoin(*new, &cmd[*i], j);
+	if (!new)
+		return;
 	*i = *i + j;
 	if (!cmd[*i])
 		return ;

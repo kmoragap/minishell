@@ -48,14 +48,16 @@ void	single_redir(t_data *data)
 			|| data->tokens->next->delim == REDIR_H)
 		{
 			fd = redir_in(data);
-			dup2(fd, STDIN_FILENO);
+			if (dup2(fd, STDIN_FILENO) == -1)
+				error_in_child(data, 1, "dup2", "dup2 failed");
 			close(fd);
 		}
 		if (data->tokens->next->delim == REDIR_O
 			|| data->tokens->next->delim == REDIR_A)
 		{
 			fd = redir_out(data);
-			dup2(fd, STDOUT_FILENO);
+			if (dup2(fd, STDOUT_FILENO) == -1)
+				error_in_child(data, 1, "dup2", "dup2 failed");
 			close(fd);
 		}
 		if (data->tokens->next)
@@ -75,7 +77,8 @@ void	check_redir_out_last(t_data *data)
 			|| data->tokens->next->delim == REDIR_A)
 		{
 			fd = redir_out(data);
-			dup2(fd, STDOUT_FILENO);
+			if (dup2(fd, STDOUT_FILENO) == -1)
+				error_in_child(data, 1, "dup2", "dup2 failed");
 			close(fd);
 			i++;
 		}
@@ -101,7 +104,8 @@ void	check_redir_in_first(t_data *data)
 			|| data->tokens->next->delim == REDIR_H)
 		{
 			fd = redir_in(data);
-			dup2(fd, STDIN_FILENO);
+			if (dup2(fd, STDIN_FILENO) == -1)
+				error_in_child(data, 1, "dup2", "dup2 failed");
 			close(fd);
 			i++;
 		}
@@ -121,14 +125,16 @@ void	check_redir_in(t_data *data, int child_id)
 	int	fd;
 
 	i = 0;
-	dup2(data->childn->pipes[child_id - 1][0], STDIN_FILENO);
+	if (dup2(data->childn->pipes[child_id - 1][0], STDIN_FILENO) == -1)
+		error_in_child(data, 1, "dup2", "dup2 failed");
 	while (data->tokens->next && data->tokens->next->delim != PIPE)
 	{
 		if (data->tokens->next->delim == REDIR_I
 			|| data->tokens->next->delim == REDIR_H)
 		{
 			fd = redir_in(data);
-			dup2(fd, STDIN_FILENO);
+			if (dup2(fd, STDIN_FILENO) == -1)
+				error_in_child(data, 1, "dup2", "dup2 failed");
 			close(fd);
 		}
 		if (data->tokens->next && data->tokens->next->delim != PIPE)
