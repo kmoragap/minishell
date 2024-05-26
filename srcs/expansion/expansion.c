@@ -19,8 +19,6 @@ static char	*resolve_token_value(char *token, char **env)
 	char	*value;
 
 	i = -1;
-	var = NULL;
-	value = NULL;
 	if (!token)
 		return (NULL);
 	while (env[++i] != NULL)

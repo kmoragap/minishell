@@ -24,8 +24,8 @@ void	sort_env_case(t_data *data)
 	while (i < data->env_len)
 	{
 		env_cpy[i] = ft_strdup(data->env[i]);
-		if(!env_cpy[i])
-			return(free(env_cpy));
+		if (!env_cpy[i])
+			return (free(env_cpy));
 		i++;
 	}
 	env_cpy[i] = NULL;
@@ -33,12 +33,9 @@ void	sort_env_case(t_data *data)
 	i = 0;
 	while (env_cpy[i])
 		write_env(env_cpy[i++]);
-	i = 0;
-	while (env_cpy[i])
-	{
+	i = -1;
+	while (env_cpy[++i])
 		free(env_cpy[i]);
-		i++;
-	}
 	free(env_cpy);
 	return ;
 }

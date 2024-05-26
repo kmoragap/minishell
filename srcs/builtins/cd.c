@@ -77,6 +77,13 @@ void	execute_cd(t_data *data, char *path, char *old_pwd)
 	free(new_pwd);
 }
 
+char	*ft_concat(char *old, char *old_pwd)
+{
+	ft_strcat(old, "OLDPWD=");
+	ft_strcat(old, old_pwd);
+	return (old);
+}
+
 void	update_env_vars(t_data *data, char *old_pwd, char *new_pwd)
 {
 	char	*old;
@@ -95,8 +102,7 @@ void	update_env_vars(t_data *data, char *old_pwd, char *new_pwd)
 			free(old);
 		return ;
 	}
-	ft_strcat(old, "OLDPWD=");
-	ft_strcat(old, old_pwd);
+	old = ft_concat(old, old_pwd);
 	ft_strcat(new, "PWD=");
 	ft_strcat(new, new_pwd);
 	if (replace_var_env(data, old) == 0)

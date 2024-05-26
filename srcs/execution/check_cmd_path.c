@@ -91,7 +91,7 @@ void	loop_quotes(char *cmd, char **new, int *i, int *check)
 		j++;
 	*new = ft_strnjoin(*new, &cmd[*i], j);
 	if (!new)
-		return;
+		return ;
 	*i = *i + j;
 	if (!cmd[*i])
 		return ;

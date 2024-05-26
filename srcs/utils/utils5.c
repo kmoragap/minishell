@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:34:26 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/21 17:36:56 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 19:33:45 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_strdup(char *src)
 {
 	char	*dest;
 
+	if(!src)
+		return (NULL);
 	dest = (char *)ft_calloc_norm(1, ft_strlen((char *)src) + 1);
 	if (!dest)
 		return (NULL);
