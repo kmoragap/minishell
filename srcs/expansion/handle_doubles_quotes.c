@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 22:46:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 18:40:32 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 20:26:16 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	handle_char_append(char **result, char c)
 	*result = new_result;
 }
 
-char	*handle_double_quotes(char *arg, char **env)
+char	*handle_double_quotes(char *arg, char **env, int status)
 {
 	int		i;
 	char	*result;
@@ -65,7 +65,7 @@ char	*handle_double_quotes(char *arg, char **env)
 		if (arg[i] == '$')
 		{
 			if (arg[i + 1] == '?')
-				handle_dollar_question(&result, &i);
+				handle_dollar_question(&result, &i, status);
 			else
 				handle_var_expansion(&result, arg, &i, env);
 		}
@@ -78,7 +78,7 @@ char	*handle_double_quotes(char *arg, char **env)
 	return (result);
 }
 
-char	*handle_no_quotes(char *arg, char **env)
+char	*handle_no_quotes(char *arg, char **env, int status)
 {
 	int		i;
 	char	*result;
@@ -91,7 +91,7 @@ char	*handle_no_quotes(char *arg, char **env)
 		{
 			if (arg[i] == '?')
 			{
-				handle_dollar_question(&result, &i);
+				handle_dollar_question(&result, &i, status);
 			}
 			else
 				handle_var_expansion(&result, arg, &i, env);

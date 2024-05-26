@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:42:12 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 18:39:06 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 20:39:26 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ char	*extract_variable(char *arg, int *i)
 	return (temp);
 }
 
-char	*expand_and_join(char **fragments, int frag_count, char **env)
+char	*expand_and_join(char **fragments, int frag_count, char **env,
+		int status)
 {
 	int		j;
 	char	*expanded;
@@ -73,7 +74,7 @@ char	*expand_and_join(char **fragments, int frag_count, char **env)
 	j = 0;
 	while (j < frag_count)
 	{
-		expanded = expand_work(fragments[j], env);
+		expanded = expand_work(fragments[j], env, status);
 		new_result = ft_strjoin(result, expanded);
 		if (result)
 			free(result);
@@ -85,7 +86,7 @@ char	*expand_and_join(char **fragments, int frag_count, char **env)
 	return (result);
 }
 
-char	*expander_fun(char *arg, char **env)
+char	*expander_fun(char *arg, char **env, int status)
 {
 	char	*result;
 	char	**fragments;
@@ -109,7 +110,7 @@ char	*expander_fun(char *arg, char **env)
 		}
 		frag_index++;
 	}
-	result = expand_and_join(fragments, frag_index, env);
+	result = expand_and_join(fragments, frag_index, env, status);
 	free(fragments);
 	return (result);
 }

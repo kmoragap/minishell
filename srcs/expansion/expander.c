@@ -6,18 +6,18 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:55:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 18:42:32 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 20:26:14 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_dollar_question(char **result, int *end)
+void	handle_dollar_question(char **result, int *end, int status)
 {
 	char	*temp;
 	char	*new_result;
 
-	temp = ft_itoa(g_sigint);
+	temp = ft_itoa(status);
 	new_result = ft_strjoin(*result, temp);
 	free(*result);
 	if (temp)
@@ -26,12 +26,12 @@ void	handle_dollar_question(char **result, int *end)
 	*result = new_result;
 }
 
-static void	handle_question_dolar(char **result)
+static void	handle_question_dolar(char **result, int status)
 {
 	char	*temp;
 	char	*new_result;
 
-	temp = ft_itoa(g_sigint);
+	temp = ft_itoa(status);
 	new_result = ft_strjoin(*result, temp);
 	free(*result);
 	if (temp)
@@ -71,20 +71,20 @@ static char	*remove_single_quotes(char *arg)
 	return (result);
 }
 
-char	*expand_work(char *arg, char **env)
+char	*expand_work(char *arg, char **env, int status)
 {
 	char	*result;
 
 	if (arg[0] == '\'')
 		result = remove_single_quotes(arg);
 	else if (arg[0] == '"')
-		result = handle_double_quotes(arg, env);
+		result = handle_double_quotes(arg, env, status);
 	else if (arg[0] == '$' && arg[1] == '?')
 	{
 		result = ft_strdup("");
-		handle_question_dolar(&result);
+		handle_question_dolar(&result, status);
 	}
 	else
-		result = handle_no_quotes(arg, env);
+		result = handle_no_quotes(arg, env, status);
 	return (result);
 }

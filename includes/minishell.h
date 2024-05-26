@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/26 17:24:06 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 20:40:38 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,20 +169,20 @@ int					check_fd(t_token *move);
 int					check_file(t_token *move);
 
 // expander.c
-char				*expand_work(char *arg, char **env);
+char				*expand_work(char *arg, char **env, int status);
 int					find_end(char *arg, int i, char quote);
-char				*expander_fun(char *arg, char **env);
-char				*handle_no_quotes(char *arg, char **env);
-void				handle_dollar_question(char **result, int *end);
-char				*handle_double_quotes(char *arg, char **env);
+char				*expander_fun(char *arg, char **env, int status);
+char				*handle_no_quotes(char *arg, char **env, int status);
+void				handle_dollar_question(char **result, int *end, int status);
+char				*handle_double_quotes(char *arg, char **env, int status);
 char				*expand_variable(char *var, char **env);
 char				valid_delim_expand(char c);
-void				expand_cmd(t_token *token, char **env);
-void				expand_args(t_token *token, char **env);
+void				expand_cmd(t_token *token, char **env, int status);
+void				expand_args(t_token *token, char **env, int status);
 char				*expand_token(char *token, char **env);
 char				*get_fragment(char *arg, int *i);
 char				*expand_and_join(char **fragments, int frag_count,
-						char **env);
+						char **env, int status);
 char				*extract_variable(char *arg, int *i);
 char				*extract_regular(char *arg, int *i);
 char				*extract_quoted(char *arg, int *i, char quote);
@@ -337,14 +337,15 @@ void				free_args(char **args, int *cnt);
 void				reinit_data(t_data *data);
 
 // signals.c
-void				init_signals(t_data *data);
+void				init_signals(void);
 void				handle_eof(t_data *data);
 void				handle_sigint_heredoc(int sig);
 
 // heredoc.c
 t_data				*heredoc(t_data *data);
-void				read_in_here(t_token *token, char **env, int fd);
-void				handle_heredoc(t_token *token, char **env);
+void				read_in_here(t_token *token, char **env, int fd,
+						int status);
+void				handle_heredoc(t_token *token, char **env, int status);
 int					has_quotes(char *cmd);
 
 #endif // MINISHELL_H

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 16:34:33 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 17:14:45 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 20:41:13 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ char	valid_delim_expand(char c)
 	return (0);
 }
 
-void	expand_cmd(t_token *token, char **env)
+void	expand_cmd(t_token *token, char **env, int status)
 {
 	char	*expanded_cmd;
 
 	expanded_cmd = NULL;
 	if (check_expand_var(token->cmd))
 	{
-		expanded_cmd = expander_fun(token->cmd, env);
+		expanded_cmd = expander_fun(token->cmd, env, status);
 		if (expanded_cmd != NULL)
 		{
 			free(token->cmd);

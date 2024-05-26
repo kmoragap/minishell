@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:41:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 17:18:06 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 20:38:33 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_data	*heredoc(t_data *data)
 	while (i < data->token_num && data->tokens && data->tokens->next)
 	{
 		if (data->tokens->next && data->tokens->next->delim == REDIR_H)
-			handle_heredoc(data->tokens, data->env);
+			handle_heredoc(data->tokens, data->env, data->exit_code);
 		if (!data->tokens->next)
 			break ;
 		data->tokens = data->tokens->next;
@@ -38,7 +38,7 @@ void	handle_sigint_heredoc(int sig)
 	rl_replace_line("", 0);
 }
 
-void	handle_heredoc(t_token *token, char **env)
+void	handle_heredoc(t_token *token, char **env, int status)
 {
 	int		fd;
 	void	(*prev_handler)(int);
@@ -47,7 +47,7 @@ void	handle_heredoc(t_token *token, char **env)
 	fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 		return ;
-	read_in_here(token, env, fd);
+	read_in_here(token, env, fd, status);
 	signal(SIGINT, prev_handler);
 	if (g_sigint)
 	{
@@ -56,7 +56,7 @@ void	handle_heredoc(t_token *token, char **env)
 	}
 }
 
-void	read_in_here(t_token *token, char **env, int fd)
+void	read_in_here(t_token *token, char **env, int fd, int status)
 {
 	char	*line;
 
@@ -68,7 +68,7 @@ void	read_in_here(t_token *token, char **env, int fd)
 				token->next->cmd) == 0)
 			break ;
 		if (token->next->quotes == 0)
-			line = expander_fun(line, env);
+			line = expander_fun(line, env, status);
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 		free(line);
