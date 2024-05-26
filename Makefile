@@ -60,6 +60,7 @@ SRC = 	srcs/main.c \
 		srcs/builtins/echo.c \
 		srcs/builtins/cd.c \
 		srcs/heredoc/heredoc.c \
+		srcs/free/reinit.c \
 		srcs/utils/ft_strtrim.c \
 		srcs/utils/get_next_line/get_next_line.c \
 		srcs/utils/get_next_line/get_next_line_utils.c
@@ -68,7 +69,7 @@ INC = includes/
 
 OBJ = $(SRC:.c=.o)
 CC = cc
-CFLAGS = -Wall -Wextra -Werror  -I $(INC)
+CFLAGS = -Wall -Wextra -Werror -g -I $(INC)
 LDFLAGS = -lreadline
 
 #Colores

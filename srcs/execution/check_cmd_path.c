@@ -17,6 +17,11 @@ void	check_cmd_path(t_data *data)
 	if (check_builtins(data->tokens->cmd) > -1)
 	{
 		execute_builtin(data);
+		close_pipes(data, -1);
+		free_pipes(data->childn->pipes, data);
+		free(data->childn->pids);
+		data->free_code = F_ENV;
+		free_all_child(data);
 		exit(0);
 	}
 	if (check_relative(data->tokens->cmd) == 0)
