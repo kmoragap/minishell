@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:48:53 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 18:19:02 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 23:53:13 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ void	update_env_vars(t_data *data, char *old_pwd, char *new_pwd)
 	ft_strcat(new, "PWD=");
 	ft_strcat(new, new_pwd);
 	if (replace_var_env(data, old) == 0)
-		perror("Error updating OLDPWD");
+		return ;
 	if (replace_var_env(data, new) == 0)
-		perror("Error updating PWD");
+		return ;
 	free(old);
 	free(new);
 }
