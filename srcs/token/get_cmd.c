@@ -26,12 +26,12 @@ void	get_cmd(int *i, char *input, t_token **tokens, t_data *data)
 			check_quote(input[*i + j], &quote, &j);
 		if (quote != 0)
 		{
-			if (text_in_quotes(quote, *i, &j, input) != 0)
-				input_error(data, F_EMPTOK, 1,
+			if (text_in_quotes_cmd(quote, *i, &j, input) != 0)
+				input_error(data, F_TOKCMD, 1,
 					"minishell: syntax error due to unclosed quote\n");
 			j += 1;
 		}
-		if (delim_space(input[*i + j]) != 0)
+		if (!input[*i + j - 1] || !input[*i + j] || delim_space(input[*i + j]) != 0)
 			break ;
 	}
 	if (input_cmd(input, i, j, tokens) != 0)
@@ -61,8 +61,27 @@ int	delim_space(char c)
 	return (0);
 }
 
+int	text_in_quotes_cmd(int quote, int i, int *j, char *input)
+{
+	while (input[i + *j])
+	{
+		if (quote == 1 && input[i + *j] == 39)
+			return (0);
+		if (quote == 2 && input[i + *j] == 34)
+			return (0);
+		*j += 1;
+	}
+	if (!input[i + *j])
+		return (1);
+	if (input[i + *j] == input[i + *j - 1])
+		*j += 1;
+	return (0);
+}
+
 int	text_in_quotes(int quote, int i, int *j, char *input)
 {
+	i--;
+	*j+= 1;
 	while (input[i + *j])
 	{
 		if (quote == 1 && input[i + *j] == 39)
@@ -86,7 +105,7 @@ int	input_cmd(char *input, int *i, int j, t_token **tokens)
 	(*tokens)->cmd = ft_calloc_norm((j + 1), sizeof(char));
 	if (!(*tokens)->cmd)
 		return (1);
-	while (n < j)
+	while (n < j && input[*i])
 	{
 		(*tokens)->cmd[n] = input[*i];
 		n++;
