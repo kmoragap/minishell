@@ -47,9 +47,7 @@ t_data	*remove_quotes(char *cmd, t_data *data)
 		return (data);
 	new = ft_strndup(cmd, i - 1);
 	while (cmd[i])
-	{
 		loop_quotes(cmd, &new, &i, &check);
-	}
 	free(data->tokens->cmd);
 	data->tokens->cmd = new;
 	i = 0;
@@ -74,9 +72,7 @@ char	*remove_quotes_args(char *arg)
 		return (arg);
 	new = ft_strndup(arg, i - 1);
 	while (arg[i])
-	{
 		loop_quotes(arg, &new, &i, &check);
-	}
 	free(arg);
 	return (new);
 }
@@ -90,6 +86,8 @@ void	loop_quotes(char *cmd, char **new, int *i, int *check)
 		j++;
 	*new = ft_strnjoin(*new, &cmd[*i], j);
 	*i = *i + j;
+	if (!cmd[*i])
+		return ;
 	if (cmd[*i] && (cmd[*i] == 34 || cmd[*i] == 39))
 		*check = cmd[*i];
 	*i = *i + 1;
