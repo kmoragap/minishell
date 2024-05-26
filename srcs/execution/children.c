@@ -88,14 +88,16 @@ void	error_in_child(t_data *data, int exit_code, char *cmd,
 {
 	if (data->tokens->path)
 		free(data->tokens->path);
-	close_pipes(data, -1);
+	data->tokens = move_to_first_token(data->tokens);
 	write(2, "minishell: ", 11);
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": ", 2);
 	write(2, error_message, ft_strlen(error_message));
 	write(2, "\n", 1);
+	close_pipes(data, -1);
+	free_pipes(data->childn->pipes, data);
 	free(data->childn->pids);
 	data->free_code = F_ENV;
-	free_all(data);
+	free_all_child(data);
 	exit(exit_code);
 }

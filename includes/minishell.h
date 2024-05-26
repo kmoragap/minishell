@@ -217,7 +217,7 @@ void				get_pwd(void);
 
 // exit
 void				ft_exit(t_data *data);
-void				ft_exit_255(char *args);
+void				ft_exit_255(t_data *data, char *args);
 
 // cd.c
 void				execute_cd(t_data *data, char *path, char *old_pwd);
@@ -330,6 +330,7 @@ void				input_error(t_data *data, t_free code, int exit_code,
 void				malloc_error(t_data *data, t_free code);
 
 // free.c
+void				free_all_child(t_data *data);
 void				free_all(t_data *data);
 void				free_toks(t_data *data);
 void				free_env(t_data *data);

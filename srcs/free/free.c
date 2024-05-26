@@ -12,6 +12,26 @@
 
 #include "minishell.h"
 
+void	free_all_child(t_data *data)
+{
+	if (data->free_code == 100)
+	{
+		free_env(data);
+		return ;
+	}
+	if (data->free_code >= F_TOKS || data->free_code == NO_FREE)
+		free_toks(data);
+	if (data->free_code >= F_EMPTOK || data->free_code == NO_FREE)
+		free(data->tokens);
+	if (data->free_code >= F_INPUT || data->free_code == NO_FREE)
+		free(data->input);
+	if (data->childn->pids && (data->free_code >= F_PIDS
+			|| data->free_code == NO_FREE))
+		free(data->childn->pids);
+	if (data->free_code == F_ENV)
+		free_env(data);
+}
+
 void	free_all(t_data *data)
 {
 	if (data->free_code == 100)
@@ -111,10 +131,4 @@ void	free_args(char **args, int *cnt)
 		}
 	}
 	free(args);
-}
-
-void	reinit_data(t_data *data)
-{
-	data->err_code = ER_NO;
-	data->free_code = NO_FREE;
 }
