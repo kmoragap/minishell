@@ -19,7 +19,6 @@ SRC = 	srcs/main.c \
 		srcs/token/get_args.c \
 		srcs/token/input_args.c \
 		srcs/parse/parser.c \
-		srcs/print_data/print.c \
 		srcs/expansion/expansion.c \
 		srcs/expansion/expansion_utils.c \
 		srcs/expansion/expand_special_cases.c \
