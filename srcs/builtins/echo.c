@@ -32,11 +32,11 @@ static int	is_n_option(char *arg)
 
 void	ft_echo(t_data *data)
 {
-	t_token		*curr_token;
-	int			newline;
-	int			i;
-	//char		*processed_arg;
+	t_token	*curr_token;
+	int		newline;
+	int		i;
 
+	// char		*processed_arg;
 	curr_token = data->tokens;
 	newline = 1;
 	i = 0;
@@ -48,8 +48,9 @@ void	ft_echo(t_data *data)
 	}
 	while (i < curr_token->args_num)
 	{
-	//	processed_arg = remove_outer_quotes(curr_token->args[i]);
-		write(STDOUT_FILENO, curr_token->args[i], ft_strlen(curr_token->args[i]));
+		//	processed_arg = remove_outer_quotes(curr_token->args[i]);
+		write(STDOUT_FILENO, curr_token->args[i],
+			ft_strlen(curr_token->args[i]));
 		if (i + 1 < curr_token->args_num)
 			write(STDOUT_FILENO, " ", 1);
 		i++;

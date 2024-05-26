@@ -42,7 +42,7 @@ void	sort_env_case(t_data *data)
 int	do_export_loop(t_data *data, char *var, int i)
 {
 	var = ft_strchr_before_c(data->tokens->args[i], '=');
-	if(var[0] == '\0') 
+	if (var[0] == '\0')
 	{
 		input_error(data, 0, 6, "export: not a valid identifier\n");
 		free(var);

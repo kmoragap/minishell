@@ -38,10 +38,8 @@ void	dup_pipes(t_data *data, int child_id)
 
 void	single_redir(t_data *data)
 {
-	int	i;
 	int	fd;
 
-	i = 0;
 	if (!data->tokens->next)
 		return ;
 	while (data->tokens->next)
@@ -61,15 +59,7 @@ void	single_redir(t_data *data)
 			close(fd);
 		}
 		if (data->tokens->next)
-		{
 			data->tokens = data->tokens->next;
-			i++;
-		}
-	}
-	while (i > 0)
-	{
-		data->tokens = data->tokens->prev;
-		i--;
 	}
 }
 
@@ -128,11 +118,10 @@ void	check_redir_in_first(t_data *data)
 void	check_redir_in(t_data *data, int child_id)
 {
 	int	i;
-	int	check;
 	int	fd;
 
-	check = 0;
 	i = 0;
+	dup2(data->childn->pipes[child_id - 1][0], STDIN_FILENO);
 	while (data->tokens->next && data->tokens->next->delim != PIPE)
 	{
 		if (data->tokens->next->delim == REDIR_I
@@ -141,7 +130,6 @@ void	check_redir_in(t_data *data, int child_id)
 			fd = redir_in(data);
 			dup2(fd, STDIN_FILENO);
 			close(fd);
-			check++;
 		}
 		if (data->tokens->next && data->tokens->next->delim != PIPE)
 		{
@@ -149,8 +137,6 @@ void	check_redir_in(t_data *data, int child_id)
 			i++;
 		}
 	}
-	if (check == 0)
-		dup2(data->childn->pipes[child_id - 1][0], STDIN_FILENO);
 	while (i-- > 0)
 		data->tokens = data->tokens->prev;
 }
