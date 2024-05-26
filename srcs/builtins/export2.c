@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   export2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/23 20:05:48 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 02:53:17 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,13 @@ void	sort_env_case(t_data *data)
 int	do_export_loop(t_data *data, char *var, int i)
 {
 	var = ft_strchr_before_c(data->tokens->args[i], '=');
-	if (!ft_isalnum(var[ft_strlen(var) - 1]))
+	if(var[0] == '\0') 
+	{
+		input_error(data, 0, 6, "export: not a valid identifier\n");
+		free(var);
+		return (1);
+	}
+	else if (!ft_isalnum(var[ft_strlen(var) - 1]))
 	{
 		input_error(data, 0, 6, "export: not a valid identifier\n");
 		free(var);
