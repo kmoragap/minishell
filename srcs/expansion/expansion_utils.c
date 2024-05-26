@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 16:34:33 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/10 18:30:47 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 12:40:47 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int check_expand_var(char *var)
 int is_valid_variable_char(char c)
 {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
-           (c >= '0' && c <= '9') || c == '_' || c == '?' || c == '(';
+           (c >= '0' && c <= '9') || c == '_' || c == '?' || c == '(' || c == ')' || c == '"';
 }
 
 int check_expand_args(char **args)

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 01:38:08 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 13:21:36 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	expand_cmd(t_token *token, char **env, int status)
 	expanded_cmd = NULL;
 	if (check_expand_var(token->cmd))
 	{
-		expanded_cmd = expand_token(token->cmd, env, status);
+		expanded_cmd = expander_fun(token->cmd, env, status);
 		if (expanded_cmd != NULL)
 		{
 			free(token->cmd);
