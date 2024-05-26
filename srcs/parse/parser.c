@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/24 20:57:58 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 00:03:47 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	check_expand(t_data *data)
 		if (check_expand_args(data->tokens->args) == 1)
 		{
 			expand_args(data->tokens, data->env, data->exit_code);
-			remove_quotes_from_args(data);
 			return (1);
 		}
 	}

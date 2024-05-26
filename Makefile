@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/05/24 20:37:38 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/05/25 23:49:41 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ SRC = 	srcs/main.c \
 		srcs/expansion/expansion_utils.c \
 		srcs/expansion/expand_special_cases.c \
 		srcs/expansion/expander.c \
+		srcs/expansion/expander_work.c \
+		srcs/expansion/handle_doubles_quotes.c \
 		srcs/execution/check_cmd_path.c \
 		srcs/execution/check_cmd_path2.c \
 		srcs/execution/children.c \

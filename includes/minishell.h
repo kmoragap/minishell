@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/25 14:20:40 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/25 23:47:04 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,13 @@ int					check_file(t_token *move);
 t_data				*print(t_data *data);
 
 // expander.c
+char *expand_work(char *arg, char **env, int status);
+int	find_end(char *arg, int i, char quote);
+char *expander_fun(char *arg, char **env, int status);
+char *handle_no_quotes(char *arg, char **env, int status);
+void	handle_dollar_question(char **result, int *end, int status);
+char	*handle_double_quotes(char *arg, char **env, int status);
+char *expander_fun(char *arg, char **env, int status);
 char *expand_variable(char *var, char **env, int status);
 char valid_delim_expand(char c);
 int					has_outer_quotes(char *arg);

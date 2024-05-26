@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/25 14:11:04 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 01:38:08 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	expand_args(t_token *token, char **env, int status)
 	{
 		if (token->args_num == 1)
 		{	
-			expanded_arg = check_expand_quotes(token->args[i], env, status);
+			expanded_arg = expander_fun(token->args[i], env, status);
 			if (expanded_arg != NULL)
 			{
 				free(token->args[i]);
@@ -111,7 +111,7 @@ void	expand_args(t_token *token, char **env, int status)
 		{
 			if (check_expand_args(&token->args[i]) == 1)
 			{
-				expanded_arg = check_expand_quotes(token->args[i], env, status);
+				expanded_arg = expander_fun(token->args[i], env, status);
 				if (expanded_arg != NULL)
 				{
 					free(token->args[i]);
