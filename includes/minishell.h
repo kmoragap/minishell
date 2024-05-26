@@ -138,7 +138,7 @@ void				space_special(int *i, char *input, t_token **token,
 void				check_special(int *i, char *input, t_token **tokens,
 						t_data *data);
 void				add_delim(int *i, char *input, t_token **tokens);
-int					check_whitespaces(char *input, int *i);
+int					check_whitespaces(t_data *data, char *input, int *i);
 
 // get_cmd.c
 void				get_cmd(int *i, char *input, t_token **tokens,

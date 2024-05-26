@@ -21,6 +21,8 @@ void	space_special(int *i, char *input, t_token **token, t_data *data)
 	if (data->err_code != ER_NO)
 		return ;
 	skip_whitespace(i, input);
+	if (!input[*i])
+		input_error(data, F_EMPTOK, 0, "");
 	return ;
 }
 
@@ -35,9 +37,9 @@ void	check_special(int *i, char *input, t_token **tokens, t_data *data)
 		add_delim(i, input, tokens);
 		return ;
 	}
-	if ((input[*i] == 34 || input[*i] == 39) && check_whitespaces(input,
+	if ((input[*i] == 34 || input[*i] == 39) && check_whitespaces(data, input,
 			i) == 1)
-		input_error(data, F_EMPTOK, 127, "\n");
+		input_error(data, F_EMPTOK, 127, "command not found\n");
 }
 
 void	add_delim(int *i, char *input, t_token **tokens)
@@ -61,7 +63,7 @@ void	add_delim(int *i, char *input, t_token **tokens)
 	*i += 1;
 }
 
-int	check_whitespaces(char *input, int *i)
+int	check_whitespaces(t_data *data, char *input, int *i)
 {
 	int	j;
 
@@ -73,6 +75,13 @@ int	check_whitespaces(char *input, int *i)
 			&& input[*i + j] != '\r')
 			return (0);
 		j++;
+	}
+	while (input[*i + j] && input[*i + j] == input[*i])
+		j++;
+	if (!input[*i + j])
+	{
+		input_error(data, F_EMPTOK, 127, "command not found\n");
+		return (0);
 	}
 	return (1);
 }
