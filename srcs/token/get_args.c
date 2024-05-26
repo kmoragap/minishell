@@ -14,7 +14,7 @@
 
 void	get_args(int *i, char *input, t_token **tokens, t_data *data)
 {
-	int		total_arg_len;
+	int	total_arg_len;
 
 	if (!input[*i])
 	{
@@ -30,7 +30,7 @@ void	get_args(int *i, char *input, t_token **tokens, t_data *data)
 	get_args_num(input, i, total_arg_len, tokens);
 	if (malloc_args(input, i, tokens) != 0)
 		malloc_error(data, F_TOKCMD);
-	}
+}
 
 void	create_empty_args(t_token **tokens, t_data *data)
 {

@@ -36,7 +36,6 @@ void	init_signals(t_data *data)
 	signal(SIGINT, handle_sigint);
 	data->exit_code = g_sigint;
 	signal(SIGQUIT, handle_sigquit);
-	signal(SIGPIPE, SIG_IGN);
 }
 
 void	handle_eof(t_data *data)

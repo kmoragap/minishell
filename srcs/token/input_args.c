@@ -44,10 +44,7 @@ void	arg_num_loop(char *input, int *j)
 	while (quote == 0 && delim_space(input[*j]) == 0 && input[*j])
 		check_quote(input[*j], &quote, j);
 	if (quote != 0)
-	{
 		text_in_quotes(quote, 0, j, input);
-		//*j += 1;
-	}
 }
 
 int	malloc_args(char *input, int *i, t_token **tokens)
@@ -92,11 +89,12 @@ int	get_arg_len(char *input, int *i)
 			check_quote(input[skip + len], &quote, &len);
 		if (quote != 0)
 		{
-			if (text_in_quotes(quote, skip, &len, input) == 1)
+			if (text_in_quotes_cmd(quote, skip, &len, input) == 1)
 				break ;
 			len++;
 		}
-		if (!input[skip + len - 1] || !input[skip + len] || delim_space(input[skip + len]) != 0)
+		if (!input[skip + len - 1] || !input[skip + len]
+			|| delim_space(input[skip + len]) != 0)
 			break ;
 	}
 	return (len);

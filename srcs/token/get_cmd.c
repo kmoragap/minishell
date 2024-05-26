@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/25 15:28:16 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 17:37:55 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	get_cmd(int *i, char *input, t_token **tokens, t_data *data)
 	int	quote;
 
 	j = 0;
-
 	while (input[*i + j])
 	{
 		quote = 0;
@@ -27,26 +26,16 @@ void	get_cmd(int *i, char *input, t_token **tokens, t_data *data)
 		if (quote != 0)
 		{
 			if (text_in_quotes_cmd(quote, *i, &j, input) != 0)
-				input_error(data, F_TOKCMD, 1,
+				input_error(data, F_TOKS, 1,
 					"minishell: syntax error due to unclosed quote\n");
 			j += 1;
 		}
-		if (!input[*i + j - 1] || !input[*i + j] || delim_space(input[*i + j]) != 0)
+		if (!input[*i + j - 1] || !input[*i + j] || delim_space(input[*i
+					+ j]) != 0)
 			break ;
 	}
 	if (input_cmd(input, i, j, tokens) != 0)
 		malloc_error(data, F_EMPTOK);
-}
-
-void	check_quote(char c, int *quote, int *j)
-{
-	if (!c)
-		return ;
-	if (c == 39)
-		*quote = 1;
-	else if (c == 34)
-		*quote = 2;
-	*j += 1;
 }
 
 int	delim_space(char c)
@@ -81,7 +70,7 @@ int	text_in_quotes_cmd(int quote, int i, int *j, char *input)
 int	text_in_quotes(int quote, int i, int *j, char *input)
 {
 	i--;
-	*j+= 1;
+	*j += 1;
 	while (input[i + *j])
 	{
 		if (quote == 1 && input[i + *j] == 39)
@@ -92,8 +81,6 @@ int	text_in_quotes(int quote, int i, int *j, char *input)
 	}
 	if (!input[i + *j])
 		return (1);
-	if (input[i + *j] == input[i + *j - 1])
-		*j += 1;
 	return (0);
 }
 
