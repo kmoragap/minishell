@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/25 15:28:16 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 17:37:55 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,6 @@ void	get_cmd(int *i, char *input, t_token **tokens, t_data *data)
 	}
 	if (input_cmd(input, i, j, tokens) != 0)
 		malloc_error(data, F_EMPTOK);
-}
-
-void	check_quote(char c, int *quote, int *j)
-{
-	if (!c)
-		return ;
-	if (c == 39)
-		*quote = 1;
-	else if (c == 34)
-		*quote = 2;
-	*j += 1;
 }
 
 int	delim_space(char c)

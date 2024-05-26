@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/05/25 23:49:41 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/05/26 17:38:18 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ SRC = 	srcs/main.c \
 		srcs/token/get_args.c \
 		srcs/token/input_args.c \
 		srcs/parse/parser.c \
-		srcs/print_data/print.c \
 		srcs/expansion/expansion.c \
 		srcs/expansion/expansion_utils.c \
 		srcs/expansion/expand_special_cases.c \
@@ -30,6 +29,7 @@ SRC = 	srcs/main.c \
 		srcs/execution/check_cmd_path2.c \
 		srcs/execution/children.c \
 		srcs/execution/dup_pipes.c \
+		srcs/token/get_cmd2.c \
 		srcs/execution/dup_pipes2.c \
 		srcs/execution/close_pipes.c \
 		srcs/execution/execution.c \
@@ -66,8 +66,8 @@ SRC = 	srcs/main.c \
 INC = includes/ 
 
 OBJ = $(SRC:.c=.o)
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -I $(INC)
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -I $(INC)
 LDFLAGS = -lreadline
 
 #Colores
