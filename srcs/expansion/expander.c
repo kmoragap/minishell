@@ -6,18 +6,18 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:55:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 02:11:56 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 16:52:40 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_dollar_question(char **result, int *end, int status)
+void	handle_dollar_question(char **result, int *end)
 {
 	char	*temp;
 	char	*new_result;
 
-	temp = ft_itoa(status);
+	temp = ft_itoa(g_sigint);
 	new_result = ft_strjoin(*result, temp);
 	free(*result);
 	free(temp);
@@ -25,12 +25,12 @@ void	handle_dollar_question(char **result, int *end, int status)
 	*result = new_result;
 }
 
-static void	handle_question_dolar(char **result, int status)
+static void	handle_question_dolar(char **result)
 {
 	char	*temp;
 	char	*new_result;
 
-	temp = ft_itoa(status);
+	temp = ft_itoa(g_sigint);
 	new_result = ft_strjoin(*result, temp);
 	free(*result);
 	free(temp);
@@ -48,8 +48,9 @@ int	find_end(char *arg, int i, char quote)
 static char	*remove_single_quotes(char *arg)
 {
 	char	*result;
+	int		i;
+	int		j;
 
-	int i, j;
 	result = ft_calloc_norm(ft_strlen(arg) + 1, sizeof(char));
 	if (!result)
 		return (NULL);
@@ -68,7 +69,7 @@ static char	*remove_single_quotes(char *arg)
 	return (result);
 }
 
-char	*expand_work(char *arg, char **env, int status)
+char	*expand_work(char *arg, char **env)
 {
 	char	*result;
 
@@ -78,14 +79,14 @@ char	*expand_work(char *arg, char **env, int status)
 	}
 	else if (arg[0] == '"')
 	{
-		result = handle_double_quotes(arg, env, status);
+		result = handle_double_quotes(arg, env);
 	}
 	else if (arg[0] == '$' && arg[1] == '?')
 	{
 		result = ft_strdup("");
-		handle_question_dolar(&result, status);
+		handle_question_dolar(&result);
 	}
 	else
-		result = handle_no_quotes(arg, env, status);
+		result = handle_no_quotes(arg, env);
 	return (result);
 }

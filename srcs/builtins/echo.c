@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:07:09 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/24 21:10:36 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 17:03:19 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ static int	is_n_option(char *arg)
 
 void	ft_echo(t_data *data)
 {
-	t_token		*curr_token;
-	int			newline;
-	int			i;
-	//char		*processed_arg;
+	t_token	*curr_token;
+	int		newline;
+	int		i;
 
 	curr_token = data->tokens;
 	newline = 1;
@@ -48,8 +47,8 @@ void	ft_echo(t_data *data)
 	}
 	while (i < curr_token->args_num)
 	{
-	//	processed_arg = remove_outer_quotes(curr_token->args[i]);
-		write(STDOUT_FILENO, curr_token->args[i], ft_strlen(curr_token->args[i]));
+		write(STDOUT_FILENO, curr_token->args[i],
+			ft_strlen(curr_token->args[i]));
 		if (i + 1 < curr_token->args_num)
 			write(STDOUT_FILENO, " ", 1);
 		i++;

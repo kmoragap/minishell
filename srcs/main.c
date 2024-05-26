@@ -6,11 +6,13 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/25 11:09:20 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 17:16:57 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		g_sigint;
 
 t_data	*in_data(t_data *re, int num, char **envp)
 {
@@ -80,7 +82,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	data = init_data(env);
 	shlvl(data);
-	init_signals();
+	init_signals(data);
 	while (1)
 	{
 		read_input(&data);

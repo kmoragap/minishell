@@ -6,47 +6,11 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:41:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 01:54:29 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 17:18:06 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * g_heredoc_interrupted
- * →signals
- * →hidden file
- * → “>”
- * get_next_line ??
- * Abrir un archivo temporal (.heredoc) para escribir las entradas del usuario.
- * Capturar señales para manejar interrupciones (como Ctrl+C).
-
-	* Leer líneas de entrada del usuario hasta que la línea coincida
-		exactamente con el delimitador.
-
-	* Expandir variables y manejar comillas si necesario antes
-		de escribir en el archivo.
- * Cerrar y reabrir el archivo en modo de lectura.
-
-	* 0644 permisos individuales de lectura y escritura para el propietario
-		y solo lectura para los demás.
- * Remove the temporary file if interrupted
- * esto se utiliza para almacenar el manejador de
-
-	* señales previamente configurado para que pueda ser restaurado
-		después de modificar el manejador para el heredoc.
- * la función devuelve el manejador de señales anterior
- * Esto nos permite guardar el manejador previo y restaurarlo más tarde,
-
-	* asegurando que nuestro cambio temporal no tenga efectos a
-		largo plazo en el programa
- *
- * guardar la linea en un char *line
- * close(STDIN_FILENO) interrumpe la lectura,
-	causando que readline falle y el bucle termine.
- * */
-
-// verifica tambien ctrl c
 
 t_data	*heredoc(t_data *data)
 {
@@ -56,7 +20,7 @@ t_data	*heredoc(t_data *data)
 	while (i < data->token_num && data->tokens && data->tokens->next)
 	{
 		if (data->tokens->next && data->tokens->next->delim == REDIR_H)
-			handle_heredoc(data->tokens, data->env, data->exit_code);
+			handle_heredoc(data->tokens, data->env);
 		if (!data->tokens->next)
 			break ;
 		data->tokens = data->tokens->next;
@@ -65,17 +29,16 @@ t_data	*heredoc(t_data *data)
 	return (data);
 }
 
-static int	g_heredoc_interrupted = 0;
-
 void	handle_sigint_heredoc(int sig)
 {
 	(void)sig;
-	g_heredoc_interrupted = 1;
-	write(1, "\n", 1);
-	write(1, "> ", 2);
+	g_sigint = 1;
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
 }
 
-void	handle_heredoc(t_token *token, char **env, int status)
+void	handle_heredoc(t_token *token, char **env)
 {
 	int		fd;
 	void	(*prev_handler)(int);
@@ -84,28 +47,28 @@ void	handle_heredoc(t_token *token, char **env, int status)
 	fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 		return ;
-	read_in_here(token, env, status, fd);
+	read_in_here(token, env, fd);
 	signal(SIGINT, prev_handler);
-	if (g_heredoc_interrupted)
+	if (g_sigint)
 	{
 		unlink(".heredoc_tmp");
 		return ;
 	}
 }
 
-void	read_in_here(t_token *token, char **env, int status, int fd)
+void	read_in_here(t_token *token, char **env, int fd)
 {
 	char	*line;
 
-	g_heredoc_interrupted = 0;
-	while (!g_heredoc_interrupted)
+	g_sigint = 0;
+	while (!g_sigint)
 	{
 		line = readline("> ");
-		if (!line || g_heredoc_interrupted || ft_strcmp(line,
+		if (!line || g_sigint || ft_strcmp(line,
 				token->next->cmd) == 0)
 			break ;
 		if (token->next->quotes == 0)
-			line = expander_fun(line, env, status);
+			line = expander_fun(line, env);
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:48:53 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 03:07:33 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 16:04:18 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	execute_cd(t_data *data, char *path, char *old_pwd)
 	if (chdir(path) != 0)
 	{
 		input_error(data, 0, 6, "minishell: No such file or directory\n");
+		data->exit_code = 1;
 		return ;
 	}
 	new_pwd = getcwd(NULL, 0);
