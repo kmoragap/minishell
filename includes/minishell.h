@@ -143,6 +143,7 @@ void				get_cmd(int *i, char *input, t_token **tokens,
 						t_data *data);
 void				check_quote(char c, int *column, int *j);
 int					delim_space(char c);
+int					text_in_quotes_cmd(int quote, int i, int *j, char *input);
 int					text_in_quotes(int column, int i, int *j, char *input);
 int					input_cmd(char *input, int *i, int j, t_token **tokens);
 
