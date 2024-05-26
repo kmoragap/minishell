@@ -15,8 +15,8 @@
 /**
  * ctrl+c SIGINT:  Genera una nueva línea de comandos sin terminar el shell
 
-	* ctrl+d EOF: Si el usuario presiona ctrl-D (que se interpreta como un 
-    EOF en la entrada estándar),
+	* ctrl+d EOF: Si el usuario presiona ctrl-D (que se interpreta como un
+	EOF en la entrada estándar),
 	puedes terminar el bucle y cerrar el shell
  * ctrl+\ SIGQUIT:  No hace nada
  *
@@ -45,6 +45,7 @@ void	init_signals(void)
 {
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
+	signal(SIGPIPE, SIG_IGN);
 }
 /**
  * esto hay que verlo de más cerca, ya que debería eliminar lo que se ha

@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # define PROMPT "\033[1;32m>minishell$\033[0m "
-//#define PROMPT "minishell "
 
 # define BUFFER_SIZE 1000
 
@@ -170,15 +169,15 @@ int					check_file(t_token *move);
 t_data				*print(t_data *data);
 
 // expander.c
-char *expand_work(char *arg, char **env, int status);
-int	find_end(char *arg, int i, char quote);
-char *expander_fun(char *arg, char **env, int status);
-char *handle_no_quotes(char *arg, char **env, int status);
-void	handle_dollar_question(char **result, int *end, int status);
-char	*handle_double_quotes(char *arg, char **env, int status);
-char *expander_fun(char *arg, char **env, int status);
-char *expand_variable(char *var, char **env, int status);
-char valid_delim_expand(char c);
+char				*expand_work(char *arg, char **env, int status);
+int					find_end(char *arg, int i, char quote);
+char				*expander_fun(char *arg, char **env, int status);
+char				*handle_no_quotes(char *arg, char **env, int status);
+void				handle_dollar_question(char **result, int *end, int status);
+char				*handle_double_quotes(char *arg, char **env, int status);
+char				*expander_fun(char *arg, char **env, int status);
+char				*expand_variable(char *var, char **env, int status);
+char				valid_delim_expand(char c);
 int					has_outer_quotes(char *arg);
 void				expand_cmd(t_token *token, char **env, int status);
 void				expand_args(t_token *token, char **env, int status);
