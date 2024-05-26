@@ -11,7 +11,10 @@
         "vector": "c",
         "string_view": "c",
         "initializer_list": "c",
-        "ranges": "c"
+        "ranges": "c",
+        "wait.h": "c",
+        "get_next_line.h": "c",
+        "readline.h": "c"
     },
     "[c]": {
         "editor.defaultFormatter": "keyhr.42-c-format"

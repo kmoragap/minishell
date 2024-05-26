@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/18 17:55:06 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 18:36:30 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ t_data	*remove_quotes(char *cmd, t_data *data)
 	while (cmd[i])
 		loop_quotes(cmd, &new, &i, &check);
 	free(data->tokens->cmd);
-	data->tokens->cmd = new;
+	if (new)
+		data->tokens->cmd = new;
 	i = 0;
 	return (data);
 }
@@ -75,6 +76,8 @@ char	*remove_quotes_args(char *arg)
 		return (NULL);
 	while (arg[i])
 		loop_quotes(arg, &new, &i, &check);
+	if (!new)
+		return (arg);
 	free(arg);
 	return (new);
 }

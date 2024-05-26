@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 12:15:14 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/21 16:15:08 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 16:58:04 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_exit(t_data *data)
 	}
 	data->free_code = F_ENV;
 	free_all(data);
-	// printf("exit\n");
+	write(1, "exit\n", 5);
 	exit(exit_status % 256);
 }
 

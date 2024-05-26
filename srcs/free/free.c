@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/25 14:37:10 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 16:19:06 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,4 +117,5 @@ void	reinit_data(t_data *data)
 {
 	data->err_code = ER_NO;
 	data->free_code = NO_FREE;
+	g_sigint = data->exit_code;
 }

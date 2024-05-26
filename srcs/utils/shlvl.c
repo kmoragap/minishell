@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:50:34 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/21 16:51:31 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 18:45:16 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,24 @@ void	shlvl(t_data *data)
 	size_t	new_len;
 	int		nb_lvl;
 
-	nb_lvl = 1;
 	level = getenv("SHLVL");
 	new_len = ft_strlen("SHLVL=") + ft_strlen(level) + 1;
 	new_shlvl = ft_calloc_norm(new_len, sizeof(char));
+	if(!new_shlvl)
+		return (malloc_error(data, F_ENV));
 	if (level != NULL)
 	{
 		nb_lvl = ft_atoi(level) + 1;
 		level = ft_itoa(nb_lvl);
+		if(!level)
+			return (malloc_error(data, F_ENV));
 	}
 	else
 	{
 		nb_lvl = 1;
 		level = ft_itoa(nb_lvl);
+		if(!level)
+			return (malloc_error(data, F_ENV));
 	}
 	ft_strcat(new_shlvl, "SHLVL=");
 	ft_strcat(new_shlvl, level);

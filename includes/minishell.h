@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/26 02:12:53 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 17:24:06 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@
 # include <stdio.h>             //printf
 # include <stdlib.h>
 # include <string.h>
+# include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <sys/types.h> //fork
 # include <sys/wait.h>  //waitpid
 # include <unistd.h>
+
+extern int			g_sigint;
 
 typedef enum e_builtin
 {
@@ -49,10 +52,10 @@ typedef enum e_type
 	FD,
 	EXPAND,
 	PIPE,
-	REDIR_I, // < (redirect input)
-	REDIR_O, // > (redirect output)
-	REDIR_A, // >> (append)
-	REDIR_H  // << (here-document)
+	REDIR_I,
+	REDIR_O,
+	REDIR_A,
+	REDIR_H
 }					t_type;
 
 typedef enum e_error
@@ -80,14 +83,14 @@ typedef enum e_free
 typedef struct s_token
 {
 	int				id;
-	char *cmd;   // "ls"
-	char **args; // -la
+	char			*cmd;
+	char			**args;
 	int				args_num;
 	int				exit_status;
 	int				quotes;
 	char			*path;
-	t_type type;  // CMD or FILE or EXPAND
-	t_type delim; // PIPE or REDIR_I/O/A/H
+	t_type			type;
+	t_type			delim;
 	struct s_token	*next;
 	struct s_token	*prev;
 }					t_token;
@@ -102,16 +105,15 @@ typedef struct s_child
 
 typedef struct s_data
 {
-	char *input;      // read the line
-	char **env;       // save the env
-	int env_len;      // env len
-	t_error err_code; // error code
-	t_free free_code; // code which says how much we got to free
-	int				exit_code;
-	t_token *tokens; // token list
-	t_child			*childn;
-	int token_num; // number of tokens
-					// t_tree *node;     // tree
+	char	*input;
+	char	**env;
+	int		env_len;
+	t_error	err_code;
+	t_free	free_code;
+	int		exit_code;
+	t_token	*tokens;
+	t_child	*childn;
+	int		token_num;
 }					t_data;
 
 // main.c
@@ -167,27 +169,20 @@ int					check_fd(t_token *move);
 int					check_file(t_token *move);
 
 // expander.c
-char				*expand_work(char *arg, char **env, int status);
+char				*expand_work(char *arg, char **env);
 int					find_end(char *arg, int i, char quote);
-char				*expander_fun(char *arg, char **env, int status);
-char				*handle_no_quotes(char *arg, char **env, int status);
-void				handle_dollar_question(char **result, int *end, int status);
-char				*handle_double_quotes(char *arg, char **env, int status);
-char				*expander_fun(char *arg, char **env, int status);
-char				*expand_variable(char *var, char **env, int status);
+char				*expander_fun(char *arg, char **env);
+char				*handle_no_quotes(char *arg, char **env);
+void				handle_dollar_question(char **result, int *end);
+char				*handle_double_quotes(char *arg, char **env);
+char				*expand_variable(char *var, char **env);
 char				valid_delim_expand(char c);
-int					has_outer_quotes(char *arg);
-void				expand_cmd(t_token *token, char **env, int status);
-void				expand_args(t_token *token, char **env, int status);
-char				*expand_token(char *token, char **env, int exit_status);
-char				*check_expand_quotes(char *arg, char **env, int status);
+void				expand_cmd(t_token *token, char **env);
+void				expand_args(t_token *token, char **env);
+char				*expand_token(char *token, char **env);
 
 // expander_utils.c
-int					check_expand_sq(char *arg, char c);
 void				remove_quotes_from_args(t_data *data);
-char				*remove_outer_parenthesis(char *arg);
-char				*remove_outer_quotes(char *arg);
-char				*check_special_expand(char *special, int exit_status);
 int					check_expand_var(char *var);
 int					is_valid_variable_char(char c);
 int					check_expand_args(char **args);
@@ -336,15 +331,14 @@ void				free_args(char **args, int *cnt);
 void				reinit_data(t_data *data);
 
 // signals.c
-void				init_signals(void);
+void				init_signals(t_data *data);
 void				handle_eof(t_data *data);
 void				handle_sigint_heredoc(int sig);
 
 // heredoc.c
 t_data				*heredoc(t_data *data);
-void				read_in_here(t_token *token, char **env, int status,
-						int fd);
-void				handle_heredoc(t_token *token, char **env, int status);
+void				read_in_here(t_token *token, char **env, int fd);
+void				handle_heredoc(t_token *token, char **env);
 int					has_quotes(char *cmd);
 
 #endif // MINISHELL_H

@@ -6,7 +6,7 @@
 #    By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 14:39:22 by kmoraga           #+#    #+#              #
-#    Updated: 2024/05/25 23:49:41 by kmoraga          ###   ########.fr        #
+#    Updated: 2024/05/26 17:44:03 by kmoraga          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC = 	srcs/main.c \
 		srcs/execution/check_cmd_path2.c \
 		srcs/execution/children.c \
 		srcs/execution/dup_pipes.c \
+		srcs/token/get_cmd2.c \
 		srcs/execution/dup_pipes2.c \
 		srcs/execution/close_pipes.c \
 		srcs/execution/execution.c \

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:48:53 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 03:07:33 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 18:19:02 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,12 @@ void	execute_cd(t_data *data, char *path, char *old_pwd)
 {
 	char	*new_pwd;
 
+	if (!path)
+		return ;
 	if (chdir(path) != 0)
 	{
 		input_error(data, 0, 6, "minishell: No such file or directory\n");
+		data->exit_code = 1;
 		return ;
 	}
 	new_pwd = getcwd(NULL, 0);
@@ -87,9 +90,10 @@ void	update_env_vars(t_data *data, char *old_pwd, char *new_pwd)
 	new = ft_calloc_norm(new_len, sizeof(char));
 	if (old == NULL || new == NULL)
 	{
-		perror("Failed to allocate memory for environment variables\n");
-		free(old);
-		return (free(new));
+		malloc_error(data, F_PIDS);
+		if (old)
+			free(old);
+		return ;
 	}
 	ft_strcat(old, "OLDPWD=");
 	ft_strcat(old, old_pwd);

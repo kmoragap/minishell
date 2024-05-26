@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/26 00:03:47 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 16:42:27 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ int	check_expand(t_data *data)
 	data = remove_quotes(data->tokens->cmd, data);
 	if (check_expand_var(data->tokens->cmd))
 	{
-		expand_cmd(data->tokens, data->env, data->exit_code);
+		expand_cmd(data->tokens, data->env);
 		return (1);
 	}
 	if (data->tokens->args_num != 0)
 	{
 		if (check_expand_args(data->tokens->args) == 1)
 		{
-			expand_args(data->tokens, data->env, data->exit_code);
+			expand_args(data->tokens, data->env);
 			return (1);
 		}
 	}

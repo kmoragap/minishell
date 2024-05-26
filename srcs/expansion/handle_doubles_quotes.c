@@ -6,18 +6,13 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 22:46:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 01:22:48 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 18:40:32 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * sacar el int status de las funciones porque no se necesitan
-*/
-
-static void	handle_var_expansion(char **result, char *arg, int *i, char **env,
-		int status)
+static void	handle_var_expansion(char **result, char *arg, int *i, char **env)
 {
 	int		start;
 	char	*var;
@@ -30,7 +25,7 @@ static void	handle_var_expansion(char **result, char *arg, int *i, char **env,
 	if (start > *i + 1)
 	{
 		var = ft_strndup(&arg[*i + 1], start - *i - 1);
-		expanded_var = expand_variable(var, env, status);
+		expanded_var = expand_variable(var, env);
 		new_result = ft_strjoin(*result, expanded_var);
 		free(*result);
 		free(var);
@@ -58,7 +53,7 @@ static void	handle_char_append(char **result, char c)
 	*result = new_result;
 }
 
-char	*handle_double_quotes(char *arg, char **env, int status)
+char	*handle_double_quotes(char *arg, char **env)
 {
 	int		i;
 	char	*result;
@@ -70,9 +65,9 @@ char	*handle_double_quotes(char *arg, char **env, int status)
 		if (arg[i] == '$')
 		{
 			if (arg[i + 1] == '?')
-				handle_dollar_question(&result, &i, status);
+				handle_dollar_question(&result, &i);
 			else
-				handle_var_expansion(&result, arg, &i, env, status);
+				handle_var_expansion(&result, arg, &i, env);
 		}
 		else
 		{
@@ -83,29 +78,29 @@ char	*handle_double_quotes(char *arg, char **env, int status)
 	return (result);
 }
 
-char *handle_no_quotes(char *arg, char **env, int status)
+char	*handle_no_quotes(char *arg, char **env)
 {
-    int i;
-    char *result;
+	int		i;
+	char	*result;
 
 	result = ft_strdup("");
 	i = 0;
-    while (arg[i])
-    {
-        if (arg[i] == '$')
-        {
-            if (arg[i] == '?')
-            {
-                handle_dollar_question(&result, &i, status);
-            }
-            else
-                handle_var_expansion(&result, arg, &i, env, status);
-        }
-        else
-        {
-            handle_char_append(&result, arg[i]);
-            i++;
-        }
-    }
-    return result;
+	while (arg[i])
+	{
+		if (arg[i] == '$')
+		{
+			if (arg[i] == '?')
+			{
+				handle_dollar_question(&result, &i);
+			}
+			else
+				handle_var_expansion(&result, arg, &i, env);
+		}
+		else
+		{
+			handle_char_append(&result, arg[i]);
+			i++;
+		}
+	}
+	return (result);
 }
