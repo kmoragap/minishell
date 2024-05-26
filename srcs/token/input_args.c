@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/20 00:01:53 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 14:55:15 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ int	get_arg_len(char *input, int *i)
 
 	len = 0;
 	skip = *i;
-	quote = 0;
 	while (input[skip + len])
 	{
+		quote = 0;
 		skip_whitespace(&skip, input);
 		while (quote == 0 && delim_space(input[skip + len]) == 0 && input[skip
 				+ len])
