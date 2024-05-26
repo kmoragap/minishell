@@ -50,6 +50,7 @@ SRC = 	srcs/main.c \
 		srcs/utils/strtok.c \
 		srcs/utils/strtok2.c \
 		srcs/builtins/export.c \
+		srcs/builtins/export2.c \
 		srcs/builtins/builtins_utils.c \
 		srcs/builtins/env.c \
 		srcs/builtins/unset.c \

@@ -16,6 +16,7 @@ void	check_redir_out(t_data *data, int child_id)
 {
 	int	i;
 	int	check;
+	int	fd;
 
 	check = 0;
 	i = 0;
@@ -24,7 +25,9 @@ void	check_redir_out(t_data *data, int child_id)
 		if (data->tokens->next->delim == REDIR_O
 			|| data->tokens->next->delim == REDIR_A)
 		{
-			dup2(redir_out(data), STDOUT_FILENO);
+			fd = redir_out(data);
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
 			check++;
 		}
 		if (data->tokens->next && data->tokens->next->delim != PIPE)

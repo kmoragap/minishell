@@ -47,7 +47,7 @@ void	ft_cd(t_data *data)
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 	{
-		perror("Failed to get current directory");
+		write(2, "Failed to get current directory\n", 31);
 		return ;
 	}
 	if (data->tokens->args_num > 0)

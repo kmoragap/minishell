@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/25 23:47:04 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/26 02:12:53 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,8 +186,8 @@ char				*expand_token(char *token, char **env, int exit_status);
 char				*check_expand_quotes(char *arg, char **env, int status);
 
 // expander_utils.c
-int 				check_expand_sq(char *arg, char c);
-void 				remove_quotes_from_args(t_data *data);
+int					check_expand_sq(char *arg, char c);
+void				remove_quotes_from_args(t_data *data);
 char				*remove_outer_parenthesis(char *arg);
 char				*remove_outer_quotes(char *arg);
 char				*check_special_expand(char *special, int exit_status);
@@ -202,6 +202,13 @@ char				*ft_strtok(char *str, const char *delim);
 
 // export.c
 void				execute_export_builtin(t_data *data);
+int					do_export_loop(t_data *data, char *var, int i);
+void				sort_env_case(t_data *data);
+int					write_error(char *str1, char *str2, char *str3,
+						int exit_code);
+void				create_env_var(t_data *data, int arg_num);
+void				write_env(char *str);
+char				**cpy_envi(char **env_cpy);
 int					replace_var_env(t_data *data, char *arg);
 
 // env
@@ -223,6 +230,7 @@ void				update_env_vars(t_data *data, char *old_pwd, char *new_pwd);
 // unset
 void				ft_unset(t_data *data);
 void				unset_env(t_data *data, int arg_num);
+void				unset_env2(t_data *data, char *arg, char **env, int i);
 
 // echo.c
 void				ft_echo(t_data *data);
@@ -248,7 +256,7 @@ void				check_redir_in(t_data *data, int child_id);
 void				check_redir_out(t_data *data, int child_id);
 
 // close_pipes.c
-void	close_pipes(t_data *data, int child_id);
+void				close_pipes(t_data *data, int child_id);
 void				free_pipes(int **pipes, t_data *data);
 
 // children.c

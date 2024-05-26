@@ -86,6 +86,7 @@ void	error_in_child(t_data *data, int exit_code, char *cmd,
 {
 	if (data->tokens->path)
 		free(data->tokens->path);
+	close_pipes(data, -1);
 	write(2, "minishell: ", 11);
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": ", 2);
