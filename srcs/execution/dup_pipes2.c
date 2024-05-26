@@ -15,11 +15,10 @@
 void	check_redir_out(t_data *data, int child_id)
 {
 	int	i;
-	int	check;
 	int	fd;
 
-	check = 0;
 	i = 0;
+	dup2(data->childn->pipes[child_id][1], STDOUT_FILENO);
 	while (data->tokens->next && data->tokens->next->delim != PIPE)
 	{
 		if (data->tokens->next->delim == REDIR_O
@@ -28,7 +27,6 @@ void	check_redir_out(t_data *data, int child_id)
 			fd = redir_out(data);
 			dup2(fd, STDOUT_FILENO);
 			close(fd);
-			check++;
 		}
 		if (data->tokens->next && data->tokens->next->delim != PIPE)
 		{
@@ -36,8 +34,6 @@ void	check_redir_out(t_data *data, int child_id)
 			i++;
 		}
 	}
-	if (check == 0)
-		dup2(data->childn->pipes[child_id][1], STDOUT_FILENO);
 	while (i-- > 0)
 		data->tokens = data->tokens->prev;
 }

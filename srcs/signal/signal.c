@@ -45,7 +45,6 @@ void	init_signals(void)
 {
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
-	signal(SIGPIPE, SIG_IGN);
 }
 /**
  * esto hay que verlo de más cerca, ya que debería eliminar lo que se ha
