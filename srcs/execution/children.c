@@ -67,6 +67,7 @@ void	child_routine(t_data *data, int child_id)
 	execve(data->tokens->path, cmd_arg, data->env);
 	free(data->tokens->path);
 	free_args(cmd_arg, NULL);
+	error_in_child(data, 1, data->tokens->cmd, "error in execution");
 	exit(1);
 }
 
@@ -93,5 +94,8 @@ void	error_in_child(t_data *data, int exit_code, char *cmd,
 	write(2, ": ", 2);
 	write(2, error_message, ft_strlen(error_message));
 	write(2, "\n", 1);
+	free(data->childn->pids);
+	data->free_code = F_ENV;
+	free_all(data);
 	exit(exit_code);
 }

@@ -16,7 +16,7 @@ char	*ft_strdup(char *src)
 {
 	char	*dest;
 
-	if(!src)
+	if (!src)
 		return (NULL);
 	dest = (char *)ft_calloc_norm(1, ft_strlen((char *)src) + 1);
 	if (!dest)
