@@ -22,7 +22,7 @@ void	space_special(int *i, char *input, t_token **token, t_data *data)
 		return ;
 	skip_whitespace(i, input);
 	if (!input[*i])
-		input_error(data, F_EMPTOK, 0, "");
+		input_error(data, F_TOKS, 0, "");
 	return ;
 }
 
