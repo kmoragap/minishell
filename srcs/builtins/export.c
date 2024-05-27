@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 18:27:37 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/27 19:35:52 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,25 @@ char	**cpy_envi(char **env_cpy)
 
 void	write_env(char *str)
 {
+	char	*var;
+	char	*value;
+
+	var = NULL;
+	value = NULL;
+	var = ft_strchr_before_c(str, '=');
+	if (!var)
+		return ;
+	value = ft_strchr_after_c(str, '=');
+	if (!value)
+	{
+		free(var);
+		return ;
+	}
 	write(STDOUT_FILENO, "declare -x ", 11);
-	write(STDOUT_FILENO, str, ft_strlen(str));
-	write(STDOUT_FILENO, "\n", 1);
+	write(STDOUT_FILENO, var, ft_strlen(var));
+	write(STDOUT_FILENO, "=\"", 3);
+	write(STDOUT_FILENO, value, ft_strlen(value));
+	write(STDOUT_FILENO, "\"\n", 2);
+	if (var)
+		free(var);
 }
