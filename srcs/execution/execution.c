@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:35:50 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/18 19:21:59 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/27 15:55:15 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	execute_builtin(t_data *data)
 	int	type;
 
 	type = check_builtins(data->tokens->cmd);
-	if (type != ECHO || ft_strcmp(data->tokens->args[0], "$?") != 0)
-		data->exit_code = 0;
 	if (type == EXPORT)
 		execute_export_builtin(data);
 	if (type == ENV)

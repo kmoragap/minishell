@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:48:53 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 23:53:13 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/27 15:48:18 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	execute_cd(t_data *data, char *path, char *old_pwd)
 	if (!new_pwd)
 	{
 		input_error(data, 0, 6, "Failed to get new directory\n");
+		data->exit_code = 1;
 		return ;
 	}
 	update_env_vars(data, old_pwd, new_pwd);

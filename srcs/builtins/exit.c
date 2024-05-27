@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 12:15:14 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 16:58:04 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/27 15:54:59 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_exit(t_data *data)
 	char	**args;
 	int		exit_status;
 
-	exit_status = 0;
+	exit_status = data->exit_code;
 	args = data->tokens->args;
 	if (args[0][0] != '\0')
 	{
@@ -56,6 +56,7 @@ void	ft_exit(t_data *data)
 			exit_status = ft_atoi(args[0]);
 			if (args[1] != NULL)
 			{
+				data->exit_code = 1;
 				write(2, "exit: too many arguments\n", 26);
 				return ;
 			}
