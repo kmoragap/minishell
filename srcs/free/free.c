@@ -56,8 +56,6 @@ void	free_all(t_data *data)
 	reinit_data(data);
 }
 
-// finishhhhhhhhhh! --> free toks isn't done yet! and
-// add a new initializer for the data
 void	free_toks(t_data *data)
 {
 	if (!data || !data->tokens)
@@ -65,13 +63,15 @@ void	free_toks(t_data *data)
 	data->tokens = move_to_first_token(data->tokens);
 	while (data->tokens)
 	{
-		while (data->tokens->args_num >= 0)
+		while (data->tokens->args && data->tokens->args_num >= 0)
 		{
 			free(data->tokens->args[data->tokens->args_num]);
 			data->tokens->args_num -= 1;
 		}
-		free(data->tokens->args);
-		free(data->tokens->cmd);
+		if (data->tokens->args)
+			free(data->tokens->args);
+		if (data->tokens->cmd)
+			free(data->tokens->cmd);
 		if (data->tokens->delim == REDIR_H)
 			unlink(".heredoc_tmp");
 		if (!data->tokens->next)

@@ -129,6 +129,7 @@ void				skip_whitespace(int *i, char *input);
 
 // check_input.c
 int					check_input(t_data *data);
+int					check_pipe(char *input);
 int					check_quotes(char *input);
 int					check_andslash(char *input);
 
