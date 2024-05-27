@@ -16,25 +16,18 @@ static void	handle_sigint(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		write(2, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
+		rl_redisplay();
 		g_sigint = 130;
-	}
-}
-
-static void	handle_sigquit(int sig)
-{
-	if (sig == SIGQUIT)
-	{
-		rl_on_new_line();
 	}
 }
 
 void	init_signals(void)
 {
 	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigquit);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	handle_eof(t_data *data)
