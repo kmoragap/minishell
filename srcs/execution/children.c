@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/25 14:21:07 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/27 18:39:31 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ t_data	*create_children(t_data *data)
 	if (ft_calloc(data, F_INPUT, (void *)&data->childn->pids, sizeof(pid_t)
 			* data->childn->cnt_childn + 1) == 1)
 		return (data);
-	child_creation(data);
-	close_pipes(data, -1);
-	free_pipes(data->childn->pipes, data);
-	parent_wait(data);
-	return (data);
+	else
+	{
+		child_creation(data);
+		close_pipes(data, -1);
+		free_pipes(data->childn->pipes, data);
+		parent_wait(data);
+		return (data);
+	}
 }
 
 void	child_creation(t_data *data)
@@ -41,6 +44,7 @@ void	child_creation(t_data *data)
 		data->childn->pids[child_id] = fork();
 		if (!data->childn->pids[child_id])
 		{
+			init_signals(2);
 			child_routine(data, child_id);
 			break ;
 		}

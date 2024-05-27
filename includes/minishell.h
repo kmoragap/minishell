@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/26 20:40:38 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/27 17:23:32 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,7 +339,8 @@ void				free_args(char **args, int *cnt);
 void				reinit_data(t_data *data);
 
 // signals.c
-void				init_signals(void);
+void				handle_sigquit(int sig);
+void				init_signals(int sig);
 void				handle_eof(t_data *data);
 void				handle_sigint_heredoc(int sig);
 

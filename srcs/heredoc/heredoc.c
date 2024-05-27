@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:41:39 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 20:38:33 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/27 17:41:32 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ t_data	*heredoc(t_data *data)
 	while (i < data->token_num && data->tokens && data->tokens->next)
 	{
 		if (data->tokens->next && data->tokens->next->delim == REDIR_H)
+		{
+			init_signals(3);
 			handle_heredoc(data->tokens, data->env, data->exit_code);
+		}
 		if (!data->tokens->next)
 			break ;
 		data->tokens = data->tokens->next;
@@ -41,14 +44,14 @@ void	handle_sigint_heredoc(int sig)
 void	handle_heredoc(t_token *token, char **env, int status)
 {
 	int		fd;
-	void	(*prev_handler)(int);
+	//void	(*prev_handler)(int);
 
-	prev_handler = signal(SIGINT, handle_sigint_heredoc);
+	//prev_handler = signal(SIGINT, handle_sigint_heredoc);
 	fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 		return ;
 	read_in_here(token, env, fd, status);
-	signal(SIGINT, prev_handler);
+	signal(SIGINT, handle_sigint_heredoc);
 	if (g_sigint)
 	{
 		unlink(".heredoc_tmp");
