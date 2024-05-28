@@ -30,6 +30,7 @@
 # include <sys/types.h> //fork
 # include <sys/wait.h>  //waitpid
 # include <unistd.h>
+# include <errno.h>
 
 extern int			g_sigint;
 
@@ -264,6 +265,8 @@ void				child_creation(t_data *data);
 void				child_routine(t_data *data, int child_id);
 void				get_token(t_data *data, int child_id);
 void				error_in_child(t_data *data, int exit_code, char *cmd,
+						char *error_message);
+void				ex_error_in_child(t_data *data, int exit_code,
 						char *error_message);
 
 // check_cmd_path.c

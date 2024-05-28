@@ -63,14 +63,14 @@ void	execute_cd(t_data *data, char *path, char *old_pwd)
 		return ;
 	if (chdir(path) != 0)
 	{
-		input_error(data, 0, 6, "minishell: No such file or directory\n");
+		input_error(data, 0, 1, "minishell: No such file or directory\n");
 		data->exit_code = 1;
 		return ;
 	}
 	new_pwd = getcwd(NULL, 0);
 	if (!new_pwd)
 	{
-		input_error(data, 0, 6, "Failed to get new directory\n");
+		input_error(data, 0, 1, "Failed to get new directory\n");
 		data->exit_code = 1;
 		return ;
 	}

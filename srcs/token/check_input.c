@@ -45,8 +45,9 @@ int	check_pipe(char *input)
 	{
 		if (input[i] == '|')
 		{
+			i++;
 			skip_whitespace(&i, input);
-			if (input[i + 1] == '|')
+			if (input[i] == '|')
 				return (1);
 		}
 		i++;
