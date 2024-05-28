@@ -37,6 +37,8 @@ int	check_pipe(char *input)
 	int	len;
 	int	i;
 
+	if (!input || !input[0])
+		return (0);
 	i = 0;
 	len = ft_strlen(input);
 	if (input[len - 1] == '|')
@@ -64,6 +66,8 @@ int	check_quotes(char *input)
 	i = 0;
 	squote = 0;
 	dquote = 0;
+	if (!input || !input[0])
+		return (0);
 	while (input[i])
 	{
 		if (input[i] == 34)
@@ -99,7 +103,7 @@ int	check_andslash(char *input)
 		i++;
 	}
 	if (input[ft_strlen(input) - 1] == '<' || input[ft_strlen(input)
-		- 1] == '>')
+			- 1] == '>')
 		return (1);
 	if (input[0] == '<' || input[0] == '>')
 		return (1);
