@@ -80,3 +80,55 @@ void	execute_export_builtin(t_data *data)
 		i++;
 	}
 }
+
+char	**cpy_envi(char **env_cpy)
+{
+	int		i;
+	int		swapped;
+	char	*temp;
+
+	i = 0;
+	swapped = 1;
+	while (swapped)
+	{
+		swapped = 0;
+		i = 0;
+		while (env_cpy[i + 1])
+		{
+			if (ft_strcmp(env_cpy[i], env_cpy[i + 1]) > 0)
+			{
+				temp = env_cpy[i];
+				env_cpy[i] = env_cpy[i + 1];
+				env_cpy[i + 1] = temp;
+				swapped = 1;
+			}
+			i++;
+		}
+	}
+	return (env_cpy);
+}
+
+void	write_env(char *str)
+{
+	char	*var;
+	char	*value;
+
+	var = NULL;
+	value = NULL;
+	var = ft_strchr_before_c(str, '=');
+	if (!var)
+		return ;
+	value = ft_strchr_after_c(str, '=');
+	write(STDOUT_FILENO, "declare -x ", 11);
+	write(STDOUT_FILENO, var, ft_strlen(var));
+	if (value)
+	{
+		write(STDOUT_FILENO, "=\"", 3);
+		write(STDOUT_FILENO, value, ft_strlen(value));
+		write(STDOUT_FILENO, "\"\n", 2);
+	}
+	else
+		write(STDOUT_FILENO, "\n", 1);
+	if (var)
+		free(var);
+}

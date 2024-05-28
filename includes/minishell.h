@@ -211,6 +211,8 @@ void				create_env_var(t_data *data, int arg_num);
 void				write_env(char *str);
 char				**cpy_envi(char **env_cpy);
 int					replace_var_env(t_data *data, char *arg);
+int					free_ar(char *ar);
+void				free_two(char *var, char *ar);
 
 // env
 void				put_env(t_data *data);
@@ -220,7 +222,9 @@ void				get_pwd(void);
 
 // exit
 void				ft_exit(t_data *data);
+int					exit_many_args(t_data *data, int exit_status);
 void				ft_exit_255(t_data *data, char *args);
+void				free_exit(t_data *data, int exit_status);
 void				end_child(t_data *data);
 
 // cd.c
@@ -344,6 +348,7 @@ void				free_toks(t_data *data);
 void				free_env(t_data *data);
 void				free_args(char **args, int *cnt);
 void				reinit_data(t_data *data);
+void				free_args2(char **args, int *cnt, int i);
 
 // signals.c
 void				init_signals(void);

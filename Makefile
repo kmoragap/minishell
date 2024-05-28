@@ -57,8 +57,10 @@ SRC = 	srcs/main.c \
 		srcs/builtins/unset.c \
 		srcs/builtins/pwd.c \
 		srcs/builtins/exit.c \
+		srcs/builtins/exit2.c \
 		srcs/builtins/echo.c \
 		srcs/builtins/cd.c \
+		srcs/builtins/cd2.c \
 		srcs/heredoc/heredoc.c \
 		srcs/free/reinit.c \
 		srcs/utils/ft_strtrim.c \
