@@ -51,14 +51,14 @@ int	redir_in(t_data *data)
 	{
 		fd = open(data->tokens->next->cmd, O_RDONLY, S_IRWXU);
 		if (access(data->tokens->next->cmd, F_OK) == -1)
-			error_in_child(data, 2, data->tokens->next->cmd,
+			error_in_child(data, 1, data->tokens->next->cmd,
 				"No such file or directory");
 		if (access(data->tokens->next->cmd, R_OK) == -1)
 			error_in_child(data, 1, data->tokens->next->cmd,
 				"Permission denied");
 	}
 	if (fd == -1)
-		error_in_child(data, 2, data->tokens->next->cmd,
+		error_in_child(data, 1, data->tokens->next->cmd,
 			"No such file or directory");
 	return (fd);
 }
@@ -79,7 +79,7 @@ int	redir_out(t_data *data)
 	if (access(data->tokens->next->cmd, F_OK | W_OK) == -1)
 		error_in_child(data, 1, data->tokens->next->cmd, "Permission denied");
 	if (fd == -1)
-		error_in_child(data, 2, data->tokens->next->cmd,
+		error_in_child(data, 1, data->tokens->next->cmd,
 			"No such file or directory");
 	return (fd);
 }
