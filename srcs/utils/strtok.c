@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:41:49 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/22 15:55:32 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/28 14:25:13 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strchr_after_c(const char *s, int c)
 			return ((char *)s + 1);
 		++s;
 	}
-	return (0);
+	return (NULL);
 }
 
 static size_t	ft_strspn(const char *s, const char *accept)
