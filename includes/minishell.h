@@ -221,6 +221,7 @@ void				get_pwd(void);
 // exit
 void				ft_exit(t_data *data);
 void				ft_exit_255(t_data *data, char *args);
+void				end_child(t_data *data);
 
 // cd.c
 void				execute_cd(t_data *data, char *path, char *old_pwd);
