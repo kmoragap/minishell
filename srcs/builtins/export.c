@@ -6,20 +6,11 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 18:27:37 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/28 17:03:48 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * TODO:
- * -Iterate the env
- * -Create a new env variable at the start of the env
- * -Update the env
- * -Debe no funcionar cuando no hay export o eso es lo q creo (??????)
- * -No
- */
 
 int	write_error(char *str1, char *str2, char *str3, int exit_code)
 {
@@ -69,6 +60,11 @@ int	replace_var_env(t_data *data, char *arg)
 	while (data->env[++i] != NULL)
 	{
 		var = ft_strchr_before_c(data->env[i], '=');
+		if (!var)
+		{
+			free(ar);
+			return (0);
+		}
 		if (var != NULL && ft_strcmp(var, ar) == 0)
 		{
 			free(data->env[i]);
@@ -114,7 +110,25 @@ char	**cpy_envi(char **env_cpy)
 
 void	write_env(char *str)
 {
+	char	*var;
+	char	*value;
+
+	var = NULL;
+	value = NULL;
+	var = ft_strchr_before_c(str, '=');
+	if (!var)
+		return ;
+	value = ft_strchr_after_c(str, '=');
 	write(STDOUT_FILENO, "declare -x ", 11);
-	write(STDOUT_FILENO, str, ft_strlen(str));
-	write(STDOUT_FILENO, "\n", 1);
+	write(STDOUT_FILENO, var, ft_strlen(var));
+	if (value)
+	{
+		write(STDOUT_FILENO, "=\"", 3);
+		write(STDOUT_FILENO, value, ft_strlen(value));
+		write(STDOUT_FILENO, "\"\n", 2);
+	}
+	else
+		write(STDOUT_FILENO, "\n", 1);
+	if (var)
+		free(var);
 }

@@ -6,40 +6,11 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:26:56 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 20:25:05 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/28 16:35:30 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*resolve_token_value(char *token, char **env)
-{
-	int		i;
-	char	*var;
-	char	*value;
-
-	i = -1;
-	if (!token)
-		return (NULL);
-	while (env[++i] != NULL)
-	{
-		var = ft_strchr_before_c(env[i], '=');
-		value = ft_strchr_after_c(env[i], '=');
-		if (ft_strcmp(var, token) == 0)
-		{
-			if (value && value[0] == '$')
-			{
-				value = expand_token(value, env);
-				if (value != NULL)
-					return (ft_strdup(value));
-			}
-			free(var);
-			return (ft_strdup(value));
-		}
-		free(var);
-	}
-	return (ft_strdup(""));
-}
 
 char	*expand_token(char *token, char **env)
 {

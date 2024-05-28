@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/26 20:40:38 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/28 16:53:23 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@
 
 # include "../srcs/utils/get_next_line/get_next_line.h"
 # include <fcntl.h>
-# include <readline/history.h>  //add_history
-# include <readline/readline.h> //readline
-# include <signal.h>            //signal
-# include <stdio.h>             //printf
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/ioctl.h>
 # include <sys/stat.h>
-# include <sys/types.h> //fork
-# include <sys/wait.h>  //waitpid
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <unistd.h>
 # include <errno.h>
 
@@ -171,6 +171,7 @@ int					check_fd(t_token *move);
 int					check_file(t_token *move);
 
 // expander.c
+char				*resolve_token_value(char *token, char **env);
 char				*expand_work(char *arg, char **env, int status);
 int					find_end(char *arg, int i, char quote);
 char				*expander_fun(char *arg, char **env, int status);

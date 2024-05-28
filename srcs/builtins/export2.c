@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 18:29:17 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/28 15:57:38 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ int	do_export_loop(t_data *data, char *var, int i)
 	else if (var != NULL)
 	{
 		if (replace_var_env(data, data->tokens->args[i]) == 0)
-		{
-			if (is_valid_expand_var(data->tokens->args[i], '=') == 1)
-				create_env_var(data, i);
-		}
+			create_env_var(data, i);
 		free(var);
 	}
 	return (0);
