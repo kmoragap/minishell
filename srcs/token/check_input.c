@@ -45,8 +45,12 @@ int	check_pipe(char *input)
 	{
 		if (input[i] == '|')
 		{
-			skip_whitespace(&i, input);
-			if (input[i + 1] == '|')
+			i++;
+			while (input[i] && (input[i] == ' ' || input[i] == '\n'
+					|| input[i] == '\t' || input[i] == '\v' || input[i] == '\f'
+					|| input[i] == '\r'))
+				i++;
+			if (input[i] == '|')
 				return (1);
 		}
 		i++;
