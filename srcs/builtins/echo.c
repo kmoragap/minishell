@@ -53,6 +53,34 @@ void	ft_echo(t_data *data)
 			write(STDOUT_FILENO, " ", 1);
 		i++;
 	}
+	check_next_token(curr_token, &newline);
 	if (newline)
 		write(STDOUT_FILENO, "\n", 1);
+}
+
+void	check_next_token(t_token *curr_token, int *newline)
+{
+	int	i;
+
+	while (curr_token && curr_token->next && curr_token->next->delim != PIPE)
+	{
+		curr_token = curr_token->next;
+		i = 0;
+		if (curr_token->prev->args_num == 0)
+		{
+			while (curr_token->args_num > 0 && is_n_option(curr_token->args[i])
+				&& curr_token->args[i] != NULL)
+			{
+				*newline = 0;
+				i++;
+			}
+		}
+		while (i < curr_token->args_num)
+		{
+			write(STDOUT_FILENO, " ", 1);
+			write(STDOUT_FILENO, curr_token->args[i],
+				ft_strlen(curr_token->args[i]));
+			i++;
+		}
+	}
 }

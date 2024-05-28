@@ -18,6 +18,7 @@
 # define BUFFER_SIZE 1000
 
 # include "../srcs/utils/get_next_line/get_next_line.h"
+# include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -30,7 +31,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <errno.h>
 
 extern int			g_sigint;
 
@@ -224,6 +224,7 @@ void				ft_exit_255(t_data *data, char *args);
 
 // cd.c
 void				execute_cd(t_data *data, char *path, char *old_pwd);
+int					check_arg_num(t_data *data);
 char				*get_env(t_data *data, char *path);
 void				ft_cd(t_data *data);
 void				update_env_vars(t_data *data, char *old_pwd, char *new_pwd);
@@ -235,6 +236,7 @@ void				unset_env2(t_data *data, char *arg, char **env, int i);
 
 // echo.c
 void				ft_echo(t_data *data);
+void				check_next_token(t_token *curr_token, int *newline);
 
 // execution
 // execution.c
