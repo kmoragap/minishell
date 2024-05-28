@@ -47,7 +47,10 @@ void	free_all(t_data *data)
 		free(data->input);
 	if (data->childn->pids && (data->free_code >= F_PIDS
 			|| data->free_code == NO_FREE))
+	{
 		free(data->childn->pids);
+		data->childn->pids = NULL;
+	}
 	if (data->free_code == F_ENV)
 	{
 		free_env(data);
@@ -103,39 +106,4 @@ void	free_env(t_data *data)
 	if (data->childn)
 		free(data->childn);
 	free(data);
-}
-
-void	free_args(char **args, int *cnt)
-{
-	int	i;
-
-	i = 0;
-	if (!args)
-		return ;
-	if (!args[0])
-	{
-		free(args);
-		return ;
-	}
-	if (args[0][0] == '\0')
-		free(args[0]);
-	else if (cnt == 0 && args && args[0])
-	{
-		while (args[i])
-			i++;
-		while (i >= 0)
-		{
-			free(args[i]);
-			i--;
-		}
-	}
-	else
-	{
-		while (*cnt >= 0)
-		{
-			free(args[*cnt]);
-			*cnt -= 1;
-		}
-	}
-	free(args);
 }

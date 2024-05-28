@@ -56,12 +56,10 @@ void	ft_exit(t_data *data)
 			exit_status = ft_atoi(args[0]);
 			if (args[1])
 			{
-				write(2, "exit\n", 5);
-				write(2, "minishell: exit: too many arguments\n", 31);
-				exit_status = 1;
+				exit_status = exit_many_args(data, exit_status);
+				return ;
 			}
-			
-			if(exit_status >= -2147483648 && exit_status <= 2147483647)
+			if (exit_status >= -2147483648 && exit_status <= 2147483647)
 				exit_status = exit_status % 256;
 			else
 				exit_status = 1;
@@ -69,29 +67,31 @@ void	ft_exit(t_data *data)
 		else
 			ft_exit_255(data, args[0]);
 	}
+	free_exit(data, exit_status);
+}
+
+int	exit_many_args(t_data *data, int exit_status)
+{
+	write(2, "exit\n", 5);
+	write(2, "minishell: exit: too many arguments\n", 36);
+	exit_status = 1;
+	if (data->childn->pids)
+	{
+		end_child(data);
+		exit(exit_status % 256);
+	}
+	return (exit_status);
+}
+
+void	free_exit(t_data *data, int exit_status)
+{
 	data->free_code = F_ENV;
 	if (data->childn->pids)
 		end_child(data);
 	else
+	{
 		free_all(data);
-	write(1, "exit\n", 5);
+		write(1, "exit\n", 5);
+	}
 	exit(exit_status % 256);
-}
-
-void	end_child(t_data *data)
-{
-	close_pipes(data, -1);
-	free_pipes(data->childn->pipes, data);
-	free(data->childn->pids);
-	free_all_child(data);
-}
-
-void	ft_exit_255(t_data *data, char *args)
-{
-	write(2, "minishell: exit: ", 17);
-	write(2, args, ft_strlen(args));
-	write(2, ": numeric argument required\n", 28);
-	data->free_code = F_ENV;
-	free_all(data);
-	exit(2);
 }
