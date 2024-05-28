@@ -45,13 +45,13 @@ int	do_export_loop(t_data *data, char *var, int i)
 	var = ft_strchr_before_c(data->tokens->args[i], '=');
 	if (var[0] == '\0')
 	{
-		input_error(data, 0, 6, "export: not a valid identifier\n");
+		input_error(data, 0, 1, "export: not a valid identifier\n");
 		free(var);
 		return (1);
 	}
 	else if (!ft_isalnum(var[ft_strlen(var) - 1]))
 	{
-		input_error(data, 0, 6, "export: not a valid identifier\n");
+		input_error(data, 0, 1, "export: not a valid identifier\n");
 		free(var);
 		return (1);
 	}

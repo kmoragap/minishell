@@ -41,7 +41,7 @@ void	check_special(int *i, char *input, t_token **tokens, t_data *data)
 			i) == 1)
 	{
 		if (!input[*i])
-			input_error(data, F_EMPTOK, 127, "command not found\n");
+			input_error(data, F_EMPTOK, 127, "minishell: command not found\n");
 	}
 }
 
@@ -83,7 +83,7 @@ int	check_whitespaces(t_data *data, char *input, int *i)
 		j++;
 	if (!input[*i + j])
 	{
-		input_error(data, F_EMPTOK, 127, "command not found\n");
+		input_error(data, F_EMPTOK, 127, "minishell: command not found\n");
 		return (0);
 	}
 	return (1);

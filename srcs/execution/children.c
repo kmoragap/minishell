@@ -66,7 +66,7 @@ void	child_routine(t_data *data, int child_id)
 	cmd_arg = join_cmd_arg(data);
 	execve(data->tokens->path, cmd_arg, data->env);
 	free_args(cmd_arg, 0);
-	error_in_child(data, 1, data->tokens->cmd, strerror(errno));
+	error_in_child(data, 127, data->tokens->cmd, strerror(errno));
 }
 
 void	get_token(t_data *data, int child_id)

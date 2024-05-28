@@ -20,10 +20,13 @@ void	ft_cd(t_data *data)
 
 	new_path = NULL;
 	path = NULL;
+	if (check_arg_num(data) == 1)
+		return ;
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 	{
 		write(2, "Failed to get current directory\n", 31);
+		data->exit_code = 1;
 		return ;
 	}
 	if (data->tokens->args_num > 0)
@@ -36,6 +39,17 @@ void	ft_cd(t_data *data)
 	if (new_path)
 		free(new_path);
 	free(old_pwd);
+}
+
+int	check_arg_num(t_data *data)
+{
+	if (data->tokens->args_num > 1)
+	{
+		input_error(data, 0, 1, "minishell: cd: too many arguments\n");
+		data->exit_code = 1;
+		return (1);
+	}
+	return (0);
 }
 
 char	*get_env(t_data *data, char *path)
