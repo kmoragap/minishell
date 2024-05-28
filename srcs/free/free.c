@@ -110,6 +110,13 @@ void	free_args(char **args, int *cnt)
 	int	i;
 
 	i = 0;
+	if (!args)
+		return ;
+	if (!args[0])
+	{
+		free(args);
+		return ;
+	}
 	if (args[0][0] == '\0')
 		free(args[0]);
 	else if (cnt == 0 && args && args[0])
