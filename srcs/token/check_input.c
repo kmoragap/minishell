@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/26 16:30:36 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/28 16:59:59 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	check_andslash(char *input)
 		i++;
 	}
 	if (input[ft_strlen(input) - 1] == '<' || input[ft_strlen(input)
-		- 1] == '>')
+			- 1] == '>')
 		return (1);
 	if (input[0] == '<' || input[0] == '>')
 		return (1);

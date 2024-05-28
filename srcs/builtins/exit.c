@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 12:15:14 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/27 15:54:59 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/28 15:55:20 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,19 @@ int	is_valid_number(char *str)
 	return (0);
 }
 
+static void exit_salir(t_data *data, char **args, int status)
+{
+	if(args[1] != NULL)
+	{
+		write(2, "exit\n", 5);
+		write(2, "bash: exit: too many arguments\n", 31);
+		data->free_code = F_ENV;
+		free_all(data);
+		status = 1;
+		exit(status);
+	}
+}
+
 void	ft_exit(t_data *data)
 {
 	char	**args;
@@ -55,11 +68,7 @@ void	ft_exit(t_data *data)
 		{
 			exit_status = ft_atoi(args[0]);
 			if (args[1] != NULL)
-			{
-				data->exit_code = 1;
-				write(2, "exit: too many arguments\n", 26);
-				return ;
-			}
+				exit_salir(data, args, exit_status);
 		}
 		else
 			ft_exit_255(data, args[0]);
