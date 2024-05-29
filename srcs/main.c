@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: creuther <creuther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/29 15:16:06 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/29 21:36:38 by creuther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void	read_input(t_data **data)
 	if (!line)
 		handle_eof((*data));
 	if (*line)
+	{
+		rl_replace_line("", 0);
 		add_history(line);
+	}
 	(*data)->input = line;
 }
 
