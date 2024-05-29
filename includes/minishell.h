@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/28 20:11:23 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:11:04 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 # define PROMPT "\033[1;32m>minishell$\033[0m "
 
 # define BUFFER_SIZE 1000
+# define ACTIVE 1
+# define IGNORE 2
+# define DEFAULT 3
+# define HEREDOC 4
+
 
 # include "../srcs/utils/get_next_line/get_next_line.h"
 # include <errno.h>
@@ -351,7 +356,8 @@ void				reinit_data(t_data *data);
 void				free_args2(char **args, int *cnt, int i);
 
 // signals.c
-void				init_signals(void);
+void				handle_sigquit(int sig);
+void				init_signals(int sig);
 void				handle_eof(t_data *data);
 void				handle_sigint_heredoc(int sig);
 

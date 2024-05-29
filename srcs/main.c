@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 20:40:05 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:16:06 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,11 @@ int	main(int ac, char **av, char **env)
 	if (!data)
 		return (1);
 	shlvl(data);
-	init_signals();
 	while (1)
 	{
+		init_signals(ACTIVE);
 		read_input(&data);
+		init_signals(IGNORE);
 		data->free_code = NO_FREE;
 		if (data->err_code == ER_NO)
 			data->tokens = tokenizer(data);
