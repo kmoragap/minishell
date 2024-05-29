@@ -94,10 +94,11 @@ int	main(int ac, char **av, char **env)
 	if (!data)
 		return (1);
 	shlvl(data);
-	init_signals();
 	while (1)
 	{
+		init_signals(ACTIVE);
 		read_input(&data);
+		init_signals(IGNORE);
 		data->free_code = NO_FREE;
 		if (data->err_code == ER_NO)
 			data->tokens = tokenizer(data);
