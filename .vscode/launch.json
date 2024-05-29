@@ -21,7 +21,7 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 },
-                
+/*                 
                 {
                     // https://sourceware.org/gdb/onlinedocs/gdb/Forks.html
                     "description": "Fork follows Child process",
@@ -33,7 +33,7 @@
                     "description": "Fork will keep the other process attached to debugger",
                     "text": "set detach-on-fork off",
                     "ignoreFailures": true
-                },
+                }, */
                 
                 {
                     "description": "Set Disassembly Flavor to Intel",

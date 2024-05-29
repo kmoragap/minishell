@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:38:32 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/23 20:26:41 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/29 22:44:30 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * change voids func to -> int
  */
 
-void	unset_env(t_data *data, int arg_num)
+void	unset_env(t_data *data, int arg_num, char *for_pwd)
 {
 	char	**env;
 	char	*arg;
@@ -30,7 +30,14 @@ void	unset_env(t_data *data, int arg_num)
 		free(arg);
 		return ;
 	}
-	unset_env2(data, arg, env, i);
+	if (for_pwd != NULL)
+	{
+		unset_env2(data, for_pwd, env, i);
+		free(arg);
+		free(for_pwd);
+	}
+	else
+		unset_env2(data, arg, env, i);
 }
 
 void	unset_env2(t_data *data, char *arg, char **env, int i)
@@ -63,7 +70,7 @@ void	ft_unset(t_data *data)
 	i = 0;
 	while (i < data->tokens->args_num)
 	{
-		unset_env(data, i);
+		unset_env(data, i, NULL);
 		i++;
 	}
 }

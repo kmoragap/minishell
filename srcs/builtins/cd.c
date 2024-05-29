@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:48:53 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/27 15:48:18 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/29 20:24:38 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_cd(t_data *data)
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 	{
-		write(2, "Failed to get current directory\n", 31);
+		write(2, "Failed to get current directory\n", 32);
 		data->exit_code = 1;
 		return ;
 	}

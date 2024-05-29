@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/28 17:03:48 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/29 21:57:32 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,6 @@ int	write_error(char *str1, char *str2, char *str3, int exit_code)
 	write(2, str2, ft_strlen(str2));
 	write(2, str3, ft_strlen(str3));
 	return (exit_code);
-}
-
-void	create_env_var(t_data *data, int arg_num)
-{
-	char	**env;
-	int		i;
-
-	if (ft_calloc(data, F_TOKCMD, (void **)&env, sizeof(char *) * (data->env_len
-				+ 2)))
-		return ;
-	i = -1;
-	while (++i < data->env_len)
-		env[i] = data->env[i];
-	if (!ft_isdigit(data->tokens->args[arg_num][0]))
-	{
-		env[i] = ft_strdup(data->tokens->args[arg_num]);
-		if (!env[i])
-			return (free(env));
-	}
-	else
-		data->exit_code = write_error("export: ", data->tokens->args[arg_num],
-				": not a valid identifier\n", 1);
-	if (env[i] == NULL)
-		return (free(env));
-	free(data->env);
-	data->env = env;
-	data->env_len = i + 1;
 }
 
 int	replace_var_env(t_data *data, char *arg)
