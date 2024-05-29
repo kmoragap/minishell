@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/29 15:11:04 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/29 22:54:16 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # define IGNORE 2
 # define DEFAULT 3
 # define HEREDOC 4
-
 
 # include "../srcs/utils/get_next_line/get_next_line.h"
 # include <errno.h>
@@ -212,7 +211,7 @@ int					do_export_loop(t_data *data, char *var, int i);
 void				sort_env_case(t_data *data);
 int					write_error(char *str1, char *str2, char *str3,
 						int exit_code);
-void				create_env_var(t_data *data, int arg_num);
+void				create_env_var(t_data *data, int arg_num, char *arg);
 void				write_env(char *str);
 char				**cpy_envi(char **env_cpy);
 int					replace_var_env(t_data *data, char *arg);
@@ -241,7 +240,7 @@ void				update_env_vars(t_data *data, char *old_pwd, char *new_pwd);
 
 // unset
 void				ft_unset(t_data *data);
-void				unset_env(t_data *data, int arg_num);
+void				unset_env(t_data *data, int arg_num, char *for_pwd);
 void				unset_env2(t_data *data, char *arg, char **env, int i);
 
 // echo.c

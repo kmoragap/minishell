@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/28 15:57:38 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/29 22:20:53 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	do_export_loop(t_data *data, char *var, int i)
 	else if (var != NULL)
 	{
 		if (replace_var_env(data, data->tokens->args[i]) == 0)
-			create_env_var(data, i);
+			create_env_var(data, i, NULL);
 		free(var);
 	}
 	return (0);
@@ -113,6 +113,8 @@ void	write_env(char *str)
 	char	*var;
 	char	*value;
 
+	if (str[0] == '_')
+		return ;
 	var = NULL;
 	value = NULL;
 	var = ft_strchr_before_c(str, '=');
