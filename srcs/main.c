@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:38:23 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/29 19:02:30 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/29 23:00:40 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void	read_input(t_data **data)
 	if (!line)
 		handle_eof((*data));
 	if (*line)
+	{
+		rl_replace_line("", 0);
 		add_history(line);
+	}
 	(*data)->input = line;
 }
 
