@@ -20,10 +20,13 @@ void	ft_cd(t_data *data)
 
 	new_path = NULL;
 	path = NULL;
+	if (check_arg_num(data) == 1)
+		return ;
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 	{
 		write(2, "Failed to get current directory\n", 31);
+		data->exit_code = 1;
 		return ;
 	}
 	if (data->tokens->args_num > 0)
@@ -36,6 +39,17 @@ void	ft_cd(t_data *data)
 	if (new_path)
 		free(new_path);
 	free(old_pwd);
+}
+
+int	check_arg_num(t_data *data)
+{
+	if (data->tokens->args_num > 1)
+	{
+		input_error(data, 0, 1, "minishell: cd: too many arguments\n");
+		data->exit_code = 1;
+		return (1);
+	}
+	return (0);
 }
 
 char	*get_env(t_data *data, char *path)
@@ -63,53 +77,17 @@ void	execute_cd(t_data *data, char *path, char *old_pwd)
 		return ;
 	if (chdir(path) != 0)
 	{
-		input_error(data, 0, 6, "minishell: No such file or directory\n");
+		input_error(data, 0, 1, "minishell: No such file or directory\n");
 		data->exit_code = 1;
 		return ;
 	}
 	new_pwd = getcwd(NULL, 0);
 	if (!new_pwd)
 	{
-		input_error(data, 0, 6, "Failed to get new directory\n");
+		input_error(data, 0, 1, "Failed to get new directory\n");
 		data->exit_code = 1;
 		return ;
 	}
 	update_env_vars(data, old_pwd, new_pwd);
 	free(new_pwd);
-}
-
-char	*ft_concat(char *old, char *old_pwd)
-{
-	ft_strcat(old, "OLDPWD=");
-	ft_strcat(old, old_pwd);
-	return (old);
-}
-
-void	update_env_vars(t_data *data, char *old_pwd, char *new_pwd)
-{
-	char	*old;
-	char	*new;
-	size_t	old_len;
-	size_t	new_len;
-
-	old_len = ft_strlen("OLDPWD=") + ft_strlen(old_pwd) + 1;
-	new_len = ft_strlen("PWD=") + ft_strlen(new_pwd) + 1;
-	old = ft_calloc_norm(old_len, sizeof(char));
-	new = ft_calloc_norm(new_len, sizeof(char));
-	if (old == NULL || new == NULL)
-	{
-		malloc_error(data, F_PIDS);
-		if (old)
-			free(old);
-		return ;
-	}
-	old = ft_concat(old, old_pwd);
-	ft_strcat(new, "PWD=");
-	ft_strcat(new, new_pwd);
-	if (replace_var_env(data, old) == 0)
-		return ;
-	if (replace_var_env(data, new) == 0)
-		return ;
-	free(old);
-	free(new);
 }

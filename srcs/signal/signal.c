@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 18:20:49 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/27 18:53:54 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:52:55 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	handle_sigint(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(2, "\n", 1);
+		write(STDIN_FILENO, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -24,22 +24,37 @@ static void	handle_sigint(int sig)
 	}
 }
 
+void	set_signal_handler(int signal_type, int sig, void (*handler)(int))
+{
+	if (signal_type == ACTIVE || signal_type == HEREDOC)
+		signal(sig, handler);
+	else if (signal_type == DEFAULT)
+		signal(sig, SIG_DFL);
+	else if (signal_type == IGNORE)
+		signal(sig, SIG_IGN);
+}
+
 void	init_signals(int sig)
 {
-	if(sig == 1)
+	if (sig == ACTIVE)
 	{
-		signal(SIGINT, handle_sigint);
-		signal(SIGQUIT, SIG_IGN);
+		set_signal_handler(ACTIVE, SIGINT, handle_sigint);
+		set_signal_handler(ACTIVE, SIGQUIT, SIG_IGN);
 	}
-	else if(sig == 2)
+	else if (sig == DEFAULT)
 	{
-		signal(SIGINT, handle_sigint);
-		signal(SIGQUIT, handle_sigquit);
+		set_signal_handler(DEFAULT, SIGINT, SIG_DFL);
+		set_signal_handler(DEFAULT, SIGQUIT, SIG_DFL);
 	}
-	else if(sig == 3)
+	else if (sig == IGNORE)
 	{
-		signal(SIGINT, handle_sigint_heredoc);
-		signal(SIGQUIT, SIG_IGN);
+		set_signal_handler(IGNORE, SIGINT, SIG_IGN);
+		set_signal_handler(IGNORE, SIGQUIT, SIG_IGN);
+	}
+	else if (sig == HEREDOC)
+	{
+		set_signal_handler(HEREDOC, SIGINT, handle_sigint_heredoc);
+		set_signal_handler(HEREDOC, SIGQUIT, SIG_IGN);
 	}
 }
 
@@ -49,23 +64,4 @@ void	handle_eof(t_data *data)
 	data->free_code = 100;
 	free_all(data);
 	exit(0);
-}
-
-void	handle_sigquit(int sig)
-{
-	if(sig == SIGINT)
-	{
-		write(2, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-		g_sigint = 130;
-	}
-	else if (sig == SIGQUIT)
-	{
-		write(1, "\n", 2);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		g_sigint = 131;
-	}
 }

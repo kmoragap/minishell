@@ -39,7 +39,10 @@ void	check_special(int *i, char *input, t_token **tokens, t_data *data)
 	}
 	if ((input[*i] == 34 || input[*i] == 39) && check_whitespaces(data, input,
 			i) == 1)
-		input_error(data, F_EMPTOK, 127, "command not found\n");
+	{
+		if (!input[*i])
+			input_error(data, F_EMPTOK, 127, "minishell: command not found\n");
+	}
 }
 
 void	add_delim(int *i, char *input, t_token **tokens)
@@ -80,7 +83,7 @@ int	check_whitespaces(t_data *data, char *input, int *i)
 		j++;
 	if (!input[*i + j])
 	{
-		input_error(data, F_EMPTOK, 127, "command not found\n");
+		input_error(data, F_EMPTOK, 127, "minishell: command not found\n");
 		return (0);
 	}
 	return (1);

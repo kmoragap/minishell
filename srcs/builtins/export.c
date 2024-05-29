@@ -6,20 +6,11 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:17:45 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/26 18:27:37 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/28 17:03:48 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * TODO:
- * -Iterate the env
- * -Create a new env variable at the start of the env
- * -Update the env
- * -Debe no funcionar cuando no hay export o eso es lo q creo (??????)
- * -No
- */
 
 int	write_error(char *str1, char *str2, char *str3, int exit_code)
 {
@@ -69,52 +60,30 @@ int	replace_var_env(t_data *data, char *arg)
 	while (data->env[++i] != NULL)
 	{
 		var = ft_strchr_before_c(data->env[i], '=');
+		if (!var)
+			return (free_ar(ar));
 		if (var != NULL && ft_strcmp(var, ar) == 0)
 		{
 			free(data->env[i]);
 			data->env[i] = ft_strdup(arg);
+			free_two(var, ar);
 			if (!data->env[i])
 				return (0);
-			free(var);
-			free(ar);
 			return (1);
 		}
 		free(var);
 	}
+	return (free_ar(ar));
+}
+
+void	free_two(char *var, char *ar)
+{
+	free(var);
+	free(ar);
+}
+
+int	free_ar(char *ar)
+{
 	free(ar);
 	return (0);
-}
-
-char	**cpy_envi(char **env_cpy)
-{
-	int		i;
-	int		swapped;
-	char	*temp;
-
-	i = 0;
-	swapped = 1;
-	while (swapped)
-	{
-		swapped = 0;
-		i = 0;
-		while (env_cpy[i + 1])
-		{
-			if (ft_strcmp(env_cpy[i], env_cpy[i + 1]) > 0)
-			{
-				temp = env_cpy[i];
-				env_cpy[i] = env_cpy[i + 1];
-				env_cpy[i + 1] = temp;
-				swapped = 1;
-			}
-			i++;
-		}
-	}
-	return (env_cpy);
-}
-
-void	write_env(char *str)
-{
-	write(STDOUT_FILENO, "declare -x ", 11);
-	write(STDOUT_FILENO, str, ft_strlen(str));
-	write(STDOUT_FILENO, "\n", 1);
 }

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 12:15:14 by kmoraga           #+#    #+#             */
-/*   Updated: 2024/05/27 15:54:59 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/28 20:37:34 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,28 +54,44 @@ void	ft_exit(t_data *data)
 		if (is_valid_number(args[0]) == 0)
 		{
 			exit_status = ft_atoi(args[0]);
-			if (args[1] != NULL)
+			if (args[1])
 			{
-				data->exit_code = 1;
-				write(2, "exit: too many arguments\n", 26);
+				exit_status = exit_many_args(data, exit_status);
 				return ;
 			}
+			if (exit_status >= -2147483648 && exit_status <= 2147483647)
+				exit_status = exit_status % 256;
+			else
+				exit_status = 1;
 		}
 		else
 			ft_exit_255(data, args[0]);
 	}
-	data->free_code = F_ENV;
-	free_all(data);
-	write(1, "exit\n", 5);
-	exit(exit_status % 256);
+	free_exit(data, exit_status);
 }
 
-void	ft_exit_255(t_data *data, char *args)
+int	exit_many_args(t_data *data, int exit_status)
 {
-	write(2, "minishell: exit: ", 17);
-	write(2, args, ft_strlen(args));
-	write(2, ": numeric argument required\n", 28);
+	write(2, "exit\n", 5);
+	write(2, "minishell: exit: too many arguments\n", 36);
+	exit_status = 1;
+	if (data->childn->pids)
+	{
+		end_child(data);
+		exit(exit_status % 256);
+	}
+	return (exit_status);
+}
+
+void	free_exit(t_data *data, int exit_status)
+{
 	data->free_code = F_ENV;
-	free_all(data);
-	exit(255);
+	if (data->childn->pids)
+		end_child(data);
+	else
+	{
+		free_all(data);
+		write(1, "exit\n", 5);
+	}
+	exit(exit_status % 256);
 }

@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/27 17:23:32 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:11:04 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,25 @@
 # define PROMPT "\033[1;32m>minishell$\033[0m "
 
 # define BUFFER_SIZE 1000
+# define ACTIVE 1
+# define IGNORE 2
+# define DEFAULT 3
+# define HEREDOC 4
+
 
 # include "../srcs/utils/get_next_line/get_next_line.h"
+# include <errno.h>
 # include <fcntl.h>
-# include <readline/history.h>  //add_history
-# include <readline/readline.h> //readline
-# include <signal.h>            //signal
-# include <stdio.h>             //printf
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/ioctl.h>
 # include <sys/stat.h>
-# include <sys/types.h> //fork
-# include <sys/wait.h>  //waitpid
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <unistd.h>
 
 extern int			g_sigint;
@@ -170,6 +176,7 @@ int					check_fd(t_token *move);
 int					check_file(t_token *move);
 
 // expander.c
+char				*resolve_token_value(char *token, char **env);
 char				*expand_work(char *arg, char **env, int status);
 int					find_end(char *arg, int i, char quote);
 char				*expander_fun(char *arg, char **env, int status);
@@ -209,6 +216,8 @@ void				create_env_var(t_data *data, int arg_num);
 void				write_env(char *str);
 char				**cpy_envi(char **env_cpy);
 int					replace_var_env(t_data *data, char *arg);
+int					free_ar(char *ar);
+void				free_two(char *var, char *ar);
 
 // env
 void				put_env(t_data *data);
@@ -218,10 +227,14 @@ void				get_pwd(void);
 
 // exit
 void				ft_exit(t_data *data);
+int					exit_many_args(t_data *data, int exit_status);
 void				ft_exit_255(t_data *data, char *args);
+void				free_exit(t_data *data, int exit_status);
+void				end_child(t_data *data);
 
 // cd.c
 void				execute_cd(t_data *data, char *path, char *old_pwd);
+int					check_arg_num(t_data *data);
 char				*get_env(t_data *data, char *path);
 void				ft_cd(t_data *data);
 void				update_env_vars(t_data *data, char *old_pwd, char *new_pwd);
@@ -233,6 +246,7 @@ void				unset_env2(t_data *data, char *arg, char **env, int i);
 
 // echo.c
 void				ft_echo(t_data *data);
+void				check_next_token(t_token *curr_token, int *newline);
 
 // execution
 // execution.c
@@ -264,6 +278,8 @@ void				child_creation(t_data *data);
 void				child_routine(t_data *data, int child_id);
 void				get_token(t_data *data, int child_id);
 void				error_in_child(t_data *data, int exit_code, char *cmd,
+						char *error_message);
+void				ex_error_in_child(t_data *data, int exit_code,
 						char *error_message);
 
 // check_cmd_path.c
@@ -337,6 +353,7 @@ void				free_toks(t_data *data);
 void				free_env(t_data *data);
 void				free_args(char **args, int *cnt);
 void				reinit_data(t_data *data);
+void				free_args2(char **args, int *cnt, int i);
 
 // signals.c
 void				handle_sigquit(int sig);

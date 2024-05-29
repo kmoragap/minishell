@@ -6,7 +6,7 @@
 /*   By: kmoraga <kmoraga@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:43:08 by creuther          #+#    #+#             */
-/*   Updated: 2024/05/27 18:39:31 by kmoraga          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:52:30 by kmoraga          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	child_creation(t_data *data)
 		data->childn->pids[child_id] = fork();
 		if (!data->childn->pids[child_id])
 		{
-			init_signals(2);
+			init_signals(DEFAULT);
 			child_routine(data, child_id);
 			break ;
 		}
@@ -69,7 +69,8 @@ void	child_routine(t_data *data, int child_id)
 	check_cmd_path(data);
 	cmd_arg = join_cmd_arg(data);
 	execve(data->tokens->path, cmd_arg, data->env);
-	error_in_child(data, 1, data->tokens->cmd, "error in execution");
+	free_args(cmd_arg, 0);
+	error_in_child(data, 127, data->tokens->cmd, strerror(errno));
 }
 
 void	get_token(t_data *data, int child_id)
