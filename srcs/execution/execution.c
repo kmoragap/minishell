@@ -32,7 +32,7 @@ void	execute_builtin(t_data *data)
 	if (type == ENV)
 		put_env(data);
 	if (type == PWD)
-		get_pwd();
+		get_pwd(data);
 	if (type == UNSET)
 		ft_unset(data);
 	if (type == ECHO)

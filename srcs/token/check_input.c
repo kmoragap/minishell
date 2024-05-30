@@ -19,7 +19,7 @@ int	check_input(t_data *data)
 	{
 		data->err_code = ER_INPUT;
 		data->free_code = F_INPUT;
-		write(2, "minishell: syntax error due to invalid input\n", 46);
+		write(2, "minishell: syntax error due to invalid input\n", 45);
 		data->exit_code = 2;
 		return (1);
 	}

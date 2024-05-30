@@ -17,7 +17,7 @@ void	shlvl_helper(t_data *data, char *new_shlvl, char *level)
 	ft_strcat(new_shlvl, "SHLVL=");
 	ft_strcat(new_shlvl, level);
 	if (replace_var_env(data, new_shlvl) == 0)
-		write(2, "Error updating SHLVL", 21);
+		write(2, "Error updating SHLVL\n", 21);
 	free(level);
 	free(new_shlvl);
 }

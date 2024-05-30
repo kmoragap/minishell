@@ -217,12 +217,13 @@ char				**cpy_envi(char **env_cpy);
 int					replace_var_env(t_data *data, char *arg);
 int					free_ar(char *ar);
 void				free_two(char *var, char *ar);
+void				sort_env_case2(t_data *data, char **env_cpy, int i);
 
 // env
 void				put_env(t_data *data);
 
 // pwd
-void				get_pwd(void);
+void				get_pwd(t_data *data);
 
 // exit
 void				ft_exit(t_data *data);

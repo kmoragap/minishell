@@ -56,6 +56,7 @@ void	ft_echo(t_data *data)
 	check_next_token(curr_token, &newline);
 	if (newline)
 		write(STDOUT_FILENO, "\n", 1);
+	data->exit_code = 0;
 }
 
 void	check_next_token(t_token *curr_token, int *newline)

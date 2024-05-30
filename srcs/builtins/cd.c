@@ -90,4 +90,5 @@ void	execute_cd(t_data *data, char *path, char *old_pwd)
 	}
 	update_env_vars(data, old_pwd, new_pwd);
 	free(new_pwd);
+	data->exit_code = 0;
 }

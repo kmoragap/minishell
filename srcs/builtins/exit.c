@@ -45,29 +45,29 @@ int	is_valid_number(char *str)
 void	ft_exit(t_data *data)
 {
 	char	**args;
-	int		exit_status;
 
-	exit_status = data->exit_code;
 	args = data->tokens->args;
+	if (args[0][0] == '\0' && data->tokens->args_num == 1)
+		ft_exit_255(data, args[0]);
 	if (args[0][0] != '\0')
 	{
 		if (is_valid_number(args[0]) == 0)
 		{
-			exit_status = ft_atoi(args[0]);
+			data->exit_code = ft_atoi(args[0]);
 			if (args[1])
 			{
-				exit_status = exit_many_args(data, exit_status);
+				data->exit_code = exit_many_args(data, data->exit_code);
 				return ;
 			}
-			if (exit_status >= -2147483648 && exit_status <= 2147483647)
-				exit_status = exit_status % 256;
+			if (data->exit_code >= -2147483648 && data->exit_code <= 2147483647)
+				data->exit_code = data->exit_code % 256;
 			else
-				exit_status = 1;
+				data->exit_code = 1;
 		}
 		else
 			ft_exit_255(data, args[0]);
 	}
-	free_exit(data, exit_status);
+	free_exit(data, data->exit_code);
 }
 
 int	exit_many_args(t_data *data, int exit_status)
