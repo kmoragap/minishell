@@ -51,12 +51,15 @@ t_data	*remove_quotes(char *cmd, t_data *data)
 	if (check == 0)
 		return (data);
 	new = ft_strndup(cmd, i - 1);
+	if (!new)
+		return (data);
 	while (cmd[i])
 		loop_quotes(cmd, &new, &i, &check);
-	free(data->tokens->cmd);
 	if (new)
+	{
+		free(data->tokens->cmd);
 		data->tokens->cmd = new;
-	i = 0;
+	}
 	return (data);
 }
 

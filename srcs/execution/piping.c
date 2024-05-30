@@ -28,6 +28,8 @@ int	count_pipes(t_data *data)
 
 	cnt = 1;
 	pipe_num = 1;
+	if (!data->tokens)
+		return (0);
 	if (data->tokens->next)
 		data->tokens = data->tokens->next;
 	while (cnt < data->token_num && data->tokens)
@@ -47,6 +49,8 @@ int	malloc_fds(t_data *data)
 	int	i;
 
 	i = 0;
+	if (data->childn->cnt_childn == 0)
+		return (1);
 	if (data->childn->cnt_childn == 1)
 		return (0);
 	if (ft_calloc(data, F_INPUT, (void *)&data->childn->pipes, sizeof(int *)
@@ -56,7 +60,12 @@ int	malloc_fds(t_data *data)
 	{
 		if (ft_calloc(data, F_PIPES, (void *)&data->childn->pipes[i],
 				sizeof(int) * 2) == 1)
+		{
+			while (--i >= 0)
+				free(data->childn->pipes[i]);
+			free(data->childn->pipes);
 			return (1);
+		}
 		i++;
 	}
 	if (fill_fds(data) == 1)
@@ -74,6 +83,11 @@ int	fill_fds(t_data *data)
 		if (pipe(data->childn->pipes[i]) == -1)
 		{
 			input_error(data, F_PIPES, 32, "Error: pipe creation failed");
+			while (--i >= 0)
+			{
+				close(data->childn->pipes[i][0]);
+				close(data->childn->pipes[i][1]);
+			}
 			free_pipes(data->childn->pipes, data);
 			return (1);
 		}

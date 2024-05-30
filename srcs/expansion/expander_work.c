@@ -71,6 +71,8 @@ char	*expand_and_join(char **fragments, int frag_count, char **env,
 	char	*result;
 
 	result = ft_strdup("");
+	if (!result)
+		return (NULL);
 	j = 0;
 	while (j < frag_count)
 	{
@@ -90,12 +92,10 @@ char	*expander_fun(char *arg, char **env, int status)
 {
 	char	*result;
 	char	**fragments;
-	int		len;
 	int		frag_index;
 	int		i;
 
-	len = ft_strlen(arg);
-	fragments = ft_calloc_norm(len, sizeof(char *));
+	fragments = ft_calloc_norm(ft_strlen(arg), sizeof(char *));
 	if (!fragments)
 		return (NULL);
 	frag_index = 0;

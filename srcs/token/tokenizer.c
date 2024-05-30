@@ -59,7 +59,10 @@ t_token	**next_token(t_token **tokens, t_data *data)
 		(*tokens)->prev = NULL;
 	temp = ft_calloc_norm(1, sizeof(t_token));
 	if (!temp)
+	{
 		malloc_error(data, F_TOKS);
+		return (NULL);
+	}
 	(*tokens)->next = temp;
 	temp->prev = (*tokens);
 	(*tokens) = (*tokens)->next;
