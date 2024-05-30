@@ -24,14 +24,11 @@ t_data	*create_children(t_data *data)
 	if (ft_calloc(data, F_INPUT, (void *)&data->childn->pids, sizeof(pid_t)
 			* data->childn->cnt_childn + 1) == 1)
 		return (data);
-	else
-	{
-		child_creation(data);
-		close_pipes(data, -1);
-		free_pipes(data->childn->pipes, data);
-		parent_wait(data);
-		return (data);
-	}
+	child_creation(data);
+	close_pipes(data, -1);
+	free_pipes(data->childn->pipes, data);
+	parent_wait(data);
+	return (data);
 }
 
 void	child_creation(t_data *data)
@@ -48,10 +45,10 @@ void	child_creation(t_data *data)
 			child_routine(data, child_id);
 			break ;
 		}
-		else if (data->childn->pids[child_id] == -1)
+		else if (data->childn->pids[child_id] < 0)
 		{
 			input_error(data, 0, 10, "minishell: No child processes\n");
-			exit(0);
+			return ;
 		}
 		child_id++;
 	}

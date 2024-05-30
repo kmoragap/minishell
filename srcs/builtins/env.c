@@ -31,6 +31,7 @@ void	put_env(t_data *data)
 	if (data->tokens->args_num > 0)
 	{
 		write(2, "env: too many arguments\n", 24);
+		data->exit_code = 1;
 		return ;
 	}
 	else
@@ -44,5 +45,6 @@ void	put_env(t_data *data)
 			}
 			i++;
 		}
+		data->exit_code = 0;
 	}
 }

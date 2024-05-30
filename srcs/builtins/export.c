@@ -60,3 +60,30 @@ int	free_ar(char *ar)
 	free(ar);
 	return (0);
 }
+
+void	write_env(char *str)
+{
+	char	*var;
+	char	*value;
+
+	if (str[0] == '_')
+		return ;
+	var = NULL;
+	value = NULL;
+	var = ft_strchr_before_c(str, '=');
+	if (!var)
+		return ;
+	value = ft_strchr_after_c(str, '=');
+	write(STDOUT_FILENO, "declare -x ", 11);
+	write(STDOUT_FILENO, var, ft_strlen(var));
+	if (value)
+	{
+		write(STDOUT_FILENO, "=\"", 2);
+		write(STDOUT_FILENO, value, ft_strlen(value));
+		write(STDOUT_FILENO, "\"\n", 2);
+	}
+	else
+		write(STDOUT_FILENO, "\n", 1);
+	if (var)
+		free(var);
+}

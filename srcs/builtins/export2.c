@@ -19,15 +19,26 @@ void	sort_env_case(t_data *data)
 
 	env_cpy = ft_calloc_norm(data->env_len + 1, sizeof(char *));
 	if (!env_cpy)
+	{
+		data->exit_code = 1;
 		return ;
+	}
 	i = 0;
 	while (i < data->env_len)
 	{
 		env_cpy[i] = ft_strdup(data->env[i]);
 		if (!env_cpy[i])
+		{
+			data->exit_code = 1;
 			return (free(env_cpy));
+		}
 		i++;
 	}
+	sort_env_case2(data, env_cpy, i);
+}
+
+void	sort_env_case2(t_data *data, char **env_cpy, int i)
+{
 	env_cpy[i] = NULL;
 	env_cpy = cpy_envi(env_cpy);
 	i = 0;
@@ -37,7 +48,7 @@ void	sort_env_case(t_data *data)
 	while (env_cpy[++i])
 		free(env_cpy[i]);
 	free(env_cpy);
-	return ;
+	data->exit_code = 0;
 }
 
 int	do_export_loop(t_data *data, char *var, int i)
@@ -106,31 +117,4 @@ char	**cpy_envi(char **env_cpy)
 		}
 	}
 	return (env_cpy);
-}
-
-void	write_env(char *str)
-{
-	char	*var;
-	char	*value;
-
-	if (str[0] == '_')
-		return ;
-	var = NULL;
-	value = NULL;
-	var = ft_strchr_before_c(str, '=');
-	if (!var)
-		return ;
-	value = ft_strchr_after_c(str, '=');
-	write(STDOUT_FILENO, "declare -x ", 11);
-	write(STDOUT_FILENO, var, ft_strlen(var));
-	if (value)
-	{
-		write(STDOUT_FILENO, "=\"", 3);
-		write(STDOUT_FILENO, value, ft_strlen(value));
-		write(STDOUT_FILENO, "\"\n", 2);
-	}
-	else
-		write(STDOUT_FILENO, "\n", 1);
-	if (var)
-		free(var);
 }

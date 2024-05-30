@@ -68,11 +68,10 @@ int	check_expand(t_data *data)
 
 int	check_fd(t_token *move)
 {
-	if ((move)->delim == 6 || (move)->delim == 7 || (move)->delim == 8
-		|| (move)->delim == 9)
+	if (move->delim == 6 || move->delim == 7 || move->delim == 8
+		|| move->delim == 9)
 	{
-		if ((move)->cmd[0] == '&' && (move)->cmd[1] >= '0'
-			&& (move)->cmd[1] <= '9')
+		if (move->cmd[0] == '&' && move->cmd[1] >= '0' && move->cmd[1] <= '9')
 			return (1);
 	}
 	return (0);

@@ -38,6 +38,7 @@ void	unset_env(t_data *data, int arg_num, char *for_pwd)
 	}
 	else
 		unset_env2(data, arg, env, i);
+	data->exit_code = 0;
 }
 
 void	unset_env2(t_data *data, char *arg, char **env, int i)
