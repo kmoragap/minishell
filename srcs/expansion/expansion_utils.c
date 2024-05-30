@@ -14,15 +14,24 @@
 
 int	check_expand_var(char *var)
 {
-	if (var[0] == '$' && (is_valid_variable_char(var[1])))
+	int	i;
+
+	i = 0;
+	while (var[i] && var[i] != '$')
+		i++;
+	if (var[i] && var[i] == '$' && is_valid_variable_char(var[i + 1]) && (i == 0
+			|| var[i - 1] != 39))
 		return (1);
-	else if (var[0] == 34 && var[1] == '$' && is_valid_variable_char(var[2]))
+	else if (var[i] && var[i + 1] && var[i + 2] && var[i] == 34 && var[i
+			+ 1] == '$' && is_valid_variable_char(var[i + 2]))
 		return (1);
 	return (0);
 }
 
 int	is_valid_variable_char(char c)
 {
+	if (!c)
+		return (0);
 	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0'
 			&& c <= '9') || c == '_' || c == '?' || c == '(' || c == ')'
 		|| c == '"');
