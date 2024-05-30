@@ -54,10 +54,11 @@ void	sort_env_case2(t_data *data, char **env_cpy, int i)
 int	do_export_loop(t_data *data, char *var, int i)
 {
 	var = ft_strchr_before_c(data->tokens->args[i], '=');
-	if (var[0] == '\0')
+	if (!var || var[0] == '\0')
 	{
 		input_error(data, 0, 1, "export: not a valid identifier\n");
-		free(var);
+		if (var)
+			free(var);
 		return (1);
 	}
 	else if (!ft_isalnum(var[ft_strlen(var) - 1]))
